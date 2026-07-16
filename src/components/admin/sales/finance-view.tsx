@@ -1,10 +1,9 @@
 "use client";
 
 import { LockKeyIcon } from "@phosphor-icons/react";
-import { providers } from "@/data/admin";
 import { cashMovements, financeSummary, type CashMovement } from "@/data/admin-sales";
 import { formatDate, formatMoney } from "@/lib/format";
-import { DataTable, EmptyState, PageHeader, SectionCard, StatusBadge, type Column, type FilterDef } from "../ui";
+import { DataTable, EmptyState, PageHeader, SectionCard, type Column, type FilterDef } from "../ui";
 import { usePermissions } from "./permissions";
 
 /** Finance overview: gated by the "ver-costos" permission. */
@@ -40,7 +39,20 @@ export function FinanceView() {
   const columns: Column<CashMovement>[] = [
     { id: "date", header: "Fecha", essential: true, cell: (m) => <span className="tabular">{formatDate(m.date)}</span>, sortValue: (m) => m.date },
     { id: "concept", header: "Concepto", essential: true, cell: (m) => <span className="font-medium text-graphite-800">{m.concept}</span>, sortValue: (m) => m.concept },
-    { id: "kind", header: "Tipo", cell: (m) => <StatusBadge status={m.kind === "ingreso" ? "aprobado" : "pendiente"} className="capitalize">{undefined}</StatusBadge>, sortValue: (m) => m.kind },
+    {
+      id: "kind",
+      header: "Tipo",
+      cell: (m) => (
+        <span
+          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${
+            m.kind === "ingreso" ? "bg-positive-100 text-positive-700" : "bg-graphite-100 text-graphite-600"
+          }`}
+        >
+          {m.kind}
+        </span>
+      ),
+      sortValue: (m) => m.kind,
+    },
     { id: "cat", header: "Categoría", cell: (m) => <span className="capitalize text-graphite-600">{m.category}</span>, sortValue: (m) => m.category },
     {
       id: "amount",

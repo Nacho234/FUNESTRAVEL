@@ -148,7 +148,7 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
 
   const emptyPromo: PromoRow = useMemo(
     () => ({
-      id: `promo-${Date.now().toString(36)}`,
+      id: "promo-nueva",
       internalName: "",
       title: "",
       subtitle: "",
