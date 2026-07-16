@@ -9,6 +9,7 @@ import {
   AirplaneTiltIcon,
   ArrowLeftIcon,
   BellIcon,
+  BookOpenIcon,
   BedIcon,
   BusIcon,
   CalendarBlankIcon,
@@ -75,6 +76,7 @@ const navGroups: { id: string; label: string; items: NavItem[] }[] = [
     items: [
       { href: "/admin", label: "Resumen", icon: GaugeIcon },
       { href: "/admin/tareas", label: "Tareas", icon: CheckSquareIcon, count: 6 },
+      { href: "/admin/guia", label: "Guía de uso", icon: BookOpenIcon },
     ],
   },
   {
