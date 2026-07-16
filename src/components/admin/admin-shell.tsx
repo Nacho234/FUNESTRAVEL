@@ -50,6 +50,7 @@ import {
   WalletIcon,
   XIcon,
 } from "@phosphor-icons/react";
+import { signOut as oauthSignOut } from "next-auth/react";
 import { adminNotifications, adminRoles, branches } from "@/data/admin-core";
 import type { AdminNotification, AdminRoleId } from "@/lib/admin-types";
 
@@ -170,6 +171,13 @@ const allNavItems = navGroups.flatMap((g) => g.items);
 export interface AdminSession {
   name: string;
   role: AdminRoleId;
+}
+
+export interface OAuthUser {
+  name: string;
+  email: string;
+  role: AdminRoleId;
+  image?: string;
 }
 
 export function useAdminSession(): AdminSession | null {
@@ -410,10 +418,12 @@ function NotificationsPanel({ open, onClose }: { open: boolean; onClose: () => v
 
 /* ── shell ───────────────────────────────────────────────────────── */
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+export function AdminShell({ children, oauthUser }: { children: React.ReactNode; oauthUser?: OAuthUser }) {
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
-  const [session, setSession] = useState<AdminSession | null>(null);
+  const [session, setSession] = useState<AdminSession | null>(
+    oauthUser ? { name: oauthUser.name, role: oauthUser.role } : null,
+  );
   const [collapsed, setCollapsed] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -425,9 +435,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem("ft-admin-session");
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe localStorage read
-      if (raw) setSession(JSON.parse(raw));
+      if (oauthUser) {
+        // Bridge for useAdminSession consumers (permission hooks) until real
+        // server-side permission checks land with the database.
+        window.localStorage.setItem("ft-admin-session", JSON.stringify({ name: oauthUser.name, role: oauthUser.role }));
+      } else {
+        const raw = window.localStorage.getItem("ft-admin-session");
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe localStorage read
+        if (raw) setSession(JSON.parse(raw));
+      }
       const ui = window.localStorage.getItem("ft-admin-ui");
       if (ui) {
         const parsed = JSON.parse(ui);
@@ -440,7 +456,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       setOpenGroups(Object.fromEntries(navGroups.map((g) => [g.id, true])));
     }
     setReady(true);
-  }, []);
+  }, [oauthUser]);
 
   const persistUi = useCallback((next: { collapsed?: boolean; openGroups?: Record<string, boolean> }) => {
     try {
@@ -463,14 +479,22 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const roleName = useMemo(() => adminRoles.find((r) => r.id === session?.role)?.name ?? "", [session]);
+  const activeSession = useMemo(
+    () => session ?? (oauthUser ? { name: oauthUser.name, role: oauthUser.role } : null),
+    [session, oauthUser],
+  );
+  const roleName = useMemo(() => adminRoles.find((r) => r.id === activeSession?.role)?.name ?? "", [activeSession]);
   const unreadCount = adminNotifications.filter((n) => !n.read).length;
 
-  if (!ready) return <div className="grid min-h-[100dvh] place-items-center bg-petrol-950" aria-busy="true" />;
-  if (!session) return <AdminLogin onEnter={setSession} />;
+  if (!oauthUser && !ready) return <div className="grid min-h-[100dvh] place-items-center bg-petrol-950" aria-busy="true" />;
+  if (!oauthUser && !session) return <AdminLogin onEnter={setSession} />;
 
   const logout = () => {
     window.localStorage.removeItem("ft-admin-session");
+    if (oauthUser) {
+      void oauthSignOut({ callbackUrl: "/acceso" });
+      return;
+    }
     setSession(null);
   };
 
@@ -669,9 +693,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
               {/* User */}
               <div className="ml-1 flex items-center gap-2 border-l border-graphite-200 pl-3">
-                <Image src="https://i.pravatar.cc/64?img=20" alt="" width={30} height={30} className="rounded-full" />
+                <Image
+                  src={oauthUser?.image ?? "https://i.pravatar.cc/64?img=20"}
+                  alt=""
+                  width={30}
+                  height={30}
+                  className="rounded-full"
+                />
                 <div className="hidden text-right leading-tight md:block">
-                  <p className="text-xs font-bold text-graphite-800">{session.name}</p>
+                  <p className="text-xs font-bold text-graphite-800">{activeSession?.name}</p>
                   <p className="text-[0.625rem] text-graphite-500">{roleName}</p>
                 </div>
                 <button

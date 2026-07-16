@@ -31,7 +31,10 @@ El proyecto funciona 100% sin backend para poder demostrarse:
 - **Estado del cliente** (favoritos, reserva en curso, reservas confirmadas, cotizaciones, sesión)
   persiste en `localStorage` vía `src/lib/store.tsx` (`StoreProvider`).
 - **Pagos**: el checkout simula la aprobación; no se recolectan ni guardan datos de tarjeta.
-- **Admin**: gate demo en `/admin` (cualquier credencial entra; flag en `localStorage`).
+- **Admin**: en `/admin` (mismo dominio: `www.funestravel.com/admin`). Con las variables de
+  Google OAuth configuradas (ver `.env.example`) el acceso es con cuenta de Google + allowlist de
+  correos y roles por email, validado en el servidor. Sin credenciales, corre en modo demo
+  (login local). Manual del panel en `docs/MANUAL-ADMIN.md` y en `/admin/guia`.
 
 ## Dónde conectar servicios reales
 

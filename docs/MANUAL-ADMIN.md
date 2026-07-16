@@ -8,12 +8,13 @@ Guía de uso de cada sección del backoffice, pensada para el equipo (no hace fa
 
 ### Ingreso y roles
 
-Cada persona entra con su usuario y un rol (ventas, reservas, finanzas, etc.). El rol define qué puede ver y hacer: por ejemplo, Ventas no ve costos ni márgenes, y solo Finanzas registra pagos.
+El panel vive en /admin del sitio (ej. www.funestravel.com/admin) y se entra con tu cuenta de Google autorizada. Cada correo tiene un rol (ventas, reservas, finanzas…) que define qué puede ver y hacer: por ejemplo, Ventas no ve costos ni márgenes, y solo Finanzas registra pagos.
 
-1. Ingresá con tu nombre y rol (en el demo, cualquier combinación entra).
-2. Si un botón aparece gris o una sección dice "sin permisos", tu rol no habilita esa acción: pedísela a un administrador.
+1. Entrá a /admin y elegí "Continuar con Google" con tu correo de la agencia.
+2. Si Google te rechaza, tu correo no está en la lista de autorizados: pedile el alta a un administrador.
+3. Si un botón aparece gris o una sección dice "sin permisos", tu rol no habilita esa acción.
 
-> **Tip:** En producción el ingreso será con contraseña y verificación; los permisos se controlan desde Sistema → Roles.
+> **Tip:** Sin credenciales de Google configuradas (entorno de desarrollo), el panel usa un ingreso demo local. Los permisos se administran en Sistema → Roles.
 
 ### Navegación y búsqueda
 

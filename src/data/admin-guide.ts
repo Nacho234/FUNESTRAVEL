@@ -34,12 +34,13 @@ export const guideSections: GuideSection[] = [
       {
         id: "ingreso",
         name: "Ingreso y roles",
-        what: "Cada persona entra con su usuario y un rol (ventas, reservas, finanzas, etc.). El rol define qué puede ver y hacer: por ejemplo, Ventas no ve costos ni márgenes, y solo Finanzas registra pagos.",
+        what: "El panel vive en /admin del sitio (ej. www.funestravel.com/admin) y se entra con tu cuenta de Google autorizada. Cada correo tiene un rol (ventas, reservas, finanzas…) que define qué puede ver y hacer: por ejemplo, Ventas no ve costos ni márgenes, y solo Finanzas registra pagos.",
         how: [
-          "Ingresá con tu nombre y rol (en el demo, cualquier combinación entra).",
-          "Si un botón aparece gris o una sección dice “sin permisos”, tu rol no habilita esa acción: pedísela a un administrador.",
+          "Entrá a /admin y elegí “Continuar con Google” con tu correo de la agencia.",
+          "Si Google te rechaza, tu correo no está en la lista de autorizados: pedile el alta a un administrador.",
+          "Si un botón aparece gris o una sección dice “sin permisos”, tu rol no habilita esa acción.",
         ],
-        tips: ["En producción el ingreso será con contraseña y verificación; los permisos se controlan desde Sistema → Roles."],
+        tips: ["Sin credenciales de Google configuradas (entorno de desarrollo), el panel usa un ingreso demo local. Los permisos se administran en Sistema → Roles."],
       },
       {
         id: "navegacion",
