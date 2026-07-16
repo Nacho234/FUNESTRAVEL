@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Funes Travel — plataforma de e-commerce turístico
 
-## Getting Started
+Sitio comercial completo para una agencia de viajes: búsqueda y reserva de paquetes, comparador de
+vuelos, hoteles, excursiones, salidas grupales, viajes a medida, checkout multietapa, panel del
+cliente y panel administrativo.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **TypeScript** estricto
+- **Tailwind CSS v4** con design tokens propios en `src/app/globals.css` (`@theme`)
+- **Motion** para microinteracciones (respeta `prefers-reduced-motion`)
+- **Phosphor Icons** (una sola familia, stroke consistente)
+- Tipografías: **Bricolage Grotesque** (display) + **Hanken Grotesk** (UI) vía `next/font`
+
+## Correr el proyecto
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # build de producción (todas las rutas SSG/estáticas verificadas)
+npx tsc --noEmit  # typecheck
+npx eslint src    # lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Modo demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El proyecto funciona 100% sin backend para poder demostrarse:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Catálogo** (destinos, paquetes, hoteles, excursiones, vuelos, promos, artículos, FAQs) vive en
+  `src/data/*` con tipos en `src/lib/types.ts`.
+- **Estado del cliente** (favoritos, reserva en curso, reservas confirmadas, cotizaciones, sesión)
+  persiste en `localStorage` vía `src/lib/store.tsx` (`StoreProvider`).
+- **Pagos**: el checkout simula la aprobación; no se recolectan ni guardan datos de tarjeta.
+- **Admin**: gate demo en `/admin` (cualquier credencial entra; flag en `localStorage`).
 
-## Learn More
+## Dónde conectar servicios reales
 
-To learn more about Next.js, take a look at the following resources:
+| Servicio | Punto de conexión | Variable sugerida |
+|---|---|---|
+| Pagos (Mercado Pago) | Reemplazar la simulación en `src/components/checkout/checkout-flow.tsx` (`confirm()`) por creación de preferencia server-side | `MP_ACCESS_TOKEN` |
+| Correo transaccional | Envíos post-reserva y newsletter (`newsletter-form.tsx`) | `RESEND_API_KEY` |
+| WhatsApp Business | Los enlaces `wa.me/5493415550123` están centralizados por página en `src/components/layout/whatsapp-button.tsx` | `WHATSAPP_TOKEN` |
+| Vuelos (GDS/NDC) | `src/data/flights.ts` es el mock a reemplazar por un adaptador | `AMADEUS_KEY` |
+| Base de datos | La capa `src/data/*` + `src/lib/store.tsx` se migra a Prisma/Postgres; los tipos de `src/lib/types.ts` ya modelan las entidades | `DATABASE_URL` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Regla al conectar pagos**: precios, disponibilidad y totales deben revalidarse SIEMPRE en el
+servidor; nunca confiar en los montos enviados por el frontend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estructura
 
-## Deploy on Vercel
+```
+src/
+  app/(site)/       # sitio público + checkout + cuenta (Header/Footer compartidos)
+  app/admin/        # panel administrativo (layout propio, noindex)
+  components/       # ui/ (primitivas), cards/, search/, packages/, checkout/, account/, admin/...
+  data/             # catálogo demo + registro central de imágenes (img.ts)
+  lib/              # tipos, formateadores, store client-side
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Sistema visual
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Paleta: petróleo `#0e3a47` (confianza) · marfil `#faf7f2` (fondo) · arena (secciones editoriales) ·
+turquesa `#2c8c99` (detalles) · coral `#d9552a` (CTA de conversión) · grafito (texto). Radios: cards
+16px / controles 10px. Sombras tintadas al petróleo. Los tokens están en `globals.css` y se usan vía
+clases Tailwind (`bg-petrol-900`, `text-coral-600`, `rounded-[var(--radius-card)]`, etc.).

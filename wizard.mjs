@@ -1,0 +1,20 @@
+import { chromium } from "playwright";
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto("http://localhost:3000/", { waitUntil: "networkidle", timeout: 60000 }).catch(() => {});
+const el = await page.$('h2:has-text("Lo diseñamos con vos")');
+await el.scrollIntoViewIfNeeded();
+await page.evaluate(() => window.scrollBy(0, -120));
+await page.waitForTimeout(1000);
+const section = await page.evaluateHandle(() => [...document.querySelectorAll("h2")].find((x) => x.textContent.includes("Lo diseñamos con vos")).closest("section"));
+await section.asElement().screenshot({ path: `${process.env.OUT}/wz-step1.png` });
+// fill step 1 and advance
+await page.fill("input[placeholder*='Caribe']", "Caribe");
+await page.fill("input[type='month']", "2026-11");
+await page.getByRole("button", { name: "Continuar" }).click();
+await page.waitForTimeout(600);
+await page.getByRole("button", { name: "Luna de miel" }).click();
+await page.waitForTimeout(400);
+await section.asElement().screenshot({ path: `${process.env.OUT}/wz-step2.png` });
+await browser.close();
+console.log("done");

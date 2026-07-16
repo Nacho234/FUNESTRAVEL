@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
+@theme {
+  /* ── Funes Travel design tokens ─────────────────────────────── */
+
+  /* Color: petrol (trust) / ivory (base) / sand (editorial) / teal (travel detail) / coral (conversion) */
+  --color-petrol-950: #082530;
+  --color-petrol-900: #0e3a47;
+  --color-petrol-800: #14495a;
+  --color-petrol-700: #1b5a6e;
+  --color-petrol-600: #236e85;
+  --color-petrol-100: #d7e6ea;
+  --color-petrol-50: #edf4f6;
+
+  --color-ivory: #faf7f2;
+  --color-sand-50: #f5f0e8;
+  --color-sand-100: #eee7db;
+  --color-sand-200: #e3d9c8;
+
+  --color-teal-600: #217482;
+  --color-teal-500: #2c8c99;
+  --color-teal-100: #d9edef;
+  --color-teal-50: #ecf6f7;
+
+  --color-coral-700: #b23e1c;
+  --color-coral-600: #cc4a22;
+  --color-coral-500: #d9552a;
+  --color-coral-100: #f9e2d8;
+  --color-coral-50: #fcf1eb;
+
+  --color-graphite-900: #1f2529;
+  --color-graphite-800: #262e33;
+  --color-graphite-600: #4b565d;
+  --color-graphite-500: #647078;
+  --color-graphite-400: #8b969d;
+  --color-graphite-200: #d5dadd;
+  --color-graphite-100: #e8ebed;
+
+  --color-positive-700: #1a7a4a;
+  --color-positive-100: #d9f0e4;
+  --color-danger-700: #b3261e;
+  --color-danger-100: #f9dedc;
+  --color-warning-700: #9a6b15;
+  --color-warning-100: #f7ecd4;
+
+  /* Typography */
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+
+  /* Radii: soft system — cards 16, controls 10, pills for chips/badges only */
+  --radius-card: 1rem;
+  --radius-control: 0.625rem;
+
+  /* Elevation (tinted to petrol, never pure black) */
+  --shadow-lift: 0 1px 2px rgb(14 58 71 / 0.06), 0 8px 24px -8px rgb(14 58 71 / 0.14);
+  --shadow-float: 0 2px 4px rgb(14 58 71 / 0.08), 0 16px 48px -12px rgb(14 58 71 / 0.22);
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ivory);
+  color: var(--color-graphite-800);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-teal-100);
+  color: var(--color-petrol-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Number alignment for prices and data */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
