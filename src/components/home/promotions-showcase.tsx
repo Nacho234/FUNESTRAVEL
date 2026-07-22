@@ -231,7 +231,7 @@ export function PromotionsShowcase() {
   if (!hero && secondaries.length === 0) return null;
 
   return (
-    <section className="bg-sand-50 border-y border-sand-200/60">
+    <section className="bg-white border-y border-sand-200/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">

@@ -39,14 +39,28 @@ export const metadata: Metadata = {
 function Hero() {
   return (
     <section className="relative min-h-[92dvh] flex items-end lg:items-center">
+      {/* Mobile: static image (calmer, lighter, better legibility) */}
       <Image
-        src={IMG.santorini}
-        alt="Casas blancas de Santorini sobre el mar Egeo al atardecer"
+        src="/videos/hero-poster.jpg"
+        alt="Terminal de aeropuerto iluminada al atardecer"
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover lg:hidden"
       />
+      {/* Desktop: video */}
+      <video
+        className="absolute inset-0 hidden h-full w-full object-cover lg:block"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/videos/hero-poster.jpg"
+        aria-hidden
+      >
+        <source src="/videos/hero.webm" type="video/webm" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/60 via-petrol-950/30 to-petrol-950/75" aria-hidden />
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pt-28 pb-10 lg:pb-0">
         <div className="max-w-3xl">
