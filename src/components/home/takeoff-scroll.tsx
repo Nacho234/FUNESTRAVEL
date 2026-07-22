@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { IMG } from "@/data/img";
+import { VIDEO } from "@/data/video";
+import { SceneMedia } from "@/components/ui/scene-media";
 
 /**
  * Scroll-driven takeoff scene. The whole composition is a pure function of the
@@ -91,23 +93,26 @@ export function TakeoffScroll() {
     };
 
     /* Scene A: preparation → acceleration (camera push-in) */
+    const aOpacity = ramp(p, [0, 0.42, 0.55], [1, 1, 0]);
     set(
       sceneA.current,
-      ramp(p, [0, 0.42, 0.55], [1, 1, 0]),
+      aOpacity,
       `translateX(${ramp(p, [0, 0.5], [0, -3])}%) scale(${ramp(p, [0, 0.5], [1, 1.28])})`,
     );
 
     /* Scene B: wheels off the runway */
+    const bOpacity = ramp(p, [0.42, 0.53, 0.68, 0.78], [0, 1, 1, 0]);
     set(
       sceneB.current,
-      ramp(p, [0.42, 0.53, 0.68, 0.78], [0, 1, 1, 0]),
+      bOpacity,
       `translateY(${ramp(p, [0.42, 0.78], [5, -4])}%) scale(${ramp(p, [0.42, 0.78], [1.18, 1])})`,
     );
 
     /* Scene C: above the clouds */
+    const cOpacity = ramp(p, [0.7, 0.82], [0, 1]);
     set(
       sceneC.current,
-      ramp(p, [0.7, 0.82], [0, 1]),
+      cOpacity,
       `translateY(${ramp(p, [0.7, 1], [4, 0])}%) scale(${ramp(p, [0.7, 1], [1.12, 1])})`,
     );
 
@@ -131,6 +136,32 @@ export function TakeoffScroll() {
 
   useMotionValueEvent(scrollYProgress, "change", apply);
 
+  // The clips are tiny (<300 KB each), so all three just autoplay and loop; the
+  // scroll only drives the crossfade/transform on top. This observer keeps them
+  // playing whenever the section is on screen (covering the muted-autoplay race
+  // inside a tall sticky section) and pauses them all when it scrolls away, so
+  // nothing decodes off screen.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        for (const r of [sceneA, sceneB, sceneC]) {
+          const v = r.current?.querySelector("video");
+          if (!v) continue;
+          if (entry.isIntersecting) {
+            if (v.paused) void v.play().catch(() => {});
+          } else if (!v.paused) {
+            v.pause();
+          }
+        }
+      },
+      { threshold: 0.02 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // The reduced-motion fallback swaps in after mount: SSR always renders the
   // animated tree, so server and client HTML match.
   const [mounted, setMounted] = useState(false);
@@ -146,12 +177,12 @@ export function TakeoffScroll() {
       <div className="sticky top-0 h-[100dvh] overflow-hidden bg-petrol-950">
         {/* Scene A: preparation on the runway */}
         <div ref={sceneA} className="absolute inset-0 will-change-transform">
-          <Image
-            src={IMG.takeoffAirport}
+          <SceneMedia
+            img="/images/takeoff-airport-poster.jpg"
+            video={VIDEO.takeoffAirport}
             alt="Avión en la plataforma de un aeropuerto al atardecer, listo para salir"
-            fill
-            sizes="100vw"
             quality={70}
+            preload="auto"
             className="object-cover object-[center_35%]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/45 via-transparent to-petrol-950/55" aria-hidden />
@@ -159,12 +190,12 @@ export function TakeoffScroll() {
 
         {/* Scene B: rotation, wheels leaving the strip */}
         <div ref={sceneB} className="absolute inset-0 will-change-transform" style={{ opacity: 0 }}>
-          <Image
-            src={IMG.takeoffRunway}
+          <SceneMedia
+            img="/images/takeoff-runway-poster.jpg"
+            video={VIDEO.takeoffRunway}
             alt="Avión ganando altura sobre las luces de la pista"
-            fill
-            sizes="100vw"
             quality={70}
+            preload="auto"
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/35 via-transparent to-petrol-950/45" aria-hidden />
@@ -172,12 +203,12 @@ export function TakeoffScroll() {
 
         {/* Scene C: above the clouds */}
         <div ref={sceneC} className="absolute inset-0 will-change-transform" style={{ opacity: 0 }}>
-          <Image
-            src={IMG.takeoffFlight}
+          <SceneMedia
+            img="/images/takeoff-flight-poster.jpg"
+            video={VIDEO.takeoffFlight}
             alt="Avión en pleno vuelo sobre un mar de nubes doradas al amanecer"
-            fill
-            sizes="100vw"
             quality={70}
+            preload="auto"
             className="object-cover object-[32%_center] md:object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/25 via-transparent to-transparent" aria-hidden />
