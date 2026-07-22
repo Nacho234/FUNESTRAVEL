@@ -20,6 +20,10 @@ export type VideoAsset = {
 };
 
 export const VIDEO = {
+  // "Acompañamiento real" section (home HumanTouch) — montage loop, falls back
+  // to IMG.humanScene.
+  humanTouch: { src: "/videos/human-touch.mp4", ready: true },
+
   // Takeoff scroll scene (home) — mirrors IMG.takeoffAirport/Runway/Flight.
   takeoffAirport: { src: "/videos/takeoff-airport.mp4", ready: true },
   takeoffRunway: { src: "/videos/takeoff-runway.mp4", ready: true },

@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { IMG } from "@/data/img";
+import { VIDEO } from "@/data/video";
+import { SceneMedia } from "@/components/ui/scene-media";
 
 /**
  * Secondary cinematic hero: an immersive human travel scene with strong
@@ -67,12 +68,12 @@ export function HumanTouch() {
         style={reduce ? undefined : { y: bgY }}
         className="absolute -inset-y-[16%] inset-x-0 will-change-transform"
       >
-        <Image
-          src={IMG.humanScene}
+        <SceneMedia
+          img={IMG.humanScene}
+          video={VIDEO.humanTouch}
           alt="Viajera recorriendo a pie un callejón de una ciudad europea"
-          fill
-          sizes="100vw"
           quality={70}
+          preload="auto"
           className="object-cover object-[center_42%]"
         />
       </motion.div>
