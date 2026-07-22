@@ -50,30 +50,40 @@ export function HumanTouch() {
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
-  // Strong background travel, gentler on mobile; foreground almost still.
-  const range = isMobile ? 10 : 18;
-  const bgY = useTransform(scrollYProgress, [0, 1], [`-${range * 0.35}%`, `${range * 0.65}%`]);
-  const mistY = useTransform(scrollYProgress, [0, 1], ["9%", "-9%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [10, -10]);
+  // Parallax intensity ~40% of section travel (desktop); foreground almost still.
+  const range = isMobile ? 24 : 40;
+  const bgY = useTransform(scrollYProgress, [0, 1], [`-${range * 0.45}%`, `${range * 0.55}%`]);
+  const mistY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [28, -28]);
 
   return (
     <section
       ref={ref}
-      className="relative flex h-[68vh] min-h-[480px] items-end overflow-hidden bg-petrol-950 md:h-[74vh]"
+      className="relative flex h-[50vh] min-h-[400px] items-end overflow-hidden bg-petrol-950 md:h-[56vh]"
       aria-label="Acompañamiento real durante todo el viaje"
     >
       {/* Background: oversized so the parallax has real travel */}
       <motion.div
         style={reduce ? undefined : { y: bgY }}
-        className="absolute -inset-y-[16%] inset-x-0 will-change-transform"
+        className="absolute -inset-y-[44%] inset-x-0 will-change-transform"
       >
+        {/* Mobile: portrait crop (sharper + better vertical parallax) */}
         <Image
-          src={IMG.humanScene}
-          alt="Viajera recorriendo a pie un callejón de una ciudad europea"
+          src={IMG.humanSceneMobile}
+          alt="Río serpenteando entre un bosque de pinos con niebla"
           fill
           sizes="100vw"
-          quality={70}
-          className="object-cover object-[center_42%]"
+          quality={78}
+          className="object-cover object-center lg:hidden"
+        />
+        {/* Desktop: wide scene */}
+        <Image
+          src={IMG.humanSceneTall}
+          alt="Río serpenteando entre un bosque de pinos con niebla"
+          fill
+          sizes="100vw"
+          quality={78}
+          className="hidden object-cover object-center lg:block"
         />
       </motion.div>
 

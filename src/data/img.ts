@@ -62,6 +62,14 @@ export const IMG = {
 
   // Human-touch hero (home)
   humanScene: u("1527631746610-bca00a040d60"),
+  // Parallax scene for the human-touch section: misty forest river valley (local asset).
+  humanSceneTall: "/images/human-forest.jpg",
+  // Portrait variant of the same scene for mobile (sharper + better vertical parallax).
+  humanSceneMobile: "/images/human-forest-mobile.jpg",
+  // Brand band: photo that fills the knockout logo (sea) + airplane on the right.
+  brandFill: u("1468413253725-0d5181091126"),
+  brandPlane: "/images/airbus-a320.png",
+  brandClouds: "/images/nubes.jpg",
 
   // Takeoff scroll scene (home)
   takeoffAirport: u("1542296332-2e4473faf563"),

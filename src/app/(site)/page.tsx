@@ -11,7 +11,6 @@ import {
   UsersThreeIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { SearchWidget } from "@/components/search/search-widget";
-import { PackageCard } from "@/components/cards/package-card";
 import { Reveal } from "@/components/ui/reveal";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
@@ -22,8 +21,8 @@ import { ExperienceFinder } from "@/components/home/experience-finder";
 import { CuratedDestinations } from "@/components/home/curated-destinations";
 import { TravelStories } from "@/components/home/travel-stories";
 import { HumanTouch } from "@/components/home/human-touch";
+import { PlaneReveal } from "@/components/home/plane-reveal";
 import { CustomTripSection } from "@/components/home/custom-trip-section";
-import { featuredPackages } from "@/data/packages";
 import { articles, faqs, groupTrips } from "@/data/content";
 import { formatDate, formatMoney } from "@/lib/format";
 import { IMG } from "@/data/img";
@@ -100,33 +99,6 @@ function TrustLine() {
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-/* ──────────────────────── 5 · Featured packages ──────────────────────── */
-
-function FeaturedPackages() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
-      <Reveal>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-petrol-900">
-            Paquetes que están saliendo ahora
-          </h2>
-          <Link href="/paquetes" className="group flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-500">
-            Ver todos los paquetes
-            <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </Link>
-        </div>
-      </Reveal>
-      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {featuredPackages.slice(0, 6).map((pkg, i) => (
-          <Reveal key={pkg.slug} delay={(i % 3) * 0.06}>
-            <PackageCard pkg={pkg} />
-          </Reveal>
-        ))}
-      </div>
     </section>
   );
 }
@@ -295,6 +267,70 @@ function FaqPreview() {
   );
 }
 
+/* ───────────────────────── Brand band (logo + image) ─────────────────── */
+
+function BrandShowcase() {
+  // Knockout effect: the logo silhouette masks the photo, so the letters and
+  // wing are "filled" with the image while everything around stays plain white.
+  const logoMask = {
+    WebkitMask: "url(/images/logo-funes.png) center / contain no-repeat",
+    mask: "url(/images/logo-funes.png) center / contain no-repeat",
+  } as const;
+  return (
+    <section className="relative bg-white">
+      <Image
+        src={IMG.brandClouds}
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+        priority={false}
+      />
+      {/* Mobile: top white / bottom sky. Desktop: left white / right sky. Soft transition. */}
+      <div
+        className="absolute inset-0 lg:hidden"
+        style={{ background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 44%, rgba(255,255,255,0) 66%)" }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 hidden lg:block"
+        style={{ background: "linear-gradient(to right, #ffffff 0%, #ffffff 46%, rgba(255,255,255,0) 66%)" }}
+        aria-hidden
+      />
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
+        {/* Left: logo filled with a photo (knockout) */}
+        <Reveal>
+          <div className="relative mx-auto aspect-[923/469] w-full max-w-md" style={logoMask}>
+            <Image
+              src={IMG.brandFill}
+              alt="Funes Travel — Viajes nacionales e internacionales"
+              fill
+              sizes="(max-width: 1024px) 100vw, 448px"
+              className="object-cover"
+              priority={false}
+            />
+          </div>
+        </Reveal>
+        {/* Right: airplane — epic right-to-left fly-in (section clips the entry, not this box) */}
+        <div>
+          <PlaneReveal className="relative aspect-[3/2] w-full">
+            <div className="absolute inset-0 scale-100 lg:scale-125">
+              <Image
+                src={IMG.brandPlane}
+                alt="Avión Airbus A320neo en vuelo"
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-contain"
+                priority={false}
+              />
+            </div>
+          </PlaneReveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────────── Page ────────────────────────────────── */
 
 export default function HomePage() {
@@ -303,9 +339,9 @@ export default function HomePage() {
       <Hero />
       <TrustLine />
       <PromotionsShowcase />
-      <FeaturedPackages />
       <TakeoffScroll />
       <CuratedDestinations />
+      <BrandShowcase />
       <ExperienceFinder />
       <GroupTrips />
       <HumanTouch />

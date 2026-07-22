@@ -160,7 +160,7 @@ function PanelCard({ d }: { d: CuratedDestination }) {
 
 function PlaqueCard({ d }: { d: CuratedDestination }) {
   return (
-    <article className="group relative flex min-h-64 flex-col justify-end overflow-hidden rounded-lg">
+    <article className="group relative flex min-h-64 w-full flex-col justify-end overflow-hidden rounded-lg">
       <Image
         src={d.imageDesktop}
         alt={d.imageAlt}
@@ -201,7 +201,7 @@ function PlaqueCard({ d }: { d: CuratedDestination }) {
 
 function EditorialCard({ d }: { d: CuratedDestination }) {
   return (
-    <article className="group relative flex min-h-64 flex-col overflow-hidden rounded-lg border border-sand-200 bg-white transition-colors hover:border-teal-500/50">
+    <article className="group relative flex min-h-64 w-full flex-col overflow-hidden rounded-lg border border-sand-200 bg-white transition-colors hover:border-teal-500/50">
       <div className="relative h-28 shrink-0 overflow-hidden sm:h-32">
         <Image
           src={d.imageDesktop}
@@ -328,10 +328,24 @@ export function CuratedDestinations() {
         </Reveal>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-12">
-          {/* Main pick + curation seal */}
+          {/* Main pick + curation seal + video card (fills the leftover height) */}
           <Reveal className="lg:col-span-7 flex flex-col gap-4">
             <HeroCard d={hero} />
             <CurationSeal />
+            <div className="relative min-h-48 flex-1 overflow-hidden rounded-[var(--radius-card)] shadow-[var(--shadow-lift)]">
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/videos/destinos-poster.jpg"
+                aria-hidden
+              >
+                <source src="/videos/destinos.webm" type="video/webm" />
+                <source src="/videos/destinos.mp4" type="video/mp4" />
+              </video>
+            </div>
           </Reveal>
 
           {/* Secondary picks + proposal module */}

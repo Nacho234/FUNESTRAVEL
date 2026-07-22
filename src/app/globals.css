@@ -68,6 +68,8 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Guard against stray horizontal overflow (e.g. the brand-band plane fly-in) */
+  overflow-x: hidden;
 }
 
 ::selection {
