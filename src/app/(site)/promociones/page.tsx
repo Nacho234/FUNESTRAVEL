@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ArrowRightIcon, SealCheckIcon } from "@phosphor-icons/react/dist/ssr";
 import { promotions } from "@/data/content";
 import { Badge } from "@/components/ui/badge";
+import { FeaturedPromotionBanner } from "@/components/promotions/featured-promotion";
 import { formatDate, formatMoney } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -46,6 +47,10 @@ export default function PromotionsPage() {
             momento de confirmar. Las condiciones de cada promoción figuran completas en esta página, sin
             remitir a letra chica externa.
           </p>
+        </div>
+
+        <div className="mt-8">
+          <FeaturedPromotionBanner />
         </div>
 
         <div className="mt-8 space-y-6">

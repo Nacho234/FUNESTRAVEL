@@ -494,3 +494,39 @@ export interface HotelStage {
   /** Qué foto de la composición enfatiza esta etapa. */
   target: "room" | "terrace" | "pool";
 }
+
+/* ── Promoción destacada (/promociones) ──────────────────────────────── */
+
+export interface FeaturedPromotionFact {
+  icon: "capitals" | "nights" | "guided" | "coordination";
+  text: string;
+}
+
+export interface FeaturedPromotionTerm {
+  icon: "shield" | "lock" | "seats" | "check";
+  title: string;
+  text: string;
+}
+
+export interface FeaturedPromotion {
+  id: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  facts: FeaturedPromotionFact[];
+  priceFrom: string;
+  priceSuffix: string;
+  priceBasis: string;
+  /** Se muestra en el sello circular sobre la foto. */
+  validUntil: { label: string; day: string; year: string };
+  terms: FeaturedPromotionTerm[];
+  imageDesktop: string;
+  /** Recorte alternativo para pantalla angosta; si falta, se usa el de escritorio. */
+  imageMobile?: string;
+  imageAlt: string;
+  /** Valor CSS de object-position, p. ej. "60% center". */
+  imagePositionDesktop?: string;
+  imagePositionMobile?: string;
+  ctaLabel: string;
+  href: string;
+}
