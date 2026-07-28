@@ -40,8 +40,8 @@ function Hero() {
     <section className="relative min-h-[92dvh] flex items-end lg:items-center">
       {/* Mobile: static image (calmer, lighter, better legibility) */}
       <Image
-        src="/videos/hero-poster.jpg"
-        alt="Terminal de aeropuerto iluminada al atardecer"
+        src="/images/hero-beach-mobile.webp"
+        alt="Playa de arena blanca con agua turquesa y palmeras, al amanecer"
         fill
         priority
         sizes="100vw"
