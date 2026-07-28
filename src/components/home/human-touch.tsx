@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { IMG } from "@/data/img";
+import { VIDEO } from "@/data/video";
+import { SceneMedia } from "@/components/ui/scene-media";
 
 /**
  * Secondary cinematic hero: an immersive human travel scene with strong
@@ -67,7 +69,7 @@ export function HumanTouch() {
         style={reduce ? undefined : { y: bgY }}
         className="absolute -inset-y-[44%] inset-x-0 will-change-transform"
       >
-        {/* Mobile: portrait crop (sharper + better vertical parallax) */}
+        {/* Mobile: static forest still (lighter — no autoplay video on cellular) */}
         <Image
           src={IMG.humanSceneMobile}
           alt="Río serpenteando entre un bosque de pinos con niebla"
@@ -76,13 +78,13 @@ export function HumanTouch() {
           quality={78}
           className="object-cover object-center lg:hidden"
         />
-        {/* Desktop: wide scene */}
-        <Image
-          src={IMG.humanSceneTall}
+        {/* Desktop: montage video, falling back to the wide forest still */}
+        <SceneMedia
+          img={IMG.humanSceneTall}
+          video={VIDEO.humanTouch}
           alt="Río serpenteando entre un bosque de pinos con niebla"
-          fill
-          sizes="100vw"
           quality={78}
+          preload="metadata"
           className="hidden object-cover object-center lg:block"
         />
       </motion.div>
