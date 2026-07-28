@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import type { Metadata } from "next";
 import {
@@ -104,7 +105,11 @@ export default function CustomTripsPage() {
             fecha aproximada ya podemos arrancar.
           </p>
           <div className="mt-8">
-            <QuoteForm extended />
+            {/* QuoteForm lee la query para precargar lo que el viajero le contó
+                al asistente; eso obliga a un límite de Suspense acá. */}
+            <Suspense fallback={<div className="h-[32rem] rounded-[var(--radius-card)] bg-white/60" />}>
+              <QuoteForm extended />
+            </Suspense>
           </div>
         </div>
       </section>

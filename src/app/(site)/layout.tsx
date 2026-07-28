@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
+import { CopilotWidget } from "@/components/copilot/copilot-widget";
 import { StoreProvider } from "@/lib/store";
 
 const agencyJsonLd = {
@@ -31,6 +32,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <main className="flex-1">{children}</main>
       <Footer />
       <WhatsAppButton />
+      <CopilotWidget />
     </StoreProvider>
   );
 }
