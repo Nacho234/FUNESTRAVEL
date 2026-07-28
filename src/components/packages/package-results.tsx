@@ -213,12 +213,12 @@ function FilterPanel({ filters, setFilters }: { filters: Filters; setFilters: (f
 
 /* ───────────────────────── list-view card ───────────────────────── */
 
-function PackageRow({ pkg }: { pkg: TravelPackage }) {
+function PackageRow({ pkg, priority = false }: { pkg: TravelPackage; priority?: boolean }) {
   const next = pkg.departures[0];
   return (
     <article className="group relative grid overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-lift)] transition-shadow hover:shadow-[var(--shadow-float)] md:grid-cols-[260px_1fr_240px]">
       <div className="relative h-44 md:h-full min-h-44">
-        <Image src={pkg.image} alt="" fill sizes="(max-width: 768px) 100vw, 260px" className="object-cover" />
+        <Image src={pkg.image} alt="" fill sizes="(max-width: 768px) 100vw, 260px" priority={priority} className="object-cover" />
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
           {pkg.promo && <Badge tone="coral">{pkg.promo.label}</Badge>}
         </div>
@@ -518,9 +518,13 @@ export function PackageResults({
           </div>
         ) : (
           <div className={`mt-6 grid gap-5 ${view === "grid" ? "sm:grid-cols-2" : "grid-cols-1"}`}>
-            {filtered.map((pkg) => (
+            {filtered.map((pkg, i) => (
               <div key={pkg.slug} className="relative">
-                {view === "grid" ? <PackageCard pkg={pkg} /> : <PackageRow pkg={pkg} />}
+                {view === "grid" ? (
+                  <PackageCard pkg={pkg} priority={i === 0} />
+                ) : (
+                  <PackageRow pkg={pkg} priority={i === 0} />
+                )}
                 <label
                   className={`absolute z-10 flex cursor-pointer items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold shadow-sm backdrop-blur transition-colors ${
                     view === "grid" ? "left-3 bottom-3" : "left-3 bottom-3"

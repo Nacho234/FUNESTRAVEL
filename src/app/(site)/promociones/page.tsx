@@ -49,7 +49,7 @@ export default function PromotionsPage() {
         </div>
 
         <div className="mt-8 space-y-6">
-          {sorted.map((promo) => (
+          {sorted.map((promo, i) => (
             <article
               key={promo.id}
               className="grid overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-lift)] transition-shadow hover:shadow-[var(--shadow-float)] md:grid-cols-[minmax(240px,320px)_1fr]"
@@ -61,6 +61,7 @@ export default function PromotionsPage() {
                     alt=""
                     fill
                     sizes="(max-width: 768px) 100vw, 320px"
+                    priority={i === 0}
                     className="object-cover"
                   />
                 </div>

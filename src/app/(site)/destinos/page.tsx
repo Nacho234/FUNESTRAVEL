@@ -30,9 +30,12 @@ const slugByRegion = Object.fromEntries(
 function DestinationCard({
   destination,
   featured = false,
+  priority = false,
 }: {
   destination: Destination;
   featured?: boolean;
+  /** La primera tarjeta suele ser el LCP: se precarga. */
+  priority?: boolean;
 }) {
   return (
     <Link
@@ -46,6 +49,7 @@ function DestinationCard({
         alt={destination.tagline}
         fill
         sizes={featured ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+        priority={priority}
         className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
       />
       <div
@@ -157,7 +161,7 @@ export default async function DestinationsPage({
               {first && (
                 <div className="lg:col-span-2">
                   <Reveal>
-                    <DestinationCard destination={first} featured />
+                    <DestinationCard destination={first} featured priority />
                   </Reveal>
                 </div>
               )}

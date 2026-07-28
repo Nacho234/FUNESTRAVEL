@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { ClockIcon, PencilSimpleLineIcon, UserIcon } from "@phosphor-icons/react";
 import { CustomTripForm } from "./custom-trip-form";
@@ -18,15 +19,22 @@ import { CustomTripForm } from "./custom-trip-form";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
-};
+/* Ver la nota en human-touch.tsx: las variantes se pasan siempre, y es
+   `hidden` la que cambia bajo reduced motion, no la presencia del prop. */
+function buildVariants(reduce: boolean) {
+  return {
+    container: {
+      hidden: {},
+      visible: {
+        transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.05 },
+      },
+    },
+    item: {
+      hidden: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+      visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.55, ease: EASE } },
+    },
+  } satisfies Record<string, Variants>;
+}
 
 const benefits = [
   {
@@ -52,6 +60,7 @@ export function CustomTripSection({
   backgroundDecorationImage?: string;
 }) {
   const reduce = useReducedMotion() ?? false;
+  const { container, item } = useMemo(() => buildVariants(reduce), [reduce]);
 
   return (
     <section aria-labelledby="custom-trip-heading" className="relative overflow-hidden bg-white">
@@ -97,12 +106,12 @@ export function CustomTripSection({
           {/* ── Editorial column ───────────────────────────────────── */}
           <motion.div
             className="min-w-0"
-            variants={reduce ? undefined : container}
-            initial={reduce ? false : "hidden"}
+            variants={container}
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <motion.div variants={reduce ? undefined : item}>
+            <motion.div variants={item}>
               <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-coral-600">
                 Tu próximo viaje, diseñado para vos
               </p>
@@ -111,7 +120,7 @@ export function CustomTripSection({
 
             <motion.h2
               id="custom-trip-heading"
-              variants={reduce ? undefined : item}
+              variants={item}
               className="mt-6 max-w-[15ch] pb-1 font-display text-[2.375rem] font-bold leading-[1.08] tracking-tight text-petrol-900 sm:text-5xl xl:text-[3.375rem]"
             >
               Contanos tu idea, nosotros la hacemos{" "}
@@ -119,14 +128,14 @@ export function CustomTripSection({
             </motion.h2>
 
             <motion.p
-              variants={reduce ? undefined : item}
+              variants={item}
               className="mt-5 max-w-[46ch] leading-relaxed text-graphite-600"
             >
               Completá los datos y recibí una propuesta personalizada de nuestro equipo en menos de
               24 horas hábiles.
             </motion.p>
 
-            <motion.ul variants={reduce ? undefined : item} className="mt-10 grid gap-6">
+            <motion.ul variants={item} className="mt-10 grid gap-6">
               {benefits.map(({ icon: Icon, title, text }) => (
                 <li key={title} className="flex items-start gap-4">
                   <span

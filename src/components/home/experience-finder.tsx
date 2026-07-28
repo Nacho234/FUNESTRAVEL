@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRightIcon, CheckIcon } from "@phosphor-icons/react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import type { TravelExperience } from "@/lib/types";
 import { defaultExperienceSlug, travelExperiences } from "@/data/experiences";
 import { formatMoney } from "@/lib/format";
@@ -27,6 +27,14 @@ const experiences = travelExperiences.filter((e) => e.active).sort((a, b) => a.o
 /** Vertical travel of the background under scroll, in percent of its own height. */
 const PARALLAX = 3.5;
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** Entrada al entrar en pantalla. Ver la nota en human-touch.tsx. */
+function buildEnter(reduce: boolean): Variants {
+  return {
+    hidden: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.55, ease: EASE } },
+  };
+}
 
 function Destinations({ exp }: { exp: TravelExperience }) {
   return (
@@ -77,7 +85,8 @@ export function ExperienceFinder() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const mobileTabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotion() ?? false;
+  const enter = useMemo(() => buildEnter(reduce), [reduce]);
 
   const selected = experiences.find((e) => e.slug === selectedSlug) ?? experiences[0];
 
@@ -139,7 +148,13 @@ export function ExperienceFinder() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] xl:gap-16">
           {/* ── Left rail: heading + numbered selector ─────────────── */}
-          <div className="min-w-0 lg:flex lg:flex-col">
+          <motion.div
+            className="min-w-0 lg:flex lg:flex-col"
+            variants={enter}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <h2
               id="exp-heading"
               className="font-display text-3xl font-bold leading-[1.08] tracking-tight text-petrol-900 sm:text-4xl xl:text-[2.5rem]"
@@ -219,12 +234,19 @@ export function ExperienceFinder() {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
           {/* ── Right: immersive panel ─────────────────────────────── */}
           {/* min-w-0: without it the grid item grows to the pill scroller's
               max-content width and pushes the panel past the viewport. */}
-          <div className="min-w-0">
+          <motion.div
+            className="min-w-0"
+            variants={enter}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ delay: reduce ? 0 : 0.12 }}
+          >
             {/* Mobile / tablet selector: horizontal pills with snap */}
             <div
               role="tablist"
@@ -367,7 +389,7 @@ export function ExperienceFinder() {
                 </div>
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

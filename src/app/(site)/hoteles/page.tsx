@@ -104,7 +104,7 @@ export default async function HotelsPage({
           </div>
         ) : (
           <div className="mt-4 space-y-5">
-            {results.map((h) => {
+            {results.map((h, i) => {
               const dest = destinations.find((d) => d.slug === h.destinationSlug);
               const minNight = Math.min(...h.rooms.map((r) => r.pricePerNight.amount));
               const currency = h.rooms[0].pricePerNight.currency;
@@ -121,6 +121,9 @@ export default async function HotelsPage({
                       alt={`${h.name}, ${dest?.name ?? ""}`}
                       fill
                       sizes="(max-width: 768px) 100vw, 300px"
+                      /* En escritorio entran dos filas sobre el pliegue, y el
+                         navegador mide la segunda como LCP. */
+                      priority={i < 2}
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>

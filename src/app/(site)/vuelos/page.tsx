@@ -69,7 +69,7 @@ export default function FlightsPage() {
           alt="Avión en vuelo sobre un mar de nubes y montañas al atardecer"
           fill
           priority
-          sizes="100vw"
+          sizes="(min-width: 1024px) 1px, 100vw"
           className="object-cover lg:hidden"
         />
         {/* Desktop: video */}
