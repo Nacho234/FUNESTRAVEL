@@ -65,8 +65,8 @@ export default function FlightsPage() {
       <section className="relative overflow-hidden bg-petrol-950 pt-28 pb-12 lg:pb-16">
         {/* Mobile: static image */}
         <Image
-          src="/videos/flights-hero-poster.jpg"
-          alt="Vista aérea de la costa desde el avión"
+          src="/images/flights-hero-terminal-mobile.webp"
+          alt="Ventanal de una terminal de aeropuerto al atardecer, con un avión estacionado en plataforma"
           fill
           priority
           sizes="100vw"
