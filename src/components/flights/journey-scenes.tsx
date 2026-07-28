@@ -47,6 +47,16 @@ const scenes: Scene[] = [
   },
 ];
 
+/**
+ * Cifras del cierre. DEMO, en línea con el resto del sitio: conectar a datos
+ * reales antes de producción.
+ */
+const closing: { label: string; value: string }[] = [
+  { label: "Respondemos en", value: "Menos de 24 h" },
+  { label: "Salidas desde", value: "Rosario y Buenos Aires" },
+  { label: "Cotizamos", value: "Cabotaje e internacionales" },
+];
+
 /* Ver la nota en human-touch.tsx: las variantes se pasan siempre y es `hidden`
    la que iguala el reposo bajo reduced motion. */
 function buildVariants(reduce: boolean) {
@@ -160,12 +170,36 @@ export function JourneyScenes() {
           })}
         </motion.div>
 
-        <motion.p
+        {/* Cierre: la sección terminaba en una línea gris suelta y dejaba un
+            claro de marfil hasta el pie. Los datos son operativos y no
+            repiten los de las franjas de arriba. */}
+        <motion.div
           variants={V.item}
-          className="mx-auto mt-8 max-w-[52ch] text-center text-sm leading-relaxed text-graphite-500"
+          className="mt-12 flex flex-col gap-8 border-t border-graphite-200/70 pt-9 lg:mt-14 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
         >
-          Un mismo equipo detrás de cada tramo, desde que reservás hasta que volvés.
-        </motion.p>
+          <div>
+            <p className="max-w-[26ch] font-display text-[1.375rem] font-bold leading-[1.2] tracking-tight text-petrol-900 sm:text-[1.625rem]">
+              Un mismo equipo detrás de cada tramo, desde que reservás hasta que volvés.
+            </p>
+            <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-graphite-600">
+              La misma persona que te cotiza es la que responde si el vuelo se adelanta, si
+              cambia la conexión o si necesitás mover la fecha.
+            </p>
+          </div>
+
+          <dl className="grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-3 lg:shrink-0">
+            {closing.map((c) => (
+              <div key={c.label}>
+                <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-graphite-500">
+                  {c.label}
+                </dt>
+                <dd className="mt-1.5 font-display text-[1.0625rem] font-bold leading-tight text-petrol-900">
+                  {c.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </motion.div>
       </motion.div>
     </section>
   );
