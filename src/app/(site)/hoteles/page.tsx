@@ -12,6 +12,7 @@ import { destinations } from "@/data/destinations";
 import { Rating } from "@/components/ui/rating";
 import { ButtonLink } from "@/components/ui/button";
 import { formatDate, formatMoney, plural } from "@/lib/format";
+import { HotelEditorial } from "@/components/hotels/hotel-editorial";
 
 export const metadata: Metadata = {
   title: "Hoteles y alojamientos",
@@ -177,6 +178,10 @@ export default async function HotelsPage({
             })}
           </div>
         )}
+      </div>
+
+      <div className="mt-16 lg:mt-24">
+        <HotelEditorial />
       </div>
     </div>
   );

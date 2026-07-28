@@ -471,3 +471,26 @@ export interface RouteCommitment {
   title: string;
   text: string;
 }
+
+/* ── Sección editorial de hoteles (/hoteles) ─────────────────────────── */
+
+export interface FeaturedHotel {
+  id: string;
+  location: string;
+  name: string;
+  nights: string;
+  mealPlan: string;
+  cancellation: string;
+  href: string;
+}
+
+export type HotelStageIcon = "bed" | "view" | "experience";
+
+export interface HotelStage {
+  number: string;
+  title: string;
+  text: string;
+  icon: HotelStageIcon;
+  /** Qué foto de la composición enfatiza esta etapa. */
+  target: "room" | "terrace" | "pool";
+}
