@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
+import { useMemo } from "react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import {
   AirplaneTiltIcon,
   ArrowRightIcon,
@@ -33,14 +33,6 @@ import { trustMetrics } from "@/data/stories";
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-/** Vertical travel of the panorama inside the letters, as a share of the band. */
-const PARALLAX = 0.32;
-/** The fill is taller than the band so the drift never exposes an edge. */
-const OVERSCAN = 1 + 2 * PARALLAX;
-const DRIFT = (PARALLAX / OVERSCAN) * 100;
-/** Only slivers of the photo show through; bigger fragments read better. */
-const ZOOM = 1.12;
 
 /*
  * Two rules, and breaking either one hides the section:
@@ -140,8 +132,8 @@ export function WordmarkSection({
   eyebrow = "Tu próximo viaje",
   title = "Empieza acá",
   word = "VIAJÁ",
-  wordBackgroundImage = "/images/coast-aerial.jpg",
-  wordBackgroundFit = "object-cover object-[center_58%]",
+  wordBackgroundImage = "/images/travel/wordmark-panorama.webp",
+  wordBackgroundFit = "object-cover object-[center_52%]",
   cutoutImage = "/images/travel/travellers-cutout.webp",
   cutoutAlt = "",
   support = {
@@ -152,16 +144,11 @@ export function WordmarkSection({
   benefits = defaultBenefits,
   metrics = defaultMetrics,
 }: WordmarkSectionProps = {}) {
-  const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion() ?? false;
   const V = useMemo(() => buildVariants(reduce), [reduce]);
 
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const drift = useTransform(scrollYProgress, [0, 1], [`${DRIFT}%`, `${-DRIFT}%`]);
-
   return (
     <section
-      ref={ref}
       aria-labelledby="wordmark-heading"
       className="relative flex min-h-[900px] items-center overflow-hidden bg-ivory py-16 lg:min-h-[100vh] lg:py-14"
     >
@@ -247,24 +234,14 @@ export function WordmarkSection({
           {/* Inset by a pixel so the photo never peeks out from under the
               plate when the band height lands on a fractional value. */}
           <div className="absolute inset-px overflow-hidden" aria-hidden>
-            <motion.div
-              className="absolute inset-x-0"
-              style={{
-                top: `${-PARALLAX * 100}%`,
-                height: `${OVERSCAN * 100}%`,
-                y: reduce ? 0 : drift,
-              }}
-            >
-              <Image
-                src={wordBackgroundImage}
-                alt=""
-                fill
-                sizes="100vw"
-                quality={75}
-                className={wordBackgroundFit}
-                style={{ transform: `scale(${ZOOM})` }}
-              />
-            </motion.div>
+            <Image
+              src={wordBackgroundImage}
+              alt=""
+              fill
+              sizes="100vw"
+              quality={80}
+              className={wordBackgroundFit}
+            />
           </div>
 
           <svg viewBox="0 0 1000 280" className="relative z-10 block w-full" aria-hidden>
@@ -293,7 +270,7 @@ export function WordmarkSection({
               baseline. Absent by default, and the layout closes up. */}
           {cutoutImage && (
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-20 mx-auto hidden w-[46%] max-w-[40rem] translate-y-[24%] sm:block"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-20 mx-auto w-[52%] max-w-[40rem] translate-y-[24%] sm:w-[46%]"
               aria-hidden={cutoutAlt === "" ? true : undefined}
             >
               {/* The trimmed PNG ends on a straight edge; fade its base so the
