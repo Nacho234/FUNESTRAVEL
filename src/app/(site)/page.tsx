@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { AccordionItem } from "@/components/ui/accordion";
 import { PromotionsShowcase } from "@/components/home/promotions-showcase";
+import { WordmarkSection } from "@/components/home/wordmark-section";
 import { ExperienceFinder } from "@/components/home/experience-finder";
 import { CuratedDestinations } from "@/components/home/curated-destinations";
 import { TravelStories } from "@/components/home/travel-stories";
@@ -342,6 +343,7 @@ export default function HomePage() {
       <Hero />
       <TrustLine />
       <PromotionsShowcase />
+      <WordmarkSection />
       <CuratedDestinations />
       <ExperienceFinder />
       <GroupTrips />
