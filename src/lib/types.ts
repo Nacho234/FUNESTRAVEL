@@ -431,3 +431,43 @@ export interface FlightAssuranceTrust {
   text: string;
   icon: FlightAssuranceIcon;
 }
+
+/* ── Rutas destacadas (/vuelos) ──────────────────────────────────────── */
+
+export type RouteCategory = "recomendadas" | "nacionales" | "internacionales" | "larga-distancia";
+
+/** Dato suelto de la franja inferior de la tarjeta: ícono, rótulo y valor. */
+export interface RouteFact {
+  icon: "plane" | "calendar" | "clock" | "moon" | "bag";
+  label?: string;
+  value: string;
+}
+
+export interface FeaturedRoute {
+  id: string;
+  origin: { city: string; code: string };
+  destination: { city: string; code: string };
+  /** Rótulo corto para lectores de pantalla y para el panel. */
+  shortLabel: string;
+  flightType: string;
+  duration: string;
+  priceFrom: number;
+  currency: "USD" | "ARS";
+  /** Distintivo sobre la foto, p. ej. "Temporada de invierno". */
+  badge?: { text: string; tone: "petrol" | "positive" | "night" };
+  image: string;
+  imageAlt: string;
+  facts: RouteFact[];
+  highlights: string[];
+  notes?: string;
+  categories: RouteCategory[];
+  primaryCta: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+export interface RouteCommitment {
+  icon: "tag" | "shield" | "headset";
+  tone: "petrol" | "positive" | "coral";
+  title: string;
+  text: string;
+}

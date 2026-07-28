@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SearchWidget } from "@/components/search/search-widget";
 import { FlightAssurance } from "@/components/flights/flight-assurance";
+import { FeaturedRoutes } from "@/components/flights/featured-routes";
 
 export const metadata: Metadata = {
   title: "Vuelos",
@@ -57,6 +58,8 @@ export default function FlightsPage() {
       </section>
 
       <FlightAssurance />
+
+      <FeaturedRoutes />
     </div>
   );
 }
