@@ -4,6 +4,7 @@ import { SearchWidget } from "@/components/search/search-widget";
 import { FlightAssurance } from "@/components/flights/flight-assurance";
 import { FeaturedRoutes } from "@/components/flights/featured-routes";
 import { JourneyScenes } from "@/components/flights/journey-scenes";
+import { AutoVideo } from "@/components/ui/auto-video";
 
 export const metadata: Metadata = {
   title: "Vuelos",
@@ -25,19 +26,15 @@ export default function FlightsPage() {
           sizes="(min-width: 1024px) 1px, 100vw"
           className="object-cover lg:hidden"
         />
-        {/* Desktop: video */}
-        <video
+        {/* Desktop: video. `media` en cada fuente evita la descarga en celular. */}
+        <AutoVideo
           className="absolute inset-0 hidden h-full w-full object-cover lg:block"
-          autoPlay
-          muted
-          loop
-          playsInline
           poster="/videos/flights-hero-poster.jpg"
-          aria-hidden
-        >
-          <source src="/videos/flights-hero-video.webm" type="video/webm" />
-          <source src="/videos/flights-hero-video.mp4" type="video/mp4" />
-        </video>
+          fuentes={[
+            { src: "/videos/flights-hero-video.webm", type: "video/webm", media: "(min-width: 1024px)" },
+            { src: "/videos/flights-hero-video.mp4", type: "video/mp4", media: "(min-width: 1024px)" },
+          ]}
+        />
         <div
           className="absolute inset-0 bg-gradient-to-r from-petrol-950/70 via-petrol-950/45 to-petrol-950/15"
           aria-hidden

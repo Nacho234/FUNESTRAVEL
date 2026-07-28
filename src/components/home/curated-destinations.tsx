@@ -17,6 +17,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SaveDestinationButton } from "./save-destination-button";
 import { MiniProposalForm } from "./mini-proposal-form";
 import { FavoriteButton } from "@/components/cards/favorite-button";
+import { AutoVideo } from "@/components/ui/auto-video";
 
 /**
  * "Destinos elegidos para esta temporada": a curated, asymmetric editorial
@@ -333,18 +334,14 @@ export function CuratedDestinations() {
             <HeroCard d={hero} />
             <CurationSeal />
             <div className="relative min-h-48 flex-1 overflow-hidden rounded-[var(--radius-card)] shadow-[var(--shadow-lift)]">
-              <video
+              <AutoVideo
                 className="absolute inset-0 h-full w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
                 poster="/videos/curated-destinations-poster.jpg"
-                aria-hidden
-              >
-                <source src="/videos/curated-destinations-video.webm" type="video/webm" />
-                <source src="/videos/curated-destinations-video.mp4" type="video/mp4" />
-              </video>
+                fuentes={[
+                  { src: "/videos/curated-destinations-video.webm", type: "video/webm" },
+                  { src: "/videos/curated-destinations-video.mp4", type: "video/mp4" },
+                ]}
+              />
             </div>
           </Reveal>
 

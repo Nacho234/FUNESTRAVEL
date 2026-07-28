@@ -26,6 +26,7 @@ import { CustomTripSection } from "@/components/home/custom-trip-section";
 import { articles, faqs, groupTrips } from "@/data/content";
 import { formatDate, formatMoney } from "@/lib/format";
 import { IMG } from "@/data/img";
+import { AutoVideo } from "@/components/ui/auto-video";
 
 export const metadata: Metadata = {
   title: "Funes Travel · Paquetes, vuelos y viajes a medida",
@@ -47,19 +48,17 @@ function Hero() {
         sizes="(min-width: 1024px) 1px, 100vw"
         className="object-cover lg:hidden"
       />
-      {/* Desktop: video */}
-      <video
+      {/* Desktop: video. La consulta `media` de cada fuente evita que el celular
+          descargue un archivo que nunca ve: `lg:block` lo oculta, pero
+          `display:none` NO frena la descarga. */}
+      <AutoVideo
         className="absolute inset-0 hidden h-full w-full object-cover lg:block"
-        autoPlay
-        muted
-        loop
-        playsInline
         poster="/videos/hero-poster.jpg"
-        aria-hidden
-      >
-        <source src="/videos/hero-video.webm" type="video/webm" />
-        <source src="/videos/hero-video.mp4" type="video/mp4" />
-      </video>
+        fuentes={[
+          { src: "/videos/hero-video.webm", type: "video/webm", media: "(min-width: 1024px)" },
+          { src: "/videos/hero-video.mp4", type: "video/mp4", media: "(min-width: 1024px)" },
+        ]}
+      />
       <div
         className="absolute inset-0 bg-gradient-to-b from-petrol-950/60 via-petrol-950/30 to-petrol-950/75"
         aria-hidden
@@ -341,18 +340,14 @@ function BrandShowcase() {
   } as const;
   return (
     <section className="relative overflow-hidden bg-white">
-      <video
+      <AutoVideo
         className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
         poster="/videos/brand-band-clouds-poster.jpg"
-        aria-hidden
-      >
-        <source src="/videos/brand-band-clouds-video.webm" type="video/webm" />
-        <source src="/videos/brand-band-clouds-video.mp4" type="video/mp4" />
-      </video>
+        fuentes={[
+          { src: "/videos/brand-band-clouds-video.webm", type: "video/webm" },
+          { src: "/videos/brand-band-clouds-video.mp4", type: "video/mp4" },
+        ]}
+      />
       {/* Mobile: top white / bottom sky. Desktop: left white / right sky. Soft transition. */}
       <div
         className="absolute inset-0 lg:hidden"
