@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SearchWidget } from "@/components/search/search-widget";
 import { FlightAssurance } from "@/components/flights/flight-assurance";
 import { FeaturedRoutes } from "@/components/flights/featured-routes";
+import { JourneyScenes } from "@/components/flights/journey-scenes";
 
 export const metadata: Metadata = {
   title: "Vuelos",
@@ -60,6 +61,8 @@ export default function FlightsPage() {
       <FlightAssurance />
 
       <FeaturedRoutes />
+
+      <JourneyScenes />
     </div>
   );
 }
