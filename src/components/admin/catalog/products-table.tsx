@@ -251,7 +251,7 @@ export function ProductsTable() {
                 <Link
                   href={selected.publicHref}
                   target="_blank"
-                  className="inline-flex items-center rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
+                  className="inline-flex items-center rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
                 >
                   Ver en el sitio
                 </Link>

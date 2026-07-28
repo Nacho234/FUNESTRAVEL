@@ -47,20 +47,37 @@ export function TextField({
   hint,
   error,
   required,
+  leadingIcon,
   className = "",
   ...props
-}: { label: string; hint?: string; error?: string } & ComponentProps<"input">) {
+}: {
+  label: string;
+  hint?: string;
+  error?: string;
+  /** Decorative glyph rendered inside the field, before the value. */
+  leadingIcon?: ReactNode;
+} & ComponentProps<"input">) {
   return (
     <FieldWrapper label={label} hint={hint} error={error} required={required}>
       {(id, describedBy) => (
-        <input
-          id={id}
-          aria-describedby={describedBy}
-          aria-invalid={error ? true : undefined}
-          required={required}
-          {...props}
-          className={`${inputClass(error)} ${className}`}
-        />
+        <div className="relative">
+          {leadingIcon && (
+            <span
+              className="pointer-events-none absolute inset-y-0 left-3.5 grid place-items-center text-graphite-400"
+              aria-hidden
+            >
+              {leadingIcon}
+            </span>
+          )}
+          <input
+            id={id}
+            aria-describedby={describedBy}
+            aria-invalid={error ? true : undefined}
+            required={required}
+            {...props}
+            className={`${inputClass(error)} ${leadingIcon ? "pl-10" : ""} ${className}`}
+          />
+        </div>
       )}
     </FieldWrapper>
   );

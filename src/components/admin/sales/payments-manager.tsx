@@ -89,7 +89,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
 
       <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {tiles.map((t) => (
-          <div key={t.label} className="rounded-xl border border-graphite-200/70 bg-white px-4 py-3.5">
+          <div key={t.label} className="rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3.5">
             <p className="text-xs text-graphite-500">{t.label}</p>
             <p className={`mt-1 font-display text-lg font-bold tabular ${t.tone}`}>{t.value}</p>
           </div>
@@ -143,7 +143,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
                 Tu rol no tiene el permiso “registrar pagos”: las acciones están deshabilitadas. Los permisos reales se validan en el servidor.
               </p>
             )}
-            <div className="flex flex-wrap gap-2 border-t border-graphite-100 pt-4">
+            <div className="flex flex-wrap gap-2 border-t border-black/[0.05] pt-4">
               <AdminButton
                 disabled={!canRegister || selected.status === "conciliado"}
                 title={gatedTitle}
@@ -192,7 +192,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
               id="np-booking"
               value={form.bookingCode}
               onChange={(e) => setForm((f) => ({ ...f, bookingCode: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
             >
               {adminBookings.map((b) => (
                 <option key={b.code} value={b.code}>
@@ -212,7 +212,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
                 min={1}
                 value={form.amount}
                 onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
               />
             </div>
             <div>
@@ -223,7 +223,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
                 id="np-currency"
                 value={form.currency}
                 onChange={(e) => setForm((f) => ({ ...f, currency: e.target.value as "USD" | "ARS" }))}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               >
                 <option>USD</option>
                 <option>ARS</option>
@@ -238,7 +238,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
               id="np-method"
               value={form.method}
               onChange={(e) => setForm((f) => ({ ...f, method: e.target.value as AdminPayment["method"] }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
             >
               {["Mercado Pago", "Tarjeta", "Transferencia", "Efectivo", "Link de pago"].map((m) => (
                 <option key={m}>{m}</option>
@@ -254,7 +254,7 @@ export function PaymentsManager({ openNew = false }: { openNew?: boolean }) {
               value={form.reference}
               onChange={(e) => setForm((f) => ({ ...f, reference: e.target.value }))}
               placeholder="Nro. de operación, recibo…"
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
             />
           </div>
           <AdminButton

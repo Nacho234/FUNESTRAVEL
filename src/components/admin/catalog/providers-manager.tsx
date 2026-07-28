@@ -129,7 +129,7 @@ export function ProvidersManager() {
           { label: "Saldos a pagar", value: withDebt.length, names: withDebt.map((p) => p.name) },
           { label: "Incidencias sin resolver", value: unconfirmed.length, names: unconfirmed.map((p) => p.name) },
         ].map((a) => (
-          <div key={a.label} className="rounded-xl border border-graphite-200/70 bg-white px-4 py-3">
+          <div key={a.label} className="rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3">
             <p className="text-xs text-graphite-500">{a.label}</p>
             <p className={`mt-0.5 font-display text-xl font-bold tabular ${a.value > 0 ? "text-coral-700" : "text-graphite-800"}`}>{a.value}</p>
             {a.value > 0 && <p className="mt-0.5 truncate text-xs text-graphite-500">{a.names.join(" · ")}</p>}
@@ -202,7 +202,7 @@ export function ProvidersManager() {
               ) : (
                 <ul className="space-y-2">
                   {selected.incidents.map((i) => (
-                    <li key={i.date} className="rounded-lg border border-graphite-100 px-3 py-2 text-sm">
+                    <li key={i.date} className="rounded-lg border border-black/[0.05] px-3 py-2 text-sm">
                       <div className="flex items-center justify-between gap-2">
                         <span className="text-xs text-graphite-500 tabular">{formatDate(i.date)}</span>
                         <StatusBadge status={i.resolved ? "resuelta" : "abierta"} />
@@ -219,7 +219,7 @@ export function ProvidersManager() {
               {selected.notes}
             </div>
 
-            <div className="flex flex-wrap gap-2 border-t border-graphite-100 pt-4">
+            <div className="flex flex-wrap gap-2 border-t border-black/[0.05] pt-4">
               <AdminButton onClick={() => showToast("Pago a proveedor registrado (demo)")}>Registrar pago</AdminButton>
               <AdminButton variant="secondary" onClick={() => showToast("Incidencia creada (demo)")}>
                 Nueva incidencia

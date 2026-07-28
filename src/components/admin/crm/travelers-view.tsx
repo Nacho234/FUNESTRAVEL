@@ -14,6 +14,7 @@ import {
   useToast,
   type Column,
   type FilterDef,
+  NameCell,
 } from "@/components/admin/ui";
 
 /** Travelers registry with document alerts (expired passports, minors, etc.). */
@@ -49,10 +50,7 @@ export function TravelersView() {
       header: "Pasajero",
       essential: true,
       cell: (t) => (
-        <div>
-          <p className="font-semibold text-graphite-800">{t.name}</p>
-          <p className="text-xs text-graphite-500">{t.customer !== t.name ? `Cliente: ${t.customer}` : "Titular"}</p>
-        </div>
+        <NameCell name={t.name} meta={t.customer !== t.name ? `Cliente: ${t.customer}` : "Titular"} />
       ),
       sortValue: (t) => t.name,
     },
@@ -117,7 +115,7 @@ export function TravelersView() {
             <div
               key={a.id}
               className={`flex items-center gap-3 rounded-xl border bg-white px-4 py-3 ${
-                count === 0 ? "border-graphite-200/70" : a.tone === "danger" ? "border-danger-100" : "border-warning-100"
+                count === 0 ? "border-black/[0.07]/70" : a.tone === "danger" ? "border-danger-100" : "border-warning-100"
               }`}
             >
               <WarningCircleIcon
@@ -194,7 +192,7 @@ export function TravelersView() {
               {docs.length === 0 ? (
                 <p className="text-sm text-graphite-500">Sin documentos cargados.</p>
               ) : (
-                <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+                <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                   {docs.map((d) => (
                     <li key={d.id} className="flex items-center justify-between gap-2 px-4 py-2.5 text-sm">
                       <span className="min-w-0 truncate font-medium text-graphite-800">{d.name}</span>

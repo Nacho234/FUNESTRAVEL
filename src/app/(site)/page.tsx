@@ -15,7 +15,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { AccordionItem } from "@/components/ui/accordion";
-import { TakeoffScroll } from "@/components/home/takeoff-scroll";
 import { PromotionsShowcase } from "@/components/home/promotions-showcase";
 import { ExperienceFinder } from "@/components/home/experience-finder";
 import { CuratedDestinations } from "@/components/home/curated-destinations";
@@ -277,15 +276,19 @@ function BrandShowcase() {
     mask: "url(/images/logo-funes.png) center / contain no-repeat",
   } as const;
   return (
-    <section className="relative bg-white">
-      <Image
-        src={IMG.brandClouds}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-        priority={false}
-      />
+    <section className="relative overflow-hidden bg-white">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/videos/nubes-poster.jpg"
+        aria-hidden
+      >
+        <source src="/videos/nubes.webm" type="video/webm" />
+        <source src="/videos/nubes.mp4" type="video/mp4" />
+      </video>
       {/* Mobile: top white / bottom sky. Desktop: left white / right sky. Soft transition. */}
       <div
         className="absolute inset-0 lg:hidden"
@@ -339,14 +342,13 @@ export default function HomePage() {
       <Hero />
       <TrustLine />
       <PromotionsShowcase />
-      <TakeoffScroll />
       <CuratedDestinations />
-      <BrandShowcase />
       <ExperienceFinder />
       <GroupTrips />
       <HumanTouch />
       <CustomTripSection />
       <TravelStories />
+      <BrandShowcase />
       <Inspiration />
       <FaqPreview />
     </>

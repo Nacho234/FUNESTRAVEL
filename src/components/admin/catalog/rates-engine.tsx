@@ -89,7 +89,7 @@ export function RatesEngine() {
   };
 
   const inputClass =
-    "w-20 rounded-md border border-graphite-200 px-2 py-1 text-right text-sm tabular focus:border-teal-500 focus:outline-none";
+    "w-20 rounded-md border border-black/[0.07] px-2 py-1 text-right text-sm tabular focus:border-teal-500 focus:outline-none";
 
   return (
     <div className="mx-auto max-w-[1400px]">
@@ -102,7 +102,7 @@ export function RatesEngine() {
           <select
             value={slug}
             onChange={(e) => selectPackage(e.target.value)}
-            className="rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm font-semibold cursor-pointer focus:border-teal-500 focus:outline-none"
+            className="rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm font-semibold cursor-pointer focus:border-teal-500 focus:outline-none"
             aria-label="Elegir paquete"
           >
             {packages.map((p) => (
@@ -125,7 +125,7 @@ export function RatesEngine() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[640px] text-sm">
                 <thead>
-                  <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+                  <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                     <th className="px-2 py-2">Salida</th>
                     {canCosts && <th className="px-2 py-2 text-right">Costo USD</th>}
                     <th className="px-2 py-2 text-right">Markup %</th>
@@ -135,7 +135,7 @@ export function RatesEngine() {
                     <th className="px-2 py-2" />
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-graphite-100">
+                <tbody className="divide-y divide-black/[0.05]">
                   {rows.map((r) => {
                     const price = finalPrice(r);
                     const margin = Math.round(r.cost * (r.markupPct / 100));
@@ -194,7 +194,7 @@ export function RatesEngine() {
                   type="number"
                   value={bulkPct}
                   onChange={(e) => setBulkPct(Number(e.target.value))}
-                  className="w-20 rounded-md border border-graphite-200 px-2 py-1.5 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
+                  className="w-20 rounded-md border border-black/[0.07] px-2 py-1.5 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
                 />
                 %
               </label>
@@ -220,7 +220,7 @@ export function RatesEngine() {
           </SectionCard>
 
           <SectionCard title="Historial de cambios" description="Últimos movimientos de tarifas (auditados).">
-            <ul className="divide-y divide-graphite-100 text-sm">
+            <ul className="divide-y divide-black/[0.05] text-sm">
               {rateHistory.map((c) => (
                 <li key={c.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2.5 first:pt-0 last:pb-0">
                   <div>
@@ -254,7 +254,7 @@ export function RatesEngine() {
                     type="number"
                     value={f.value}
                     onChange={(e) => f.set(Number(e.target.value))}
-                    className="w-28 rounded-md border border-graphite-200 px-2.5 py-1.5 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
+                    className="w-28 rounded-md border border-black/[0.07] px-2.5 py-1.5 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
                   />
                 </label>
               ))}

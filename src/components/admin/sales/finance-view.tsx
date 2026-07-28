@@ -84,7 +84,7 @@ export function FinanceView() {
 
       <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {tiles.map((t) => (
-          <div key={t.label} className="rounded-xl border border-graphite-200/70 bg-white px-4 py-3.5">
+          <div key={t.label} className="rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3.5">
             <p className="text-xs text-graphite-500">{t.label}</p>
             <p className={`mt-1 font-display text-base font-bold tabular ${t.tone}`}>{t.value}</p>
           </div>
@@ -107,7 +107,7 @@ export function FinanceView() {
 
         <div className="space-y-4">
           <SectionCard title="Saldos por proveedor" description="Deuda pendiente de pago a operadores.">
-            <ul className="divide-y divide-graphite-100">
+            <ul className="divide-y divide-black/[0.05]">
               {financeSummary.providerBalances.map((p) => (
                 <li key={p.provider} className="flex items-center justify-between gap-3 py-2.5 text-sm">
                   <div className="min-w-0">
@@ -142,7 +142,7 @@ export function FinanceView() {
                 <dt className="text-graphite-600">Percepciones AFIP (ARS)</dt>
                 <dd className="font-semibold tabular">{ars(financeSummary.ars.taxes)}</dd>
               </div>
-              <div className="flex justify-between border-t border-graphite-100 pt-2">
+              <div className="flex justify-between border-t border-black/[0.05] pt-2">
                 <dt className="text-graphite-600">Ingresos en pesos</dt>
                 <dd className="font-semibold tabular">{ars(financeSummary.ars.income)}</dd>
               </div>

@@ -275,21 +275,34 @@ export interface ExperienceDestination {
   priceFrom?: Money;
 }
 
-/** Configurable entry for the home "experience finder" section. */
+/**
+ * Configurable entry for the home "experience finder" section. Each entry owns
+ * everything the visual panel renders, so swapping a background or a CTA is a
+ * data edit, never a layout edit.
+ */
 export interface TravelExperience {
   id: string;
   slug: string;
+  /** Label shown in the numbered selector. */
   name: string;
+  /** One-line subtitle revealed under the active selector item. */
   shortPhrase: string;
+  /** Small label above the panel title. */
+  eyebrow: string;
   title: string;
   description: string;
+  /** Panel background, wide crop. */
   imageDesktop: string;
+  /** Panel background, tall crop for mobile. */
   imageMobile: string;
   imageAlt: string;
+  /** Short bullet points listed under the panel description. */
   facts: string[];
   destinations: ExperienceDestination[];
   ctaLabel: string;
   ctaHref: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
   accent?: string;
   order: number;
   active: boolean;

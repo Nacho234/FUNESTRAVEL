@@ -51,7 +51,7 @@ export function IntegrationsAdmin() {
 
       <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {items.map((it) => (
-          <li key={it.id} className="flex flex-col rounded-xl border border-graphite-200/70 bg-white p-4">
+          <li key={it.id} className="flex flex-col rounded-xl border border-black/[0.07]/70 bg-white p-4">
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-center gap-2.5">
                 <span className="grid size-9 place-items-center rounded-lg bg-petrol-50 text-petrol-700">

@@ -2,108 +2,161 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ClockIcon, PencilSimpleLineIcon, UserCircleCheckIcon } from "@phosphor-icons/react";
-import { avatar } from "@/data/img";
-import { QuoteForm } from "./quote-form";
+import { ClockIcon, PencilSimpleLineIcon, UserIcon } from "@phosphor-icons/react";
+import { CustomTripForm } from "./custom-trip-form";
 
 /**
- * "Viajes a medida": compact editorial pitch on the left, two-step intake card
- * on the right. Dense, low-height section; both columns enter in sequence.
+ * "Viajes a medida": editorial pitch on the left, intake card on the right,
+ * over plain white.
+ *
+ * The landscape at the bottom left is decoration, not content: it is masked
+ * into the background on two axes, sits behind everything with pointer events
+ * off and does not move. The dashed route and the plane are part of the
+ * artwork, nothing is redrawn in CSS. Swap the artwork with the
+ * `backgroundDecorationImage` prop.
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const container: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
 const benefits = [
-  { icon: ClockIcon, text: "Propuesta en 24 hs hábiles" },
-  { icon: PencilSimpleLineIcon, text: "Ajustes antes de confirmar" },
-  { icon: UserCircleCheckIcon, text: "Lo revisa una persona real" },
+  {
+    icon: ClockIcon,
+    title: "Propuesta en 24 hs hábiles",
+    text: "Te enviamos una primera propuesta real y concreta.",
+  },
+  {
+    icon: PencilSimpleLineIcon,
+    title: "Ajustes antes de confirmar",
+    text: "Adaptamos cada detalle hasta que sea perfecto para vos.",
+  },
+  {
+    icon: UserIcon,
+    title: "Respuesta humana, no automática",
+    text: "Te acompaña un asesor real durante todo el proceso.",
+  },
 ];
 
-export function CustomTripSection() {
+export function CustomTripSection({
+  backgroundDecorationImage = "/images/travel/custom-trip-route.webp",
+}: {
+  backgroundDecorationImage?: string;
+}) {
   const reduce = useReducedMotion() ?? false;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-ivory to-sand-50">
-      {/* Cartographic hint behind the editorial column */}
+    <section aria-labelledby="custom-trip-heading" className="relative overflow-hidden bg-white">
+      {/* Contour texture, barely there, top center */}
       <svg
-        className="pointer-events-none absolute left-0 top-10 hidden h-40 w-[40%] text-petrol-800/10 lg:block"
-        viewBox="0 0 600 160"
-        fill="none"
         aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-56 w-[70%] -translate-x-1/2 text-petrol-900/[0.055]"
+        viewBox="0 0 900 220"
+        fill="none"
+        preserveAspectRatio="none"
       >
-        <path d="M-10 135 C 130 45, 300 145, 430 65 S 590 25, 630 60" stroke="currentColor" strokeWidth="1.25" strokeDasharray="1 7" strokeLinecap="round" />
-        <circle cx="180" cy="93" r="2.5" fill="currentColor" />
-        <circle cx="430" cy="65" r="2.5" fill="currentColor" />
+        {[0, 26, 52, 78, 104, 130].map((offset) => (
+          <path
+            key={offset}
+            d={`M-20 ${40 + offset} C 150 ${-10 + offset}, 300 ${90 + offset}, 460 ${45 + offset} S 760 ${-5 + offset}, 920 ${55 + offset}`}
+            stroke="currentColor"
+            strokeWidth="1"
+            fill="none"
+          />
+        ))}
       </svg>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 lg:py-20">
-        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
-          {/* Editorial column: dense, no dead air */}
+      {/* Route decoration: bottom strip on small screens, bottom-left field on desktop */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-36 sm:h-48 lg:inset-x-auto lg:left-0 lg:h-auto lg:w-[62%] xl:w-[58%]"
+      >
+        {/* No mask and no blend: the artwork's white matches the section, and a
+            fade would clip the plane at the end of the route. */}
+        <div className="relative h-full w-full lg:aspect-[1400/788]">
+          <Image
+            src={backgroundDecorationImage}
+            alt=""
+            fill
+            sizes="(max-width: 1024px) 100vw, 62vw"
+            className="object-cover object-left-bottom"
+          />
+        </div>
+      </div>
+
+      <div className="relative mx-auto max-w-[88rem] px-4 py-24 sm:px-6 lg:px-10 lg:py-28">
+        <div className="grid items-center gap-12 lg:grid-cols-[44fr_56fr] lg:gap-16 xl:gap-20">
+          {/* ── Editorial column ───────────────────────────────────── */}
           <motion.div
+            className="min-w-0"
             variants={reduce ? undefined : container}
             initial={reduce ? false : "hidden"}
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <motion.p
-              variants={reduce ? undefined : item}
-              className="flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-graphite-500"
-            >
-              <span className="h-px w-6 bg-coral-500/70" aria-hidden />
-              Viajes a medida
-            </motion.p>
+            <motion.div variants={reduce ? undefined : item}>
+              <p className="text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-coral-600">
+                Tu próximo viaje, diseñado para vos
+              </p>
+              <span className="mt-3 block h-px w-10 bg-coral-500/60" aria-hidden />
+            </motion.div>
 
             <motion.h2
+              id="custom-trip-heading"
               variants={reduce ? undefined : item}
-              className="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-petrol-900"
+              className="mt-6 max-w-[15ch] pb-1 font-display text-[2.375rem] font-bold leading-[1.08] tracking-tight text-petrol-900 sm:text-5xl xl:text-[3.375rem]"
             >
-              ¿No encontraste el viaje ideal? Lo diseñamos con vos.
+              Contanos tu idea, nosotros la hacemos{" "}
+              <em className="font-accent text-[1.12em] font-medium text-coral-600">realidad.</em>
             </motion.h2>
 
-            <motion.p variants={reduce ? undefined : item} className="mt-3 max-w-md leading-relaxed text-graphite-600">
-              Contanos lo básico y te enviamos una primera propuesta real para empezar.
+            <motion.p
+              variants={reduce ? undefined : item}
+              className="mt-5 max-w-[46ch] leading-relaxed text-graphite-600"
+            >
+              Completá los datos y recibí una propuesta personalizada de nuestro equipo en menos de
+              24 horas hábiles.
             </motion.p>
 
-            <motion.ul variants={reduce ? undefined : item} className="mt-6 flex max-w-lg flex-wrap gap-x-7 gap-y-3">
-              {benefits.map(({ icon: Icon, text }) => (
-                <li key={text} className="flex items-center gap-2 text-sm font-semibold text-graphite-700">
-                  <span className="grid size-7 place-items-center rounded-full bg-teal-50 text-teal-600">
-                    <Icon className="size-4" aria-hidden />
+            <motion.ul variants={reduce ? undefined : item} className="mt-10 grid gap-6">
+              {benefits.map(({ icon: Icon, title, text }) => (
+                <li key={title} className="flex items-start gap-4">
+                  <span
+                    className="grid size-11 shrink-0 place-items-center rounded-full border border-coral-500/25 text-coral-600"
+                    aria-hidden
+                  >
+                    <Icon weight="light" className="size-5" />
                   </span>
-                  {text}
+                  <div className="min-w-0 pt-1.5">
+                    <h3 className="text-[0.75rem] font-bold uppercase tracking-[0.12em] text-petrol-900">
+                      {title}
+                    </h3>
+                    <p className="mt-1 max-w-[38ch] text-sm leading-relaxed text-graphite-600">
+                      {text}
+                    </p>
+                  </div>
                 </li>
               ))}
             </motion.ul>
-
-            <motion.div
-              variants={reduce ? undefined : item}
-              className="mt-6 inline-flex items-center gap-3 rounded-full border border-sand-200 bg-white py-1.5 pl-1.5 pr-4"
-            >
-              <Image src={avatar(20)} alt="" width={30} height={30} className="rounded-full" />
-              <p className="text-sm text-graphite-600">
-                <span className="font-semibold text-petrol-900">Respuesta humana</span>, no automática.
-              </p>
-            </motion.div>
           </motion.div>
 
-          {/* Two-step intake card */}
+          {/* ── Intake card ────────────────────────────────────────── */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 24 }}
+            className="min-w-0"
+            initial={reduce ? false : { opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: 0.2, ease: EASE }}
+            transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           >
-            <QuoteForm />
+            <CustomTripForm />
           </motion.div>
         </div>
       </div>

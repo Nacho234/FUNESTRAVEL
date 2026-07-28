@@ -107,7 +107,7 @@ export function TicketsView() {
 
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {tiles.map((tile) => (
-          <div key={tile.label} className="flex items-center gap-3 rounded-xl border border-graphite-200/70 bg-white px-4 py-3">
+          <div key={tile.label} className="flex items-center gap-3 rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3">
             <tile.icon className={`size-5 shrink-0 ${tile.tone}`} aria-hidden />
             <div>
               <p className="font-display text-lg font-bold text-petrol-900 tabular">{tile.value}</p>
@@ -167,7 +167,7 @@ export function TicketsView() {
                   patchSelected({ status: e.target.value as TicketStatus });
                   showToast(`Estado: ${e.target.value}`);
                 }}
-                className="rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                className="rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               >
                 {statusOptions.map((s) => (
                   <option key={s}>{s}</option>
@@ -198,7 +198,7 @@ export function TicketsView() {
                 rows={3}
                 value={update}
                 onChange={(e) => setUpdate(e.target.value)}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               />
               <AdminButton
                 className="mt-2"
@@ -226,7 +226,7 @@ export function TicketsView() {
                   value={resolution}
                   onChange={(e) => setResolution(e.target.value)}
                   placeholder="Cómo se resolvió el caso (queda en el historial del cliente)."
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 />
                 <AdminButton
                   className="mt-2"

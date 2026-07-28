@@ -17,6 +17,7 @@ import {
   useToast,
   type Column,
   type FilterDef,
+  NameCell,
 } from "../ui";
 
 /** Bookings module: list + kanban views, wide detail drawer with an
@@ -178,7 +179,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
       ),
       sortValue: (r) => r.code,
     },
-    { id: "holder", header: "Titular", essential: true, cell: (r) => r.holderName, sortValue: (r) => r.holderName },
+    { id: "holder", header: "Titular", essential: true, cell: (r) => <NameCell name={r.holderName} />, sortValue: (r) => r.holderName },
     {
       id: "pkg",
       header: "Paquete",
@@ -221,7 +222,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
         breadcrumb={[{ label: "Reservas" }]}
         actions={
           <>
-            <div className="flex rounded-[var(--radius-control)] border border-graphite-200 bg-white p-0.5" role="group" aria-label="Vista">
+            <div className="flex rounded-[var(--radius-control)] border border-black/[0.07] bg-white p-0.5" role="group" aria-label="Vista">
               {(["lista", "kanban"] as const).map((v) => (
                 <button
                   key={v}
@@ -271,8 +272,8 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
         <div className="overflow-x-auto pb-2">
           <div className="grid min-w-[1080px] grid-cols-5 gap-3">
             {kanban.map((col) => (
-              <div key={col.status} className="rounded-xl border border-graphite-200/70 bg-sand-50/50">
-                <div className="border-b border-graphite-100 px-3 py-2.5">
+              <div key={col.status} className="rounded-xl border border-black/[0.07]/70 bg-sand-50/50">
+                <div className="border-b border-black/[0.05] px-3 py-2.5">
                   <p className="text-xs font-bold uppercase tracking-wide text-graphite-600">{col.status}</p>
                   <p className="mt-0.5 text-[0.6875rem] text-graphite-500 tabular">
                     {col.items.length} {col.items.length === 1 ? "reserva" : "reservas"} · {usd(col.totalUsd)}
@@ -281,7 +282,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
                 <div className="space-y-2 p-2">
                   {col.items.length === 0 && <p className="px-2 py-4 text-center text-xs text-graphite-400">Sin reservas</p>}
                   {col.items.map((r) => (
-                    <div key={r.code} className="rounded-lg border border-graphite-200/70 bg-white p-3">
+                    <div key={r.code} className="rounded-lg border border-black/[0.07]/70 bg-white p-3">
                       <button onClick={() => setSelected(r)} className="block w-full text-left cursor-pointer">
                         <p className="text-xs font-bold text-petrol-900 tabular">
                           {r.code} {r.source === "web" && <span className="ml-1 rounded-full bg-teal-50 px-1.5 text-[0.625rem] font-bold text-teal-600">Web</span>}
@@ -296,7 +297,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
                         <select
                           value={r.opStatus}
                           onChange={(e) => moveTo(r.code, e.target.value as OpStatus)}
-                          className="w-full rounded border border-graphite-200 bg-white px-1.5 py-1 text-[0.6875rem] cursor-pointer focus:border-teal-500 focus:outline-none"
+                          className="w-full rounded border border-black/[0.07] bg-white px-1.5 py-1 text-[0.6875rem] cursor-pointer focus:border-teal-500 focus:outline-none"
                         >
                           {OP_STATUSES.map((s) => (
                             <option key={s} value={s}>
@@ -324,7 +325,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
             <select
               value={assignTo}
               onChange={(e) => setAssignTo(e.target.value)}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               aria-label="Asesor"
             >
               {advisors.map((a) => (
@@ -355,7 +356,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
               id="nb-holder"
               value={newForm.holder}
               onChange={(e) => setNewForm((f) => ({ ...f, holder: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               placeholder="Nombre y apellido"
             />
           </div>
@@ -367,7 +368,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
               id="nb-pkg"
               value={newForm.packageSlug}
               onChange={(e) => setNewForm((f) => ({ ...f, packageSlug: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
             >
               {adminBookings
                 .map((b) => b.packageSlug)
@@ -390,7 +391,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
               max={40}
               value={newForm.adults}
               onChange={(e) => setNewForm((f) => ({ ...f, adults: Number(e.target.value) }))}
-              className="w-28 rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
+              className="w-28 rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
             />
           </div>
           <AdminButton
@@ -460,7 +461,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
             />
 
             {/* Checklist */}
-            <section className="rounded-xl border border-graphite-200/70 bg-sand-50/50 p-4">
+            <section className="rounded-xl border border-black/[0.07]/70 bg-sand-50/50 p-4">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-sm font-bold text-petrol-900">Checklist operativo</h3>
                 <span className="text-xs font-semibold text-graphite-600 tabular">
@@ -490,7 +491,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
             {/* Passengers */}
             <section>
               <h3 className="mb-2 text-sm font-bold text-petrol-900">Pasajeros</h3>
-              <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+              <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                 {Array.from({ length: selected.adults + selected.children }, (_, i) => {
                   const isChild = i >= selected.adults;
                   const docOk = i % 3 !== 1;
@@ -525,7 +526,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
               {detailPayments.length === 0 ? (
                 <EmptyState title="Sin pagos registrados" detail="Registrá el primer pago desde las acciones de esta reserva." />
               ) : (
-                <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+                <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                   {detailPayments.map((p) => (
                     <li key={p.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
                       <div>
@@ -557,7 +558,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Agregar nota interna…"
-                className="mt-2 w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="mt-2 w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 aria-label="Nota interna"
               />
               <AdminButton
@@ -576,7 +577,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
             </section>
 
             {/* Actions */}
-            <section className="space-y-3 border-t border-graphite-100 pt-4">
+            <section className="space-y-3 border-t border-black/[0.05] pt-4">
               <div className="flex flex-wrap gap-2">
                 {selected.opStatus !== "confirmada" && selected.opStatus !== "lista para viajar" && (
                   <AdminButton onClick={() => moveTo(selected.code, "confirmada")}>Confirmar</AdminButton>
@@ -591,7 +592,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
                   href={`https://wa.me/5493415550123?text=${encodeURIComponent(`Hola, te escribimos de Funes Travel por tu reserva ${selected.code}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-positive-700 hover:border-positive-700"
+                  className="inline-flex items-center gap-1.5 rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-positive-700 hover:border-positive-700"
                 >
                   <WhatsappLogoIcon className="size-4" aria-hidden /> WhatsApp
                 </a>
@@ -606,7 +607,7 @@ export function BookingsManager({ openNew = false }: { openNew?: boolean }) {
                     type="date"
                     value={reschedule}
                     onChange={(e) => setReschedule(e.target.value)}
-                    className="rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
+                    className="rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
                   />
                 </div>
                 <AdminButton

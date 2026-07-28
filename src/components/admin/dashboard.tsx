@@ -64,7 +64,8 @@ function TaskInbox() {
 
   return (
     <SectionCard
-      title={`Tareas prioritarias (${pending.length})`}
+      title="Tareas prioritarias"
+      count={pending.length}
       description="La bandeja operativa del día: resolvé, reasigná o abrí el registro relacionado."
       actions={
         <Link href="/admin/tareas" className="text-xs font-semibold text-teal-600 hover:text-teal-500">
@@ -76,7 +77,7 @@ function TaskInbox() {
       {pending.length === 0 ? (
         <p className="py-6 text-center text-sm text-graphite-500">Sin tareas pendientes. Buen trabajo.</p>
       ) : (
-        <ul className="divide-y divide-graphite-100">
+        <ul className="divide-y divide-black/[0.05]">
           {pending.slice(0, 6).map((t) => (
             <li key={t.id} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
               <button
@@ -105,7 +106,7 @@ function TaskInbox() {
               {t.relatedHref && (
                 <Link
                   href={t.relatedHref}
-                  className="mt-0.5 shrink-0 rounded-lg border border-graphite-200 px-2.5 py-1.5 text-xs font-semibold text-graphite-600 hover:border-petrol-600 hover:text-petrol-800"
+                  className="mt-0.5 shrink-0 rounded-lg border border-black/[0.07] px-2.5 py-1.5 text-xs font-semibold text-graphite-600 hover:border-petrol-600 hover:text-petrol-800"
                 >
                   Abrir
                 </Link>
@@ -197,22 +198,28 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {/* Commercial summary */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        {commercialMetrics.map((m) => (
-          <Link
-            key={m.id}
-            href={m.href}
-            className="group rounded-xl border border-graphite-200/70 bg-white px-4 py-3.5 transition-colors hover:border-teal-500/60"
-          >
-            <div className="flex items-baseline justify-between gap-2">
-              <p className="text-xs text-graphite-500">{m.label}</p>
-              <Delta value={m.delta} />
-            </div>
-            <p className="mt-1 font-display text-xl font-bold text-petrol-900 tabular">{m.value}</p>
-            <p className="mt-0.5 text-[0.6875rem] text-graphite-400">{m.context}</p>
-          </Link>
-        ))}
+      {/* Commercial summary: one surface, the tiles float on it */}
+      <div className="relative overflow-hidden rounded-2xl border border-black/[0.07] bg-gradient-to-br from-sand-50 via-white to-teal-50/70 p-3 sm:p-4">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-24 size-72 rounded-full bg-teal-100/40 blur-3xl"
+        />
+        <div className="relative grid grid-cols-2 gap-2.5 md:grid-cols-4">
+          {commercialMetrics.map((m) => (
+            <Link
+              key={m.id}
+              href={m.href}
+              className="group rounded-xl border border-black/[0.05] bg-white/85 px-4 py-3.5 shadow-[0_1px_2px_rgb(16_24_40_/_0.04)] backdrop-blur-sm transition-colors hover:border-teal-500/50"
+            >
+              <div className="flex items-baseline justify-between gap-2">
+                <p className="text-xs text-graphite-500">{m.label}</p>
+                <Delta value={m.delta} />
+              </div>
+              <p className="mt-1 font-display text-xl font-bold text-petrol-900 tabular">{m.value}</p>
+              <p className="mt-0.5 text-[0.6875rem] text-graphite-400">{m.context}</p>
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Main grid */}
@@ -233,7 +240,7 @@ export function AdminDashboard() {
             <div id="proximas-salidas" className="overflow-x-auto">
               <table className="w-full min-w-[560px] text-sm">
                 <thead>
-                  <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+                  <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                     <th className="px-2 py-2">Salida</th>
                     <th className="px-2 py-2">Paquete</th>
                     <th className="px-2 py-2 text-right">Pax</th>
@@ -243,7 +250,7 @@ export function AdminDashboard() {
                     <th className="px-2 py-2 text-right">Pagos</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-graphite-100">
+                <tbody className="divide-y divide-black/[0.05]">
                   {upcomingDepartures.map((d) => (
                     <tr key={`${d.date}-${d.packageSlug}`} className="align-top">
                       <td className="px-2 py-2.5 font-semibold text-graphite-800 whitespace-nowrap tabular">{formatDate(d.date)}</td>
@@ -275,7 +282,7 @@ export function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[520px] text-sm">
                 <thead>
-                  <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+                  <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                     <th className="px-2 py-2">Categoría</th>
                     <th className="px-2 py-2 text-right">Ventas</th>
                     <th className="px-2 py-2 text-right">Margen</th>
@@ -284,7 +291,7 @@ export function AdminDashboard() {
                     <th className="px-2 py-2 text-right">Cancel.</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-graphite-100">
+                <tbody className="divide-y divide-black/[0.05]">
                   {categoryPerformance.map((c) => (
                     <tr key={c.category}>
                       <td className="px-2 py-2.5 font-semibold text-graphite-800">{c.category}</td>

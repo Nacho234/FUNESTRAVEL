@@ -218,8 +218,8 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
       <div className="overflow-x-auto pb-2">
         <div className="grid min-w-[1080px] grid-cols-5 gap-3">
           {columns.map((col) => (
-            <div key={col.status} className="rounded-xl border border-graphite-200/70 bg-sand-50/50">
-              <div className="border-b border-graphite-100 px-3 py-2.5">
+            <div key={col.status} className="rounded-xl border border-black/[0.07]/70 bg-sand-50/50">
+              <div className="border-b border-black/[0.05] px-3 py-2.5">
                 <p className="text-xs font-bold uppercase tracking-wide text-graphite-600">{col.status}</p>
                 <p className="mt-0.5 text-[0.6875rem] text-graphite-500 tabular">
                   {col.items.length} · {usd(col.totalUsd)}
@@ -234,7 +234,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                     <button
                       key={q.id}
                       onClick={() => openEditor(q)}
-                      className="block w-full rounded-lg border border-graphite-200/70 bg-white p-3 text-left transition-colors hover:border-teal-500/60 cursor-pointer"
+                      className="block w-full rounded-lg border border-black/[0.07]/70 bg-white p-3 text-left transition-colors hover:border-teal-500/60 cursor-pointer"
                     >
                       <p className="text-xs font-bold text-petrol-900 tabular">
                         {q.id}
@@ -262,9 +262,9 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
 
       {/* Expired */}
       {expired.length > 0 && (
-        <section className="mt-4 rounded-xl border border-graphite-200/70 bg-white p-4">
+        <section className="mt-4 rounded-xl border border-black/[0.07]/70 bg-white p-4">
           <h2 className="text-sm font-bold text-petrol-900">Vencidas y archivadas</h2>
-          <ul className="mt-2 divide-y divide-graphite-100">
+          <ul className="mt-2 divide-y divide-black/[0.05]">
             {expired.map((q) => (
               <li key={q.id} className="flex flex-wrap items-center justify-between gap-2 py-2.5 text-sm">
                 <div>
@@ -304,7 +304,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                   id="q-customer"
                   value={selected.customer}
                   onChange={(e) => setSelected((s) => (s ? { ...s, customer: e.target.value } : s))}
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                   placeholder="Nombre del cliente"
                 />
               </div>
@@ -316,7 +316,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                   id="q-dest"
                   value={selected.destination}
                   onChange={(e) => setSelected((s) => (s ? { ...s, destination: e.target.value } : s))}
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                   placeholder="Destino del viaje"
                 />
               </div>
@@ -328,7 +328,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                   id="q-travelers"
                   value={selected.travelers}
                   onChange={(e) => setSelected((s) => (s ? { ...s, travelers: e.target.value } : s))}
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -343,7 +343,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                     setDraft((d) => (d ? { ...d, validUntil: e.target.value } : d));
                     setSelected((s) => (s ? { ...s, validUntil: e.target.value } : s));
                   }}
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -352,7 +352,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
             <section className="space-y-3">
               <h3 className="text-sm font-bold text-petrol-900">Opciones de la propuesta</h3>
               {draft.options.map((opt, i) => (
-                <div key={opt.tier} className={`rounded-xl border p-4 ${opt.included ? "border-graphite-200/70 bg-white" : "border-dashed border-graphite-200 bg-sand-50/50 opacity-70"}`}>
+                <div key={opt.tier} className={`rounded-xl border p-4 ${opt.included ? "border-black/[0.07]/70 bg-white" : "border-dashed border-black/[0.07] bg-sand-50/50 opacity-70"}`}>
                   <div className="mb-3 flex items-center justify-between">
                     <p className="text-sm font-bold capitalize text-petrol-900">Opción {opt.tier}</p>
                     <label className="flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-graphite-600">
@@ -382,7 +382,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                           id={`opt-${i}-${key}`}
                           value={opt[key]}
                           onChange={(e) => updateOption(i, { [key]: e.target.value })}
-                          className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-sm focus:border-teal-500 focus:outline-none"
+                          className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-sm focus:border-teal-500 focus:outline-none"
                         />
                       </div>
                     ))}
@@ -394,7 +394,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                         id={`opt-${i}-regime`}
                         value={opt.regime}
                         onChange={(e) => updateOption(i, { regime: e.target.value })}
-                        className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                        className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
                       >
                         {["Solo alojamiento", "Desayuno", "Media pensión", "Pensión completa", "All inclusive", "Plan de comidas Disney"].map((r) => (
                           <option key={r}>{r}</option>
@@ -412,7 +412,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                           min={0}
                           value={opt.priceUsd}
                           onChange={(e) => updateOption(i, { priceUsd: Number(e.target.value) })}
-                          className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-sm tabular focus:border-teal-500 focus:outline-none"
+                          className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-sm tabular focus:border-teal-500 focus:outline-none"
                         />
                       </div>
                       <div>
@@ -423,7 +423,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                           id={`opt-${i}-inst`}
                           value={opt.installments}
                           onChange={(e) => updateOption(i, { installments: e.target.value })}
-                          className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                          className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
                         >
                           {["Contado", "3 cuotas", "6 cuotas", "12 cuotas"].map((c) => (
                             <option key={c}>{c}</option>
@@ -451,7 +451,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                       max={40}
                       value={draft.marginPct}
                       onChange={(e) => setDraft((d) => (d ? { ...d, marginPct: Number(e.target.value) } : d))}
-                      className="w-20 rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
+                      className="w-20 rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-2 text-sm tabular focus:border-teal-500 focus:outline-none"
                     />
                     <span className="text-sm text-graphite-500">%</span>
                   </div>
@@ -468,7 +468,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
                   rows={2}
                   value={draft.conditions}
                   onChange={(e) => setDraft((d) => (d ? { ...d, conditions: e.target.value } : d))}
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -486,7 +486,7 @@ export function QuotesPipeline({ openNew = false }: { openNew?: boolean }) {
             )}
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-2 border-t border-graphite-100 pt-4">
+            <div className="flex flex-wrap gap-2 border-t border-black/[0.05] pt-4">
               <AdminButton variant="secondary" onClick={saveDraft}>
                 Guardar borrador
               </AdminButton>

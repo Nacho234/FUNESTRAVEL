@@ -81,7 +81,7 @@ function ConversationThread({
   return (
     <div className="flex h-full min-h-0 flex-col">
       {/* Header */}
-      <div className="border-b border-graphite-100 pb-3">
+      <div className="border-b border-black/[0.05] pb-3">
         <div className="flex flex-wrap items-center gap-3">
           <Image src={`https://i.pravatar.cc/64?img=${conv.avatarId}`} alt="" width={38} height={38} className="rounded-full" />
           <div className="min-w-0 flex-1">
@@ -97,7 +97,7 @@ function ConversationThread({
               onUpdate((c) => ({ ...c, status: e.target.value as ConversationStatus }));
               showToast(`Estado: ${e.target.value}`);
             }}
-            className="rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-xs font-semibold cursor-pointer focus:border-teal-500 focus:outline-none"
+            className="rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-xs font-semibold cursor-pointer focus:border-teal-500 focus:outline-none"
             aria-label="Estado de la conversación"
           >
             {statusOptions.map((s) => (
@@ -114,7 +114,7 @@ function ConversationThread({
               onUpdate((c) => ({ ...c, advisor: e.target.value }));
               showToast(`Asignada a ${e.target.value}`);
             }}
-            className="rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-xs cursor-pointer focus:border-teal-500 focus:outline-none"
+            className="rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-xs cursor-pointer focus:border-teal-500 focus:outline-none"
             aria-label="Asignar asesor"
           >
             {advisors.map((a) => (
@@ -123,7 +123,7 @@ function ConversationThread({
           </select>
           <Link
             href="/admin/cotizaciones?nueva=1"
-            className="rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-xs font-semibold text-petrol-900 hover:border-petrol-600"
+            className="rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-xs font-semibold text-petrol-900 hover:border-petrol-600"
           >
             Convertir en cotización
           </Link>
@@ -139,7 +139,7 @@ function ConversationThread({
               type="date"
               value={followUp}
               onChange={(e) => setFollowUp(e.target.value)}
-              className="rounded-[var(--radius-control)] border border-graphite-200 px-2 py-1.5 text-xs focus:border-teal-500 focus:outline-none"
+              className="rounded-[var(--radius-control)] border border-black/[0.07] px-2 py-1.5 text-xs focus:border-teal-500 focus:outline-none"
             />
             <AdminButton
               size="sm"
@@ -171,7 +171,7 @@ function ConversationThread({
       </div>
 
       {/* Internal notes */}
-      <div className="border-t border-graphite-100 pt-2.5">
+      <div className="border-t border-black/[0.05] pt-2.5">
         <button
           onClick={() => setNotesOpen((o) => !o)}
           className="flex w-full items-center justify-between rounded-lg bg-warning-100/40 px-3 py-2 text-xs font-semibold text-warning-700 cursor-pointer"
@@ -202,7 +202,7 @@ function ConversationThread({
             <button
               key={q.label}
               onClick={() => setReply((r) => (r ? `${r}\n${q.text}` : q.text))}
-              className="rounded-full border border-graphite-200 px-2.5 py-1 text-xs font-medium text-graphite-600 hover:border-teal-500 hover:text-petrol-800 cursor-pointer"
+              className="rounded-full border border-black/[0.07] px-2.5 py-1 text-xs font-medium text-graphite-600 hover:border-teal-500 hover:text-petrol-800 cursor-pointer"
             >
               {q.label}
             </button>
@@ -214,7 +214,7 @@ function ConversationThread({
             value={reply}
             onChange={(e) => setReply(e.target.value)}
             placeholder={`Responder por ${channelMeta[conv.channel].label}…`}
-            className="min-h-[3.25rem] flex-1 rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+            className="min-h-[3.25rem] flex-1 rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
             aria-label="Respuesta"
           />
           <AdminButton onClick={send} aria-label="Enviar respuesta">
@@ -257,12 +257,12 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
 
   const list = (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="space-y-2 border-b border-graphite-100 pb-3">
+      <div className="space-y-2 border-b border-black/[0.05] pb-3">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar conversaciones…"
-          className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+          className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
           aria-label="Buscar conversaciones"
         />
         <div className="flex gap-1.5">
@@ -277,7 +277,7 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
               key={f.label}
               value={f.v}
               onChange={(e) => f.set(e.target.value)}
-              className="min-w-0 flex-1 rounded-[var(--radius-control)] border border-graphite-200 px-2 py-1.5 text-xs cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="min-w-0 flex-1 rounded-[var(--radius-control)] border border-black/[0.07] px-2 py-1.5 text-xs cursor-pointer focus:border-teal-500 focus:outline-none"
               aria-label={f.label}
             >
               <option value="">{f.label}</option>
@@ -290,7 +290,7 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
           ))}
         </div>
       </div>
-      <ul className="min-h-0 flex-1 divide-y divide-graphite-100 overflow-y-auto">
+      <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] overflow-y-auto">
         {filtered.length === 0 && (
           <li className="p-4">
             <EmptyState title="Sin conversaciones" detail="Probá quitar filtros o creá una consulta manual." />
@@ -341,8 +341,8 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
         actions={<AdminButton onClick={() => setCreating(true)}>Crear consulta</AdminButton>}
       />
 
-      <div className="grid h-[calc(100dvh-16rem)] min-h-[480px] grid-cols-1 overflow-hidden rounded-xl border border-graphite-200/70 bg-white lg:grid-cols-[360px_1fr]">
-        <div className="min-h-0 border-r border-graphite-100 p-3">{list}</div>
+      <div className="grid h-[calc(100dvh-16rem)] min-h-[480px] grid-cols-1 overflow-hidden rounded-xl border border-black/[0.07]/70 bg-white lg:grid-cols-[360px_1fr]">
+        <div className="min-h-0 border-r border-black/[0.05] p-3">{list}</div>
         <div className="hidden min-h-0 p-4 lg:block">
           {active ? (
             <ConversationThread conv={active} onUpdate={updateActive} showToast={showToast} />
@@ -402,7 +402,7 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
               id="mc-cliente"
               value={draft.customer}
               onChange={(e) => setDraft((d) => ({ ...d, customer: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
             />
           </div>
           <div>
@@ -413,7 +413,7 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
               id="mc-canal"
               value={draft.channel}
               onChange={(e) => setDraft((d) => ({ ...d, channel: e.target.value as ConversationChannel }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
             >
               {Object.entries(channelMeta).map(([id, m]) => (
                 <option key={id} value={id}>
@@ -431,7 +431,7 @@ export function InboxView({ startCreating = false }: { startCreating?: boolean }
               rows={4}
               value={draft.message}
               onChange={(e) => setDraft((d) => ({ ...d, message: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               placeholder="Qué consultó el cliente y qué quedó pendiente."
             />
           </div>

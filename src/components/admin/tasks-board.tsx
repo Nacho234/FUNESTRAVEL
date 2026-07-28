@@ -116,7 +116,7 @@ export function TasksBoard() {
                 id="task-assignee"
                 value={selected.assignee}
                 onChange={(e) => reassign(selected.id, e.target.value)}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               >
                 {assignees.map((a) => (
                   <option key={a}>{a}</option>
@@ -149,7 +149,7 @@ export function TasksBoard() {
                 rows={3}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 placeholder="Visible para el equipo en el historial de la tarea."
               />
             </div>
@@ -160,7 +160,7 @@ export function TasksBoard() {
                 </AdminButton>
               )}
               {selected.relatedHref && (
-                <a href={selected.relatedHref} className="inline-flex items-center rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600">
+                <a href={selected.relatedHref} className="inline-flex items-center rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600">
                   Abrir registro relacionado
                 </a>
               )}

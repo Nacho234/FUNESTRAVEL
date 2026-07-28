@@ -19,7 +19,7 @@ interface EditableRoom {
 }
 
 const inputClass =
-  "w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-2.5 py-1.5 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-2.5 py-1.5 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
 
 function HotelEditor({ hotel, onSaved }: { hotel: Hotel; onSaved: () => void }) {
   const [rooms, setRooms] = useState<EditableRoom[]>(
@@ -62,10 +62,10 @@ function HotelEditor({ hotel, onSaved }: { hotel: Hotel; onSaved: () => void }) 
             <PlusIcon className="size-3.5" aria-hidden /> Agregar
           </AdminButton>
         </div>
-        <div className="overflow-x-auto rounded-lg border border-graphite-100">
+        <div className="overflow-x-auto rounded-lg border border-black/[0.05]">
           <table className="w-full min-w-[520px] text-sm">
             <thead>
-              <tr className="border-b border-graphite-100 bg-sand-50/50 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+              <tr className="border-b border-black/[0.05] bg-sand-50/50 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                 <th className="px-2.5 py-2">Habitación</th>
                 <th className="px-2.5 py-2 text-right">Cap.</th>
                 <th className="px-2.5 py-2">Régimen</th>
@@ -73,7 +73,7 @@ function HotelEditor({ hotel, onSaved }: { hotel: Hotel; onSaved: () => void }) 
                 <th className="px-2.5 py-2 text-right">Disp.</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-graphite-100">
+            <tbody className="divide-y divide-black/[0.05]">
               {rooms.map((r, i) => (
                 <tr key={r.id}>
                   <td className="px-2.5 py-2">
@@ -102,7 +102,7 @@ function HotelEditor({ hotel, onSaved }: { hotel: Hotel; onSaved: () => void }) 
         </div>
       </div>
 
-      <div className="border-t border-graphite-100 pt-4">
+      <div className="border-t border-black/[0.05] pt-4">
         <AdminButton onClick={onSaved}>Guardar cambios (demo)</AdminButton>
       </div>
     </div>

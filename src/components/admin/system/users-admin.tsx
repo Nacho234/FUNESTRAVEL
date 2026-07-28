@@ -143,7 +143,7 @@ export function UsersAdmin() {
                   update(selected.id, { role: e.target.value as AdminUser["role"] });
                   showToast("Rol actualizado");
                 }}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none disabled:opacity-50"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none disabled:opacity-50"
               >
                 {adminRoles.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -214,11 +214,11 @@ export function UsersAdmin() {
         <div className="space-y-4">
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Correo</span>
-            <input id="invite-email" type="email" placeholder="nombre@funestravel.com.ar" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+            <input id="invite-email" type="email" placeholder="nombre@funestravel.com.ar" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Rol</span>
-            <select id="invite-role" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+            <select id="invite-role" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
               {adminRoles.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.name}

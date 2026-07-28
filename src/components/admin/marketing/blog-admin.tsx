@@ -139,11 +139,11 @@ export function BlogAdmin({ openNew = false }: { openNew?: boolean }) {
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-1 block font-semibold text-graphite-800">Título</span>
-                <input value={selected.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input value={selected.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Categoría</span>
-                <select value={selected.category} onChange={(e) => patch({ category: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+                <select value={selected.category} onChange={(e) => patch({ category: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
                   {categories.map((c) => (
                     <option key={c}>{c}</option>
                   ))}
@@ -151,7 +151,7 @@ export function BlogAdmin({ openNew = false }: { openNew?: boolean }) {
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Estado</span>
-                <select value={selected.status} onChange={(e) => patch({ status: e.target.value as BlogRow["status"] })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+                <select value={selected.status} onChange={(e) => patch({ status: e.target.value as BlogRow["status"] })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
                   {["borrador", "en revisión", "programado", "publicado"].map((s) => (
                     <option key={s}>{s}</option>
                   ))}
@@ -160,12 +160,12 @@ export function BlogAdmin({ openNew = false }: { openNew?: boolean }) {
               {selected.status === "programado" && (
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Fecha programada</span>
-                  <input type="date" value={selected.date} onChange={(e) => patch({ date: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input type="date" value={selected.date} onChange={(e) => patch({ date: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
               )}
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-1 block font-semibold text-graphite-800">Imagen de portada (URL)</span>
-                <input value={selected.image ?? ""} onChange={(e) => patch({ image: e.target.value })} placeholder="https://…" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input value={selected.image ?? ""} onChange={(e) => patch({ image: e.target.value })} placeholder="https://…" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
             </div>
             {selected.image && (
@@ -174,19 +174,19 @@ export function BlogAdmin({ openNew = false }: { openNew?: boolean }) {
             )}
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-graphite-800">Extracto (también usado como description SEO)</span>
-              <textarea rows={2} value={selected.excerpt} onChange={(e) => patch({ excerpt: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+              <textarea rows={2} value={selected.excerpt} onChange={(e) => patch({ excerpt: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               <span className={`mt-1 block text-xs tabular ${selected.excerpt.length > 160 ? "text-danger-700" : "text-graphite-400"}`}>
                 {selected.excerpt.length}/160 caracteres
               </span>
             </label>
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-graphite-800">Cuerpo (un párrafo por bloque, separados por línea en blanco)</span>
-              <textarea rows={8} value={selected.body} onChange={(e) => patch({ body: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm leading-relaxed focus:border-teal-500 focus:outline-none" />
+              <textarea rows={8} value={selected.body} onChange={(e) => patch({ body: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm leading-relaxed focus:border-teal-500 focus:outline-none" />
             </label>
             <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-sand-200 pt-4">
               <AdminButton onClick={save}>Guardar</AdminButton>
               {selected.published && selected.slug && (
-                <Link href={`/inspiracion/${selected.slug}`} target="_blank" className="inline-flex items-center rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600">
+                <Link href={`/inspiracion/${selected.slug}`} target="_blank" className="inline-flex items-center rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600">
                   Ver en el sitio
                 </Link>
               )}

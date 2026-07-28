@@ -81,7 +81,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
           href={`https://wa.me/549${customer.phone.replaceAll(" ", "")}?text=${encodeURIComponent(`Hola ${customer.name.split(" ")[0]}! Te escribimos de Funes Travel.`)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-positive-700 hover:border-positive-700 transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-positive-700 hover:border-positive-700 transition-colors"
         >
           <WhatsappLogoIcon className="size-4" aria-hidden /> WhatsApp
         </a>
@@ -91,7 +91,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
       </div>
 
       {/* Tabs */}
-      <div className="mt-5 flex gap-1 border-b border-graphite-100" role="tablist" aria-label="Secciones del cliente">
+      <div className="mt-5 flex gap-1 border-b border-black/[0.05]" role="tablist" aria-label="Secciones del cliente">
         {tabs.map((t) => (
           <button
             key={t}
@@ -147,7 +147,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
               {bookings.length === 0 ? (
                 <p className="text-sm text-graphite-500">Sin reservas registradas a su nombre.</p>
               ) : (
-                <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+                <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                   {bookings.map((b) => (
                     <li key={b.code} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
                       <div>
@@ -169,7 +169,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
               {quotes.length === 0 ? (
                 <p className="text-sm text-graphite-500">Sin cotizaciones abiertas.</p>
               ) : (
-                <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+                <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                   {quotes.map((q) => (
                     <li key={q.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
                       <div>
@@ -194,7 +194,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
             {documents.length === 0 ? (
               <EmptyState title="Sin documentos" detail="Este cliente todavía no tiene documentación cargada." />
             ) : (
-              <ul className="divide-y divide-graphite-100 rounded-xl border border-graphite-200/70">
+              <ul className="divide-y divide-black/[0.05] rounded-xl border border-black/[0.07]/70">
                 {documents.map((d) => (
                   <li key={d.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
                     <div>
@@ -233,7 +233,7 @@ function CustomerProfile({ customer, onNote }: { customer: CrmCustomer; onNote: 
                 rows={3}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 placeholder="Visible solo para el equipo."
               />
               <AdminButton
@@ -407,7 +407,7 @@ export function ClientsView({ startCreating = false }: { startCreating?: boolean
                 type={f.type}
                 value={draft[f.id]}
                 onChange={(e) => setDraft((d) => ({ ...d, [f.id]: e.target.value }))}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               />
             </div>
           ))}
@@ -420,7 +420,7 @@ export function ClientsView({ startCreating = false }: { startCreating?: boolean
                 id="nc-city"
                 value={draft.city}
                 onChange={(e) => setDraft((d) => ({ ...d, city: e.target.value }))}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               >
                 {["Funes", "Rosario", "Roldán", "Pérez"].map((c) => (
                   <option key={c}>{c}</option>
@@ -435,7 +435,7 @@ export function ClientsView({ startCreating = false }: { startCreating?: boolean
                 id="nc-seg"
                 value={draft.segment}
                 onChange={(e) => setDraft((d) => ({ ...d, segment: e.target.value as CustomerSegment }))}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none"
               >
                 {["nuevo", "frecuente", "VIP", "familia", "pareja", "grupal"].map((s) => (
                   <option key={s} value={s}>

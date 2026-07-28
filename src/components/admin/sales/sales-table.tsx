@@ -13,6 +13,7 @@ import {
   useToast,
   type Column,
   type FilterDef,
+  NameCell,
 } from "../ui";
 import { usePermissions } from "./permissions";
 
@@ -31,7 +32,7 @@ export function SalesTable() {
 
   const columns: Column<AdminSale>[] = [
     { id: "id", header: "Número", essential: true, cell: (s) => <span className="font-semibold text-petrol-900 tabular">{s.id}</span>, sortValue: (s) => s.id },
-    { id: "customer", header: "Cliente", essential: true, cell: (s) => s.customer, sortValue: (s) => s.customer },
+    { id: "customer", header: "Cliente", essential: true, cell: (s) => <NameCell name={s.customer} />, sortValue: (s) => s.customer },
     {
       id: "product",
       header: "Producto",
@@ -121,7 +122,7 @@ export function SalesTable() {
 
             <section>
               <h3 className="mb-2 text-sm font-bold text-petrol-900">Desglose</h3>
-              <dl className="space-y-1.5 rounded-xl border border-graphite-200/70 bg-sand-50/50 p-4 text-sm">
+              <dl className="space-y-1.5 rounded-xl border border-black/[0.07]/70 bg-sand-50/50 p-4 text-sm">
                 <div className="flex justify-between">
                   <dt className="text-graphite-600">Precio de venta</dt>
                   <dd className="font-semibold tabular">{usd(selected.totalUsd)}</dd>
@@ -145,14 +146,14 @@ export function SalesTable() {
                   <dd className="tabular">{usd(selected.commissionUsd)}</dd>
                 </div>
                 {canMargins ? (
-                  <div className="flex justify-between border-t border-graphite-200/70 pt-1.5">
+                  <div className="flex justify-between border-t border-black/[0.07]/70 pt-1.5">
                     <dt className="font-semibold text-graphite-800">Margen</dt>
                     <dd className="font-bold text-petrol-900 tabular">
                       {usd(selected.marginUsd)} ({selected.marginPct.toLocaleString("es-AR")}%)
                     </dd>
                   </div>
                 ) : (
-                  <p className="border-t border-graphite-200/70 pt-1.5 text-xs text-graphite-500">
+                  <p className="border-t border-black/[0.07]/70 pt-1.5 text-xs text-graphite-500">
                     Costos y margen visibles solo para roles con permiso financiero.
                   </p>
                 )}
@@ -174,7 +175,7 @@ export function SalesTable() {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Visible solo para el equipo."
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               />
               <AdminButton
                 variant="ghost"
@@ -191,7 +192,7 @@ export function SalesTable() {
               </AdminButton>
             </section>
 
-            <section className="space-y-2 border-t border-graphite-100 pt-4">
+            <section className="space-y-2 border-t border-black/[0.05] pt-4">
               <div className="flex flex-wrap gap-2">
                 <AdminButton onClick={() => showToast("Pago registrado (demo)")}>Registrar pago</AdminButton>
                 <AdminButton variant="secondary" onClick={() => showToast("Convertida en reserva (demo)")}>

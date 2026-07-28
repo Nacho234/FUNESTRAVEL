@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -12,6 +12,19 @@ const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
   subsets: ["latin"],
   display: "swap",
+});
+
+/**
+ * Editorial accent, italic only: used to lift a single word inside a display
+ * headline. Not preloaded on purpose, it never carries above-the-fold copy.
+ */
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  style: ["italic"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -37,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="es-AR"
-      className={`${bricolage.variable} ${hanken.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${hanken.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

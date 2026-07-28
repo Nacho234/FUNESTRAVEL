@@ -5,6 +5,12 @@ import { IMG } from "./img";
  * Content for the home "experience finder". The section renders whatever is
  * active here, ordered by `order`. `defaultExperienceSlug` decides the initial
  * selection and can be overridden with ?experiencia=<slug> in the URL.
+ *
+ * Each entry drives the whole visual panel: `imageDesktop` / `imageMobile` are
+ * the panel background for that travel style, `eyebrow` / `title` /
+ * `description` / `facts` the overlaid copy, `destinations` the bottom strip
+ * and `ctaLabel` / `secondaryCtaLabel` the two actions. Swapping a background
+ * per category is a one-line edit here, never a layout change.
  */
 
 export const defaultExperienceSlug = "pareja";
@@ -15,6 +21,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "pareja",
     name: "Viajes en pareja",
     shortPhrase: "Escapadas, playas y ciudades para compartir sin apuro.",
+    eyebrow: "Experiencia seleccionada",
     title: "Escapadas para disfrutar de a dos",
     description:
       "Destinos con buenos hoteles, gastronomía y experiencias para compartir sin itinerarios apresurados.",
@@ -29,6 +36,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes en pareja",
     ctaHref: "/paquetes?estilo=Pareja",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 1,
     active: true,
   },
@@ -37,6 +46,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "familia",
     name: "En familia",
     shortPhrase: "Planes que funcionan para grandes y chicos.",
+    eyebrow: "Experiencia seleccionada",
     title: "Viajes pensados para grandes y chicos",
     description:
       "Alojamientos cómodos, actividades para diferentes edades y recorridos organizados para viajar con tranquilidad.",
@@ -51,6 +61,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes en familia",
     ctaHref: "/paquetes?estilo=Familia",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 2,
     active: true,
   },
@@ -59,6 +71,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "amigos",
     name: "Con amigos",
     shortPhrase: "Grupos que se organizan una vez y lo disfrutan todos.",
+    eyebrow: "Experiencia seleccionada",
     title: "Viajes para compartir desde el primer día",
     description:
       "Playa, ciudades y experiencias grupales con opciones flexibles para organizarse entre todos.",
@@ -73,6 +86,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes con amigos",
     ctaHref: "/paquetes?estilo=Amigos",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 3,
     active: true,
   },
@@ -81,6 +96,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "aventura",
     name: "Aventura",
     shortPhrase: "Naturaleza, trekking y paisajes fuera de lo común.",
+    eyebrow: "Experiencia seleccionada",
     title: "Destinos que se recorren en movimiento",
     description:
       "Trekking, naturaleza, navegación y paisajes que vale la pena descubrir fuera de los recorridos tradicionales.",
@@ -95,6 +111,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes de aventura",
     ctaHref: "/paquetes?estilo=Aventura",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 4,
     active: true,
   },
@@ -103,6 +121,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "gastronomia",
     name: "Gastronomía",
     shortPhrase: "Mercados, bodegas y mesas que cuentan el destino.",
+    eyebrow: "Experiencia seleccionada",
     title: "Viajar también es descubrir nuevos sabores",
     description:
       "Circuitos que combinan cocina local, mercados, vinos y experiencias gastronómicas en cada destino.",
@@ -117,6 +136,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes gastronómicos",
     ctaHref: "/paquetes?estilo=Gastronomía",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 5,
     active: true,
   },
@@ -125,6 +146,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "nieve",
     name: "Nieve",
     shortPhrase: "Montaña, esquí y días de invierno bien organizados.",
+    eyebrow: "Experiencia seleccionada",
     title: "Montaña, nieve y días de invierno",
     description:
       "Paquetes con alojamiento, traslados y opciones para esquiar o simplemente disfrutar del paisaje.",
@@ -139,6 +161,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes a la nieve",
     ctaHref: "/paquetes?estilo=Nieve",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 6,
     active: true,
   },
@@ -147,6 +171,7 @@ export const travelExperiences: TravelExperience[] = [
     slug: "playa-relax",
     name: "Playa y relax",
     shortPhrase: "Mar, resorts y descanso sin logística encima.",
+    eyebrow: "Experiencia seleccionada",
     title: "Días para bajar el ritmo",
     description:
       "Playas, resorts y destinos costeros para descansar con servicios organizados desde antes de salir.",
@@ -161,6 +186,8 @@ export const travelExperiences: TravelExperience[] = [
     ],
     ctaLabel: "Ver viajes de playa",
     ctaHref: "/paquetes?estilo=Playa",
+    secondaryCtaLabel: "Diseñar un viaje a medida",
+    secondaryCtaHref: "/viajes-a-medida",
     order: 7,
     active: true,
   },
