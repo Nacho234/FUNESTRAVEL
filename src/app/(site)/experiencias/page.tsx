@@ -30,10 +30,10 @@ export default function ExperiencesPage() {
       </p>
 
       <div className="mt-8 space-y-5">
-        {stories.map((story) => (
+        {stories.map((story, i) => (
           <article key={story.id} className="grid overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-lift)] sm:grid-cols-[220px_1fr]">
             <div className="relative h-44 sm:h-full min-h-44">
-              <Image src={story.tripImages[0]} alt={story.tripImageAlt} fill sizes="(max-width: 640px) 100vw, 220px" className="object-cover" />
+              <Image src={story.tripImages[0]} alt={story.tripImageAlt} fill sizes="(max-width: 640px) 100vw, 220px" priority={i === 0} className="object-cover" />
             </div>
             <div className="p-5 sm:p-6">
               <div className="flex flex-wrap items-center gap-2">

@@ -132,8 +132,29 @@ export function TravelStories() {
   if (!featured) return null;
 
   return (
-    <section className="bg-sand-50 border-y border-sand-200/60">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-white border-y border-sand-200/60">
+      {/*
+        Cartographic artwork anchored to the bottom at its own aspect ratio, so
+        the coastline, the peaks and the compass never get cropped sideways.
+        No blend mode and no opacity: the artwork's own white background matches
+        the section, so it renders exactly as delivered.
+      */}
+      <div
+        aria-hidden
+        /* Narrow screens get a taller fixed band, or the artwork lands at ~220px
+           and disappears; from sm up it keeps its natural aspect. */
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-64 sm:h-auto sm:aspect-[1800/1013]"
+      >
+        <Image
+          src="/images/travel-stories-background.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-16 lg:py-24">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
             <div className="max-w-xl">

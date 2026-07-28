@@ -46,6 +46,8 @@
   /* Typography */
   --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
   --font-sans: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+  /* Italic-only accent for single words inside display headlines. */
+  --font-accent: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
 
   /* Radii: soft system — cards 16, controls 10, pills for chips/badges only */
   --radius-card: 1rem;

@@ -511,7 +511,7 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
                   setOpenGroups(next);
                   persistUi({ openGroups: next });
                 }}
-                className="flex w-full items-center justify-between px-3 pb-1 text-[0.625rem] font-bold uppercase tracking-[0.14em] text-petrol-100/50 hover:text-petrol-100/80 cursor-pointer"
+                className="flex w-full cursor-pointer items-center justify-between px-3 pb-1.5 text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-graphite-400 hover:text-graphite-600"
                 aria-expanded={open}
               >
                 {group.label}
@@ -527,15 +527,17 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
                       <Link
                         href={item.href}
                         title={collapsed ? item.label : undefined}
-                        className={`flex items-center gap-2.5 rounded-lg px-3 py-[7px] text-[0.8125rem] font-medium transition-colors ${
-                          active ? "bg-white/10 text-ivory" : "text-petrol-100/70 hover:bg-white/5 hover:text-ivory"
+                        className={`flex items-center gap-2.5 rounded-[10px] px-3 py-[7px] text-[0.8125rem] transition-colors ${
+                          active
+                            ? "border border-black/[0.06] bg-white font-semibold text-petrol-950 shadow-[0_1px_2px_rgb(16_24_40_/_0.06)]"
+                            : "border border-transparent font-medium text-graphite-600 hover:bg-black/[0.035] hover:text-petrol-950"
                         } ${collapsed ? "justify-center px-0" : ""}`}
                         aria-current={active ? "page" : undefined}
                       >
                         <item.icon className="size-[18px] shrink-0" aria-hidden />
                         {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
                         {!collapsed && item.count && (
-                          <span className="rounded-full bg-coral-500/90 px-1.5 text-[0.625rem] font-bold leading-4 text-white tabular">
+                          <span className="rounded-full bg-coral-500/12 px-1.5 text-[0.625rem] font-bold leading-4 text-coral-600 tabular">
                             {item.count}
                           </span>
                         )}
@@ -552,25 +554,66 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
   );
 
   return (
-    <div className="flex min-h-[100dvh] bg-ivory text-graphite-800">
+    <div className="min-h-[100dvh] bg-[#edebe7] text-graphite-800 lg:p-3.5">
+      <div className="flex min-h-[100dvh] overflow-hidden bg-white lg:min-h-[calc(100dvh-1.75rem)] lg:rounded-[18px] lg:border lg:border-black/[0.06] lg:shadow-[0_1px_3px_rgb(16_24_40_/_0.06)]">
       {/* Sidebar (desktop) */}
       <aside
-        className={`sticky top-0 hidden h-[100dvh] shrink-0 flex-col bg-petrol-950 transition-[width] duration-200 lg:flex ${
-          collapsed ? "w-16" : "w-60"
+        className={`sticky top-0 hidden h-[100dvh] shrink-0 flex-col border-r border-black/[0.06] bg-[#fbfaf9] transition-[width] duration-200 lg:flex lg:h-[calc(100dvh-1.75rem)] ${
+          collapsed ? "w-[68px]" : "w-64"
         }`}
       >
-        <div className={`flex items-center gap-2 px-4 py-4 ${collapsed ? "justify-center px-0" : ""}`}>
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white/10 text-ivory">
+        <div className={`flex items-center gap-2.5 px-4 pb-3 pt-4 ${collapsed ? "justify-center px-0" : ""}`}>
+          <span className="grid size-8 shrink-0 place-items-center rounded-[10px] bg-petrol-950 text-ivory">
             <AirplaneTiltIcon weight="fill" className="size-4.5" aria-hidden />
           </span>
           {!collapsed && (
-            <p className="font-display text-sm font-bold text-ivory">
-              Funes Travel <span className="text-teal-100">· Admin</span>
+            <p className="font-display text-sm font-bold text-petrol-950">
+              Funes Travel <span className="font-medium text-graphite-400">· Admin</span>
             </p>
           )}
         </div>
+
+        {/* Account card */}
+        {!collapsed && (
+          <div className="mx-3 mb-4 flex items-center gap-2.5 rounded-xl border border-black/[0.06] bg-white p-2.5 shadow-[0_1px_2px_rgb(16_24_40_/_0.05)]">
+            <Image
+              src={oauthUser?.image ?? "https://i.pravatar.cc/64?img=20"}
+              alt=""
+              width={32}
+              height={32}
+              className="size-8 rounded-full"
+            />
+            <div className="min-w-0 flex-1 leading-tight">
+              <p className="truncate text-[0.8125rem] font-semibold text-petrol-950">{activeSession?.name}</p>
+              <p className="truncate text-[0.6875rem] text-graphite-500">{roleName}</p>
+            </div>
+            <button
+              onClick={logout}
+              className="grid size-7 shrink-0 cursor-pointer place-items-center rounded-lg text-graphite-400 hover:bg-graphite-100 hover:text-danger-700"
+              aria-label="Cerrar sesión"
+            >
+              <SignOutIcon className="size-4" aria-hidden />
+            </button>
+          </div>
+        )}
+
         <div className="flex-1 overflow-y-auto px-2.5 pb-4 [scrollbar-width:thin]">{navList}</div>
-        <div className="border-t border-white/10 p-2.5">
+
+        <div className="p-2.5">
+          {!collapsed && (
+            <Link
+              href="/"
+              className="mb-1.5 block rounded-xl border border-black/[0.06] bg-white p-3 text-[0.75rem] leading-snug text-graphite-500 transition-colors hover:border-black/10"
+            >
+              <span className="font-semibold text-petrol-950">Entorno de demostración</span>
+              <br />
+              Los cambios se guardan localmente.
+              <span className="mt-1.5 block font-semibold text-teal-600">
+                <ArrowLeftIcon className="mr-0.5 inline size-3" aria-hidden />
+                Ver sitio público
+              </span>
+            </Link>
+          )}
           <button
             onClick={() => {
               setCollapsed((c) => {
@@ -578,7 +621,7 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
                 return !c;
               });
             }}
-            className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[0.8125rem] font-medium text-petrol-100/70 hover:bg-white/5 hover:text-ivory cursor-pointer ${
+            className={`flex w-full cursor-pointer items-center gap-2.5 rounded-[10px] px-3 py-2 text-[0.8125rem] font-medium text-graphite-500 hover:bg-black/[0.035] hover:text-petrol-950 ${
               collapsed ? "justify-center px-0" : ""
             }`}
           >
@@ -591,11 +634,11 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
       {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Topbar */}
-        <header className="sticky top-0 z-40 border-b border-graphite-200/70 bg-white/95 backdrop-blur">
-          <div className="flex h-14 items-center gap-2 px-4">
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/85 backdrop-blur">
+          <div className="flex h-16 items-center gap-2 px-4 sm:px-5">
             <button
               onClick={() => setMobileOpen(true)}
-              className="grid size-9 place-items-center rounded-lg hover:bg-graphite-100 lg:hidden cursor-pointer"
+              className="grid size-9 cursor-pointer place-items-center rounded-full border border-black/[0.06] hover:bg-graphite-100 lg:hidden"
               aria-label="Abrir menú"
             >
               <SidebarSimpleIcon className="size-5" aria-hidden />
@@ -603,11 +646,11 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
 
             <button
               onClick={() => setPaletteOpen(true)}
-              className="flex min-w-0 flex-1 items-center gap-2 rounded-[var(--radius-control)] border border-graphite-200 bg-sand-50/60 px-3 py-2 text-sm text-graphite-400 hover:border-graphite-300 cursor-pointer sm:max-w-md"
+              className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 rounded-full border border-black/[0.06] bg-[#f6f5f3] px-4 py-2.5 text-[0.8125rem] text-graphite-400 transition-colors hover:border-black/10 sm:max-w-md"
             >
               <MagnifyingGlassIcon className="size-4 shrink-0" aria-hidden />
               <span className="truncate">Buscar o ejecutar una acción…</span>
-              <kbd className="ml-auto hidden rounded border border-graphite-200 bg-white px-1.5 text-[0.625rem] font-semibold text-graphite-400 sm:block">
+              <kbd className="ml-auto hidden rounded-md border border-black/[0.06] bg-white px-1.5 text-[0.625rem] font-semibold text-graphite-400 sm:block">
                 ⌘K
               </kbd>
             </button>
@@ -618,7 +661,7 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
                 <select
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
-                  className="appearance-none rounded-[var(--radius-control)] border border-graphite-200 bg-white py-2 pl-3 pr-7 text-xs font-semibold text-graphite-700 cursor-pointer focus:border-teal-500 focus:outline-none"
+                  className="cursor-pointer appearance-none rounded-full border border-black/[0.06] bg-white py-2 pl-3.5 pr-7 text-xs font-semibold text-graphite-700 focus:border-teal-500 focus:outline-none"
                   aria-label="Sucursal"
                 >
                   {branches.map((b) => (
@@ -632,7 +675,7 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
               {/* Currency */}
               <button
                 onClick={() => setCurrency((c) => (c === "USD" ? "ARS" : "USD"))}
-                className="hidden rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-2 text-xs font-bold text-graphite-700 hover:border-teal-500 cursor-pointer md:block tabular"
+                className="hidden cursor-pointer rounded-full border border-black/[0.06] px-3 py-2 text-xs font-bold text-graphite-700 hover:border-teal-500 md:block tabular"
                 aria-label={`Moneda actual ${currency}, cambiar`}
               >
                 {currency}
@@ -642,7 +685,7 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
               <div className="relative">
                 <button
                   onClick={() => setCreateOpen((o) => !o)}
-                  className="flex items-center gap-1.5 rounded-[var(--radius-control)] bg-coral-500 px-3 py-2 text-xs font-bold text-white hover:bg-coral-600 transition-colors cursor-pointer"
+                  className="flex cursor-pointer items-center gap-1.5 rounded-full bg-petrol-950 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-petrol-900"
                   aria-expanded={createOpen}
                   aria-haspopup="menu"
                 >
@@ -682,49 +725,22 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
               {/* Notifications */}
               <button
                 onClick={() => setNotifOpen(true)}
-                className="relative grid size-9 place-items-center rounded-lg hover:bg-graphite-100 cursor-pointer"
+                className="relative grid size-9 cursor-pointer place-items-center rounded-full border border-black/[0.06] bg-white hover:bg-graphite-100"
                 aria-label={`Notificaciones${unreadCount ? `, ${unreadCount} sin leer` : ""}`}
               >
-                <BellIcon className="size-5 text-graphite-600" aria-hidden />
+                <BellIcon className="size-[18px] text-graphite-600" aria-hidden />
                 {unreadCount > 0 && (
-                  <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-coral-500" aria-hidden />
+                  <span className="absolute right-1 top-1 size-2 rounded-full bg-coral-500 ring-2 ring-white" aria-hidden />
                 )}
               </button>
 
-              {/* User */}
-              <div className="ml-1 flex items-center gap-2 border-l border-graphite-200 pl-3">
-                <Image
-                  src={oauthUser?.image ?? "https://i.pravatar.cc/64?img=20"}
-                  alt=""
-                  width={30}
-                  height={30}
-                  className="rounded-full"
-                />
-                <div className="hidden text-right leading-tight md:block">
-                  <p className="text-xs font-bold text-graphite-800">{activeSession?.name}</p>
-                  <p className="text-[0.625rem] text-graphite-500">{roleName}</p>
-                </div>
-                <button
-                  onClick={logout}
-                  className="grid size-8 place-items-center rounded-lg text-graphite-500 hover:bg-graphite-100 hover:text-danger-700 cursor-pointer"
-                  aria-label="Cerrar sesión"
-                >
-                  <SignOutIcon className="size-4.5" aria-hidden />
-                </button>
-              </div>
             </div>
           </div>
         </header>
 
-        <main className="min-w-0 flex-1 p-4 sm:p-6">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden p-4 sm:p-6 lg:p-7">{children}</main>
 
-        <footer className="border-t border-graphite-200/70 px-6 py-3 text-xs text-graphite-500">
-          Entorno de demostración · los cambios se guardan localmente ·{" "}
-          <Link href="/" className="font-semibold text-teal-600 hover:underline">
-            <ArrowLeftIcon className="mr-0.5 inline size-3" aria-hidden />
-            Ver sitio público
-          </Link>
-        </footer>
+      </div>
       </div>
 
       {/* Mobile sidebar */}
@@ -744,13 +760,13 @@ export function AdminShell({ children, oauthUser }: { children: React.ReactNode;
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-0 top-0 h-full w-72 overflow-y-auto bg-petrol-950 p-4"
+              className="absolute left-0 top-0 h-full w-72 overflow-y-auto bg-[#fbfaf9] p-4"
               onClick={(e) => {
                 if ((e.target as HTMLElement).closest("a")) setMobileOpen(false);
               }}
             >
-              <p className="mb-4 px-2 font-display text-sm font-bold text-ivory">
-                Funes Travel <span className="text-teal-100">· Admin</span>
+              <p className="mb-4 px-2 font-display text-sm font-bold text-petrol-950">
+                Funes Travel <span className="font-medium text-graphite-400">· Admin</span>
               </p>
               {navList}
             </motion.div>

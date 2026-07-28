@@ -69,22 +69,30 @@ export function PageHeader({
 export function SectionCard({
   title,
   description,
+  count,
   actions,
   children,
   className = "",
 }: {
   title?: string;
   description?: string;
+  /** Shown as a pill beside the title, the way the section headers read. */
+  count?: number;
   actions?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <section className={`rounded-xl border border-graphite-200/70 bg-white ${className}`}>
+    <section className={`rounded-2xl border border-black/[0.07] bg-white ${className}`}>
       {(title || actions) && (
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-graphite-100 px-5 py-3.5">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/[0.05] px-5 py-4">
           <div>
-            {title && <h2 className="text-sm font-bold text-petrol-900">{title}</h2>}
+            {title && (
+              <h2 className="flex items-center gap-2 text-sm font-bold text-petrol-900">
+                {title}
+                {count !== undefined && <Counter value={count} />}
+              </h2>
+            )}
             {description && <p className="mt-0.5 text-xs text-graphite-500">{description}</p>}
           </div>
           {actions}
@@ -92,6 +100,56 @@ export function SectionCard({
       )}
       <div className="p-5">{children}</div>
     </section>
+  );
+}
+
+/** Small neutral pill for section counts. */
+export function Counter({ value }: { value: number }) {
+  return (
+    <span className="grid min-w-5 place-items-center rounded-md bg-graphite-100 px-1.5 py-0.5 text-[0.6875rem] font-bold text-graphite-600 tabular">
+      {value}
+    </span>
+  );
+}
+
+/**
+ * Initials in a soft circle. Used as the leading cell of the tables that list
+ * people or companies, so a row is recognisable before it is read.
+ */
+export function Avatar({ name, className = "" }: { name: string; className?: string }) {
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+  const palette = [
+    "bg-teal-50 text-teal-600",
+    "bg-coral-50 text-coral-600",
+    "bg-petrol-50 text-petrol-900",
+    "bg-sand-100 text-graphite-700",
+  ];
+  const tone = palette[name.charCodeAt(0) % palette.length];
+  return (
+    <span
+      aria-hidden
+      className={`grid size-7 shrink-0 place-items-center rounded-full text-[0.625rem] font-bold ${tone} ${className}`}
+    >
+      {initials}
+    </span>
+  );
+}
+
+/** Name with its avatar, for the leading column of a listing. */
+export function NameCell({ name, meta }: { name: ReactNode; meta?: ReactNode }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <Avatar name={typeof name === "string" ? name : "?"} />
+      <div className="min-w-0 leading-tight">
+        <p className="truncate font-semibold text-petrol-900">{name}</p>
+        {meta && <p className="truncate text-[0.6875rem] text-graphite-500">{meta}</p>}
+      </div>
+    </div>
   );
 }
 
@@ -159,7 +217,9 @@ export function StatusBadge({ status, className = "" }: { status: string; classN
   const tone = statusTones[status.toLowerCase()] ?? "bg-graphite-100 text-graphite-600";
   const label = status.replaceAll("-", " ");
   return (
-    <span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${tone} ${className}`}>
+    <span
+      className={`inline-flex whitespace-nowrap rounded-md px-2 py-0.5 text-[0.6875rem] font-semibold capitalize ring-1 ring-inset ring-black/[0.04] ${tone} ${className}`}
+    >
       {label}
     </span>
   );
@@ -178,7 +238,7 @@ export function AdminButton({
 } & React.ComponentProps<"button">) {
   const variants = {
     primary: "bg-coral-500 text-white hover:bg-coral-600",
-    secondary: "border border-graphite-200 bg-white text-petrol-900 hover:border-petrol-600",
+    secondary: "border border-black/[0.07] bg-white text-petrol-900 hover:border-petrol-600",
     ghost: "text-graphite-600 hover:bg-graphite-100 hover:text-petrol-900",
     danger: "border border-danger-100 bg-white text-danger-700 hover:bg-danger-100/50",
   };
@@ -263,7 +323,7 @@ export function Drawer({
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className={`absolute right-0 top-0 flex h-full ${wide ? "w-full max-w-2xl" : "w-full max-w-md"} flex-col bg-white shadow-[var(--shadow-float)]`}
           >
-            <div className="flex items-center justify-between border-b border-graphite-100 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-black/[0.05] px-6 py-4">
               <h2 className="font-display text-lg font-bold text-petrol-900">{title}</h2>
               <button
                 onClick={onClose}
@@ -295,7 +355,7 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-graphite-200 bg-white px-6 py-12 text-center">
+    <div className="rounded-xl border border-dashed border-black/[0.07] bg-white px-6 py-12 text-center">
       {icon && <div className="mx-auto mb-3 grid size-11 place-items-center rounded-full bg-petrol-50 text-petrol-700">{icon}</div>}
       <p className="font-semibold text-graphite-800">{title}</p>
       <p className="mx-auto mt-1 max-w-sm text-sm text-graphite-500">{detail}</p>
@@ -434,7 +494,7 @@ export function DataTable<T>({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-56 rounded-[var(--radius-control)] border border-graphite-200 bg-white py-2 pl-8 pr-3 text-sm text-graphite-800 placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
+              className="w-56 rounded-[var(--radius-control)] border border-black/[0.07] bg-white py-2 pl-8 pr-3 text-sm text-graphite-800 placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
               aria-label={searchPlaceholder}
             />
           </div>
@@ -444,7 +504,7 @@ export function DataTable<T>({
             key={f.id}
             value={filterValues[f.id] ?? ""}
             onChange={(e) => setFilterValues((v) => ({ ...v, [f.id]: e.target.value }))}
-            className="rounded-[var(--radius-control)] border border-graphite-200 bg-white px-2.5 py-2 text-sm text-graphite-700 cursor-pointer focus:border-teal-500 focus:outline-none"
+            className="rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-2.5 py-2 text-sm text-graphite-700 cursor-pointer focus:border-teal-500 focus:outline-none"
             aria-label={f.label}
           >
             <option value="">{f.label}: todos</option>
@@ -461,7 +521,7 @@ export function DataTable<T>({
           </span>
           <button
             onClick={() => setDense((d) => !d)}
-            className="grid size-8 place-items-center rounded-lg border border-graphite-200 text-graphite-500 hover:text-petrol-800 cursor-pointer"
+            className="grid size-8 place-items-center rounded-lg border border-black/[0.07] text-graphite-500 hover:text-petrol-800 cursor-pointer"
             aria-label={dense ? "Densidad cómoda" : "Densidad compacta"}
             aria-pressed={dense}
           >
@@ -470,7 +530,7 @@ export function DataTable<T>({
           {exportName && (
             <button
               onClick={exportCsv}
-              className="flex items-center gap-1.5 rounded-lg border border-graphite-200 px-2.5 py-1.5 text-xs font-semibold text-graphite-600 hover:text-petrol-800 cursor-pointer"
+              className="flex items-center gap-1.5 rounded-lg border border-black/[0.07] px-2.5 py-1.5 text-xs font-semibold text-graphite-600 hover:text-petrol-800 cursor-pointer"
             >
               <DownloadSimpleIcon className="size-4" aria-hidden /> CSV
             </button>
@@ -497,10 +557,10 @@ export function DataTable<T>({
       {filtered.length === 0 ? (
         <EmptyState title={emptyTitle} detail={emptyDetail} />
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-graphite-200/70 bg-white">
+        <div className="overflow-x-auto rounded-xl border border-black/[0.07]/70 bg-white">
           <table className="w-full min-w-[640px] text-sm">
             <thead>
-              <tr className="border-b border-graphite-100 bg-sand-50/50 text-left">
+              <tr className="border-b border-black/[0.05] bg-sand-50/50 text-left">
                 {bulkActions && (
                   <th className={`${cellPad} w-8`}>
                     <input
@@ -538,7 +598,7 @@ export function DataTable<T>({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-graphite-100">
+            <tbody className="divide-y divide-black/[0.05]">
               {pageRows.map((row) => (
                 <tr
                   key={rowKey(row)}

@@ -9,7 +9,7 @@ import { AdminButton, DataTable, Drawer, KVGrid, PageHeader, StatusBadge, useToa
 /** Excursions manager with a compact editor drawer. */
 
 const inputClass =
-  "w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -88,7 +88,7 @@ function ExcursionEditor({ exc, onSaved }: { exc: Excursion; onSaved: () => void
       <Field label="Política climática">
         <textarea rows={2} value={weather} onChange={(e) => setWeather(e.target.value)} className={inputClass} />
       </Field>
-      <div className="border-t border-graphite-100 pt-4">
+      <div className="border-t border-black/[0.05] pt-4">
         <AdminButton onClick={onSaved}>Guardar cambios (demo)</AdminButton>
       </div>
     </div>

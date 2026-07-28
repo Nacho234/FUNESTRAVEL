@@ -12,7 +12,7 @@ const regions = ["Argentina", "Brasil", "Caribe", "Estados Unidos", "Europa", "S
 const idealForOptions = ["Playa", "Nieve", "Aventura", "Familia", "Pareja", "Luna de miel", "Gastronomía", "Cultura", "Escapadas", "Relax", "Lujo", "Amigos", "Bajo presupuesto"];
 
 const inputClass =
-  "w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -123,7 +123,7 @@ function DestinationEditor({ dest, onClose, onSaved }: { dest: Destination; onCl
         <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} className={inputClass} />
       </Field>
 
-      <div className="flex flex-wrap gap-2 border-t border-graphite-100 pt-4">
+      <div className="flex flex-wrap gap-2 border-t border-black/[0.05] pt-4">
         <AdminButton
           onClick={() => {
             onSaved();
@@ -135,7 +135,7 @@ function DestinationEditor({ dest, onClose, onSaved }: { dest: Destination; onCl
         <Link
           href={`/destinos/${dest.slug}`}
           target="_blank"
-          className="inline-flex items-center rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
+          className="inline-flex items-center rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
         >
           Ver en el sitio
         </Link>
@@ -163,7 +163,7 @@ export function DestinationsGrid() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar destinos…"
-            className="w-52 rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
+            className="w-52 rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
             aria-label="Buscar destinos"
           />
         }
@@ -174,7 +174,7 @@ export function DestinationsGrid() {
           <button
             key={d.slug}
             onClick={() => setSelected(d)}
-            className="group overflow-hidden rounded-xl border border-graphite-200/70 bg-white text-left transition-colors hover:border-teal-500/60 cursor-pointer"
+            className="group overflow-hidden rounded-xl border border-black/[0.07]/70 bg-white text-left transition-colors hover:border-teal-500/60 cursor-pointer"
           >
             <div className="relative h-28 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element -- miniatura administrable */}

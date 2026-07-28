@@ -74,7 +74,7 @@ export function MediaAdmin() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar por nombre o alt text…"
-          className="ml-auto w-64 rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
+          className="ml-auto w-64 rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm placeholder:text-graphite-400 focus:border-teal-500 focus:outline-none"
           aria-label="Buscar medios"
         />
       </div>
@@ -90,7 +90,7 @@ export function MediaAdmin() {
                   setSelected({ ...m });
                   setConfirmArchive(false);
                 }}
-                className="group block w-full overflow-hidden rounded-xl border border-graphite-200/70 bg-white text-left cursor-pointer hover:border-teal-500/60 transition-colors"
+                className="group block w-full overflow-hidden rounded-xl border border-black/[0.07]/70 bg-white text-left cursor-pointer hover:border-teal-500/60 transition-colors"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={m.url} alt={m.altText} loading="lazy" className="aspect-[4/3] w-full object-cover" />
@@ -125,7 +125,7 @@ export function MediaAdmin() {
             />
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-graphite-800">Alt text</span>
-              <input value={selected.altText} onChange={(e) => patch({ altText: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+              <input value={selected.altText} onChange={(e) => patch({ altText: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
             </label>
             <div>
               <p className="mb-1.5 text-sm font-semibold text-graphite-800">Usado en</p>
@@ -152,7 +152,7 @@ export function MediaAdmin() {
                     }
                   }
                 }}
-                className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
               />
             </label>
             <div className="flex flex-wrap gap-2 border-t border-dashed border-sand-200 pt-4">
@@ -198,11 +198,11 @@ export function MediaAdmin() {
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">O pegar URL</span>
-            <input id="upload-url" placeholder="https://…" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+            <input id="upload-url" placeholder="https://…" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Carpeta</span>
-            <select id="upload-folder" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm capitalize cursor-pointer focus:border-teal-500 focus:outline-none">
+            <select id="upload-folder" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm capitalize cursor-pointer focus:border-teal-500 focus:outline-none">
               {folders.filter((f) => f !== "todas").map((f) => (
                 <option key={f}>{f}</option>
               ))}

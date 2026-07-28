@@ -66,7 +66,7 @@ function TableView({ filter }: { filter: AlertFilter }) {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-sm">
               <thead>
-                <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+                <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                   <th className="px-2 py-2">Salida</th>
                   <th className="px-2 py-2 text-right">Totales</th>
                   <th className="px-2 py-2 text-right">Vendidos</th>
@@ -78,7 +78,7 @@ function TableView({ filter }: { filter: AlertFilter }) {
                   <th className="px-2 py-2" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-graphite-100">
+              <tbody className="divide-y divide-black/[0.05]">
                 {departures.map((r) => {
                   const avail = available(r);
                   const pct = occupancyPct(r);
@@ -96,7 +96,7 @@ function TableView({ filter }: { filter: AlertFilter }) {
                           min={0}
                           value={r.blocked}
                           onChange={(e) => setBlocked(r.departureId, Number(e.target.value))}
-                          className="w-16 rounded-md border border-graphite-200 px-2 py-1 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
+                          className="w-16 rounded-md border border-black/[0.07] px-2 py-1 text-right text-sm tabular focus:border-teal-500 focus:outline-none"
                           aria-label={`Bloqueados en salida ${formatDate(r.date)}`}
                         />
                       </td>
@@ -175,7 +175,7 @@ function CalendarView() {
                 setSelectedDay(null);
               }}
               disabled={monthIndex === 0}
-              className="grid size-8 place-items-center rounded-lg border border-graphite-200 text-graphite-600 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+              className="grid size-8 place-items-center rounded-lg border border-black/[0.07] text-graphite-600 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
               aria-label="Mes anterior"
             >
               <CaretLeftIcon className="size-4" aria-hidden />
@@ -186,7 +186,7 @@ function CalendarView() {
                 setSelectedDay(null);
               }}
               disabled={monthIndex === months.length - 1}
-              className="grid size-8 place-items-center rounded-lg border border-graphite-200 text-graphite-600 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+              className="grid size-8 place-items-center rounded-lg border border-black/[0.07] text-graphite-600 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
               aria-label="Mes siguiente"
             >
               <CaretRightIcon className="size-4" aria-hidden />
@@ -215,7 +215,7 @@ function CalendarView() {
                 className={`min-h-16 rounded-lg border p-1.5 text-left text-xs transition-colors ${
                   departures
                     ? "cursor-pointer border-teal-500/40 bg-teal-50/40 hover:border-teal-500"
-                    : "border-graphite-100 bg-white text-graphite-400"
+                    : "border-black/[0.05] bg-white text-graphite-400"
                 }`}
                 aria-label={departures ? `Día ${day}: ${departures.length} salidas` : `Día ${day}, sin salidas`}
               >
@@ -236,7 +236,7 @@ function CalendarView() {
         {selectedDay ? (
           <ul className="space-y-4">
             {selectedDay.map((r) => (
-              <li key={r.departureId} className="rounded-lg border border-graphite-100 p-3.5 text-sm">
+              <li key={r.departureId} className="rounded-lg border border-black/[0.05] p-3.5 text-sm">
                 <p className="font-semibold text-graphite-800">{r.packageName}</p>
                 <p className="mt-0.5 text-xs text-graphite-500 tabular">{formatDate(r.date)}</p>
                 <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
@@ -286,7 +286,7 @@ export function AvailabilityBoard() {
         description="Cupos por salida con bloqueos, liberaciones, listas de espera y mínimos requeridos."
         breadcrumb={[{ label: "Disponibilidad" }]}
         actions={
-          <div className="flex rounded-[var(--radius-control)] border border-graphite-200 bg-white p-0.5" role="group" aria-label="Vista">
+          <div className="flex rounded-[var(--radius-control)] border border-black/[0.07] bg-white p-0.5" role="group" aria-label="Vista">
             {(["tabla", "calendario"] as const).map((v) => (
               <button
                 key={v}

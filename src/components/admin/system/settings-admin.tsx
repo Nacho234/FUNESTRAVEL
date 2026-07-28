@@ -23,7 +23,7 @@ function Field({ label, defaultValue }: { label: string; defaultValue: string })
   return (
     <label className="block text-sm">
       <span className="mb-1 block font-semibold text-graphite-800">{label}</span>
-      <input defaultValue={defaultValue} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+      <input defaultValue={defaultValue} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
     </label>
   );
 }
@@ -76,7 +76,7 @@ export function SettingsAdmin() {
 
           <div id="cfg-sucursales" className="scroll-mt-20">
             <SectionCard title="Sucursales" actions={<AdminButton size="sm" onClick={() => save("Sucursales")}>Guardar</AdminButton>}>
-              <ul className="divide-y divide-graphite-100">
+              <ul className="divide-y divide-black/[0.05]">
                 {branches.map((b) => (
                   <li key={b.id} className="flex flex-wrap items-center justify-between gap-2 py-3 first:pt-0 last:pb-0">
                     <div>
@@ -118,7 +118,7 @@ export function SettingsAdmin() {
 
           <div id="cfg-pagos" className="scroll-mt-20">
             <SectionCard title="Medios de pago" actions={<AdminButton size="sm" onClick={() => save("Medios de pago")}>Guardar</AdminButton>}>
-              <ul className="divide-y divide-graphite-100">
+              <ul className="divide-y divide-black/[0.05]">
                 {payments.map((p) => (
                   <li key={p.id} className="flex items-center justify-between py-2.5 first:pt-0 last:pb-0">
                     <span className="text-sm text-graphite-800">{p.label}</span>
@@ -148,7 +148,7 @@ export function SettingsAdmin() {
                 {adminSettings.templates.map((t) => (
                   <label key={t.id} className="block text-sm">
                     <span className="mb-1 block font-semibold text-graphite-800">{t.name}</span>
-                    <textarea rows={3} defaultValue={t.body} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm leading-relaxed focus:border-teal-500 focus:outline-none" />
+                    <textarea rows={3} defaultValue={t.body} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm leading-relaxed focus:border-teal-500 focus:outline-none" />
                   </label>
                 ))}
               </div>

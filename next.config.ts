@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
     ],
     formats: ["image/avif", "image/webp"],
-    qualities: [70, 75],
+    // Cada valor de `quality` usado en el código debe estar acá o Next avisa.
+    qualities: [70, 75, 78, 80],
   },
 };
 

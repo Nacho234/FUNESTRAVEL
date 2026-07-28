@@ -72,7 +72,7 @@ export function ReportsAdmin() {
         <div className="grid gap-4 sm:grid-cols-4">
           <label className="block text-sm sm:col-span-2">
             <span className="mb-1 block font-semibold text-graphite-800">Reporte</span>
-            <select value={dataset} onChange={(e) => setDataset(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+            <select value={dataset} onChange={(e) => setDataset(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
               {reportOptions.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.label}
@@ -82,15 +82,15 @@ export function ReportsAdmin() {
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Desde</span>
-            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Hasta</span>
-            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Agrupación</span>
-            <select value={grouping} onChange={(e) => setGrouping(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+            <select value={grouping} onChange={(e) => setGrouping(e.target.value)} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
               {["diaria", "semanal", "mensual"].map((g) => (
                 <option key={g}>{g}</option>
               ))}
@@ -121,7 +121,7 @@ export function ReportsAdmin() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[480px] text-sm">
             <thead>
-              <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+              <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                 {report.columns.map((c, i) => (
                   <th key={c} className={`px-2 py-2 ${i > 0 ? "text-right" : ""}`}>
                     {c}
@@ -129,7 +129,7 @@ export function ReportsAdmin() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-graphite-100">
+            <tbody className="divide-y divide-black/[0.05]">
               {report.rows.map((r) => (
                 <tr key={r.label}>
                   <td className="px-2 py-2.5 font-semibold text-graphite-800">{r.label}</td>
@@ -152,7 +152,7 @@ export function ReportsAdmin() {
           </p>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Frecuencia</span>
-            <select className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+            <select className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
               {["Diaria (8:00)", "Semanal (lunes 8:00)", "Mensual (día 1, 8:00)"].map((f) => (
                 <option key={f}>{f}</option>
               ))}
@@ -160,7 +160,7 @@ export function ReportsAdmin() {
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-semibold text-graphite-800">Destinatarios</span>
-            <input defaultValue="gerencia@funestravel.com.ar" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+            <input defaultValue="gerencia@funestravel.com.ar" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
           </label>
           <AdminButton
             onClick={() => {

@@ -7,7 +7,7 @@ import { AdminButton, DataTable, Drawer, KVGrid, PageHeader, StatusBadge, useToa
 /** Insurance plans manager with readable coverage details. */
 
 const inputClass =
-  "w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -109,7 +109,7 @@ export function InsurancesManager() {
                 </select>
               </Field>
             </div>
-            <div className="flex gap-2 border-t border-graphite-100 pt-4">
+            <div className="flex gap-2 border-t border-black/[0.05] pt-4">
               <AdminButton onClick={save}>Guardar cambios (demo)</AdminButton>
               <AdminButton variant="ghost" onClick={() => setEditing(null)}>
                 Cancelar

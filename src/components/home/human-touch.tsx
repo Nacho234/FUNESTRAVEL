@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { IMG } from "@/data/img";
-import { VIDEO } from "@/data/video";
-import { SceneMedia } from "@/components/ui/scene-media";
 
 /**
  * Secondary cinematic hero: an immersive human travel scene with strong
@@ -19,15 +17,32 @@ import { SceneMedia } from "@/components/ui/scene-media";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.11 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 22, filter: "blur(3px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: EASE } },
-};
+/*
+ * Las variantes se arman dentro del componente porque necesitan `reduce`.
+ * Pasarlas siempre (en vez de `variants={reduce ? undefined : item}`) es lo
+ * que evita que los hijos queden atascados en opacity 0: useReducedMotion()
+ * devuelve null en el primer render, así que montan ocultos, y si en el
+ * siguiente se les quitan las variantes ya no tienen cómo llegar a `visible`.
+ */
+function buildVariants(reduce: boolean) {
+  return {
+    container: {
+      hidden: {},
+      visible: { transition: { staggerChildren: reduce ? 0 : 0.11 } },
+    },
+    item: {
+      hidden: reduce
+        ? { opacity: 1, y: 0, filter: "blur(0px)" }
+        : { opacity: 0, y: 22, filter: "blur(3px)" },
+      visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: reduce ? 0 : 0.55, ease: EASE },
+      },
+    },
+  } satisfies Record<string, Variants>;
+}
 
 const highlights = [
   "Atención humana de principio a fin",
@@ -50,6 +65,8 @@ export function HumanTouch() {
 
   const reduce = mounted && prefersReduce;
 
+  const { container, item } = useMemo(() => buildVariants(reduce), [reduce]);
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
   // Parallax intensity ~40% of section travel (desktop); foreground almost still.
@@ -69,7 +86,7 @@ export function HumanTouch() {
         style={reduce ? undefined : { y: bgY }}
         className="absolute -inset-y-[44%] inset-x-0 will-change-transform"
       >
-        {/* Mobile: static forest still (lighter — no autoplay video on cellular) */}
+        {/* Mobile: portrait crop (sharper + better vertical parallax) */}
         <Image
           src={IMG.humanSceneMobile}
           alt="Río serpenteando entre un bosque de pinos con niebla"
@@ -78,13 +95,13 @@ export function HumanTouch() {
           quality={78}
           className="object-cover object-center lg:hidden"
         />
-        {/* Desktop: montage video, falling back to the wide forest still */}
-        <SceneMedia
-          img={IMG.humanSceneTall}
-          video={VIDEO.humanTouch}
+        {/* Desktop: wide scene */}
+        <Image
+          src={IMG.humanSceneTall}
           alt="Río serpenteando entre un bosque de pinos con niebla"
+          fill
+          sizes="100vw"
           quality={78}
-          preload="metadata"
           className="hidden object-cover object-center lg:block"
         />
       </motion.div>
@@ -118,14 +135,14 @@ export function HumanTouch() {
       {/* Content */}
       <motion.div
         style={reduce ? undefined : { y: contentY }}
-        variants={reduce ? undefined : container}
-        initial={reduce ? false : "hidden"}
+        variants={container}
+        initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.35 }}
         className="relative mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 md:pb-16"
       >
         <motion.p
-          variants={reduce ? undefined : item}
+          variants={item}
           className="flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-teal-100"
         >
           <span className="h-px w-6 bg-teal-100/70" aria-hidden />
@@ -133,14 +150,14 @@ export function HumanTouch() {
         </motion.p>
 
         <motion.h2
-          variants={reduce ? undefined : item}
+          variants={item}
           className="mt-3 max-w-xl font-display text-3xl font-bold tracking-tight leading-tight text-white sm:text-4xl lg:text-5xl [text-shadow:0_1px_24px_rgb(8_37_48_/_0.5)]"
         >
           Reservás online, pero nunca viajás solo
         </motion.h2>
 
         <motion.p
-          variants={reduce ? undefined : item}
+          variants={item}
           className="mt-3 max-w-md text-[0.9375rem] leading-relaxed text-white/90 [text-shadow:0_1px_14px_rgb(8_37_48_/_0.55)]"
         >
           Detrás de cada propuesta hay un equipo que revisa, organiza y acompaña cada etapa del viaje.
@@ -148,7 +165,7 @@ export function HumanTouch() {
 
         {/* Highlights as one elegant attribute line, not cards */}
         <motion.ul
-          variants={reduce ? undefined : item}
+          variants={item}
           className="mt-6 grid max-w-xl gap-x-8 gap-y-2.5 text-sm text-white/85 sm:grid-cols-2"
         >
           {highlights.map((h) => (
@@ -161,7 +178,7 @@ export function HumanTouch() {
           ))}
         </motion.ul>
 
-        <motion.div variants={reduce ? undefined : item} className="mt-7 flex flex-wrap items-center gap-4">
+        <motion.div variants={item} className="mt-7 flex flex-wrap items-center gap-4">
           <a
             href="https://wa.me/5493415550123?text=Hola,%20me%20gustar%C3%ADa%20hablar%20con%20un%20asesor%20para%20organizar%20un%20viaje."
             target="_blank"

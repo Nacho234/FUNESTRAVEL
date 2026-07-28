@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Funes Travel · La plataforma</title>
+
+<style>
+  /* ── Tokens: la identidad del propio proyecto ───────────────────── */
+  :root {
+    --ground: #fcfaf6;
+    --surface: #ffffff;
+    --surface-2: #f5f0e8;
+    --deep: #082530;
+    --ink: #0e3a47;
+    --ink-soft: #14495a;
+    --muted: #5c6a72;
+    --line: #e3dccf;
+    --line-soft: #efe9dd;
+    --accent: #c9491f;
+    --accent-soft: #fcf1eb;
+    --support: #217482;
+    --support-soft: #ecf6f7;
+
+    --f-display: "Helvetica Neue", "Inter", "Segoe UI", system-ui, sans-serif;
+    --f-body: ui-sans-serif, "Segoe UI", system-ui, -apple-system, sans-serif;
+
+    --wrap: 64rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #08191f; --surface: #0e262f; --surface-2: #122e38; --deep: #051217;
+      --ink: #e9f1f2; --ink-soft: #c3d6da; --muted: #93a8af;
+      --line: #1d3a44; --line-soft: #163038;
+      --accent: #f2895c; --accent-soft: #29180f;
+      --support: #74c7d1; --support-soft: #0f2a30;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #08191f; --surface: #0e262f; --surface-2: #122e38; --deep: #051217;
+    --ink: #e9f1f2; --ink-soft: #c3d6da; --muted: #93a8af;
+    --line: #1d3a44; --line-soft: #163038;
+    --accent: #f2895c; --accent-soft: #29180f;
+    --support: #74c7d1; --support-soft: #0f2a30;
+  }
+  :root[data-theme="light"] {
+    --ground: #fcfaf6; --surface: #ffffff; --surface-2: #f5f0e8; --deep: #082530;
+    --ink: #0e3a47; --ink-soft: #14495a; --muted: #5c6a72;
+    --line: #e3dccf; --line-soft: #efe9dd;
+    --accent: #c9491f; --accent-soft: #fcf1eb;
+    --support: #217482; --support-soft: #ecf6f7;
+  }
+
+  /* ── Base ───────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 1.5rem; }
+
+  h1, h2, h3 {
+    font-family: var(--f-display);
+    letter-spacing: -0.022em;
+    line-height: 1.14;
+    text-wrap: balance;
+    margin: 0;
+  }
+  p { margin: 0; }
+  .num { font-variant-numeric: tabular-nums; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--support); outline-offset: 3px; border-radius: 3px; }
+
+  .kicker {
+    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+  }
+
+  /* ── Portada ────────────────────────────────────────────────────── */
+  .cover { background: var(--deep); color: #f2f7f7; padding-block: 5.5rem 4.5rem; }
+  .cover .kicker { color: #7fc9d3; }
+  .cover h1 {
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    font-weight: 700; color: #ffffff; max-width: 20ch; margin-top: 1rem;
+  }
+  .cover .thesis { margin-top: 1.75rem; max-width: 54ch; font-size: 1.125rem; color: #c5d9dd; }
+  .cover .thesis b { color: #ffffff; font-weight: 600; }
+  .rule { height: 3px; width: 3.5rem; background: var(--accent); border-radius: 99px; margin-top: 2.25rem; }
+  .stamp {
+    margin-top: 2rem; display: flex; flex-wrap: wrap;
+    gap: 0.4rem 1.75rem; font-size: 0.8125rem; color: #9db8be;
+  }
+  .stamp b { color: #ffffff; font-weight: 600; }
+
+  /* ── Índice ─────────────────────────────────────────────────────── */
+  nav.toc { background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  nav.toc ol {
+    display: grid; gap: 0.5rem 2rem; list-style: none; margin: 0;
+    padding-block: 1.5rem; counter-reset: t;
+  }
+  @media (min-width: 40rem) { nav.toc ol { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 60rem) { nav.toc ol { grid-template-columns: repeat(3, 1fr); } }
+  nav.toc li { counter-increment: t; font-size: 0.875rem; }
+  nav.toc li::before {
+    content: counter(t, decimal-leading-zero);
+    color: var(--accent); font-weight: 700; margin-right: 0.6rem;
+    font-variant-numeric: tabular-nums;
+  }
+  nav.toc a { color: var(--ink-soft); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+
+  /* ── Secciones ──────────────────────────────────────────────────── */
+  section { padding-block: 4rem; border-bottom: 1px solid var(--line-soft); }
+  .head { max-width: 58ch; }
+  .head h2 { font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; margin-top: 0.7rem; }
+  .head .sub { margin-top: 0.85rem; color: var(--muted); }
+  .body-copy { margin-top: 1.25rem; max-width: 62ch; color: var(--muted); }
+  .body-copy b { color: var(--ink); font-weight: 600; }
+
+  /* ── Cifras ─────────────────────────────────────────────────────── */
+  .figures {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px; margin-top: 2.25rem; background: var(--line);
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  }
+  .fig { background: var(--surface); padding: 1.25rem 1.35rem; }
+  .fig dt { font-size: 0.75rem; color: var(--muted); }
+  .fig dd {
+    margin: 0.35rem 0 0; font-family: var(--f-display); font-size: 1.75rem;
+    font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  }
+
+  /* ── Mapa del sitio ─────────────────────────────────────────────── */
+  .map { display: grid; gap: 1.25rem; margin-top: 2.25rem; }
+  @media (min-width: 48rem) { .map { grid-template-columns: 1fr 1fr; } }
+  .zone { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.4rem 1.5rem; }
+  .zone h3 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--support); }
+  .zone p { margin-top: 0.6rem; font-size: 0.875rem; color: var(--muted); }
+  .zone ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.45rem; }
+  .zone li { font-size: 0.9375rem; color: var(--ink-soft); display: flex; gap: 0.6rem; }
+  .zone li span { color: var(--muted); font-size: 0.8125rem; }
+
+  /* ── Momentos del viajero ───────────────────────────────────────── */
+  .moments { display: grid; gap: 1.25rem; margin-top: 2.25rem; }
+  @media (min-width: 48rem) { .moments { grid-template-columns: 1fr 1fr; } }
+  .moment { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem 1.6rem; }
+  .moment h3 { font-size: 1.0625rem; font-weight: 700; color: var(--ink); padding-bottom: 0.85rem; border-bottom: 1px solid var(--line-soft); }
+  .moment > p { margin-top: 0.85rem; font-size: 0.9375rem; color: var(--muted); }
+  .moment ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; }
+  .moment li { font-size: 0.9375rem; padding-left: 1.1rem; position: relative; color: var(--ink-soft); }
+  .moment li::before {
+    content: ""; position: absolute; left: 0; top: 0.62em;
+    width: 5px; height: 5px; border-radius: 99px; background: var(--support);
+  }
+
+  /* ── Piezas destacadas ──────────────────────────────────────────── */
+  .pieces { margin-top: 2.25rem; display: grid; gap: 0; }
+  .piece {
+    display: grid; gap: 0.35rem 2rem;
+    padding-block: 1.4rem; border-top: 1px solid var(--line-soft);
+  }
+  .piece:last-child { border-bottom: 1px solid var(--line-soft); }
+  @media (min-width: 46rem) { .piece { grid-template-columns: 14rem 1fr; } }
+  .piece h3 { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .piece .where { font-size: 0.75rem; color: var(--support); margin-top: 0.2rem; }
+  .piece p { font-size: 0.9375rem; color: var(--muted); }
+
+  /* ── Panel ──────────────────────────────────────────────────────── */
+  .areas { margin-top: 2.25rem; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
+  .area { display: grid; gap: 0.3rem 1.5rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line-soft); }
+  @media (min-width: 46rem) { .area { grid-template-columns: 10rem 1fr; } }
+  .area:last-child { border-bottom: none; }
+  .area dt { font-weight: 650; color: var(--ink); font-size: 0.9375rem; }
+  .area dd { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+  .area dd em { font-style: normal; color: var(--ink-soft); }
+
+  .callout {
+    margin-top: 1.75rem; background: var(--support-soft); border-radius: 14px;
+    padding: 1.35rem 1.5rem; font-size: 0.9375rem; color: var(--ink-soft);
+  }
+  .callout b { color: var(--ink); font-weight: 650; }
+
+  /* ── Narrativa de uso ───────────────────────────────────────────── */
+  .story { margin-top: 2.25rem; display: grid; gap: 1.1rem; }
+  .beat { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0 1.25rem; align-items: baseline; }
+  .beat time {
+    font-family: var(--f-display); font-size: 0.8125rem; font-weight: 700;
+    color: var(--accent); font-variant-numeric: tabular-nums;
+  }
+  .beat p { font-size: 0.9375rem; color: var(--muted); }
+  .beat p b { color: var(--ink); font-weight: 600; }
+
+  /* ── Base técnica ───────────────────────────────────────────────── */
+  .stack { display: grid; gap: 1.25rem; margin-top: 2.25rem; }
+  @media (min-width: 48rem) { .stack { grid-template-columns: 1fr 1fr; } }
+  .item { padding-left: 1.15rem; border-left: 2px solid var(--line); }
+  .item h3 { font-size: 0.9375rem; font-weight: 700; color: var(--ink); }
+  .item p { margin-top: 0.4rem; font-size: 0.9375rem; color: var(--muted); }
+
+  /* ── Entrega ────────────────────────────────────────────────────── */
+  .delivery { margin-top: 2.25rem; display: grid; gap: 0.75rem; }
+  .row {
+    display: grid; grid-template-columns: 1.5rem 1fr; gap: 0 0.9rem;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 1rem 1.2rem;
+  }
+  .row .tick { color: var(--support); font-weight: 700; }
+  .row p { font-size: 0.9375rem; }
+  .row p b { color: var(--ink); font-weight: 650; }
+  .row p span { display: block; color: var(--muted); margin-top: 0.15rem; font-size: 0.875rem; }
+
+  /* ── Fases ──────────────────────────────────────────────────────── */
+  .phases { margin-top: 2.25rem; display: grid; list-style: none; padding: 0; }
+  .phase { display: grid; grid-template-columns: 2.75rem 1fr; gap: 0 1.25rem; padding-bottom: 1.9rem; position: relative; }
+  .phase:not(:last-child)::before {
+    content: ""; position: absolute; left: 1.32rem; top: 2.1rem; bottom: 0;
+    width: 1px; background: var(--line);
+  }
+  .dot {
+    width: 2.75rem; height: 2.75rem; border-radius: 99px; display: grid; place-items: center;
+    font-family: var(--f-display); font-size: 0.8125rem; font-weight: 700; z-index: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .dot.done { background: var(--ink); color: #ffffff; }
+  .dot.next { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+  .dot.later { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+  .phase h3 { font-size: 1.0625rem; font-weight: 700; color: var(--ink); }
+  .phase .state {
+    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-left: 0.6rem; vertical-align: 0.15em;
+  }
+  .state.done { color: var(--support); }
+  .state.next { color: var(--accent); }
+  .phase p { margin-top: 0.5rem; font-size: 0.9375rem; color: var(--muted); max-width: 62ch; }
+  .phase ul { margin: 0.7rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.3rem; }
+  .phase li { font-size: 0.875rem; color: var(--muted); }
+
+  /* ── Preguntas ──────────────────────────────────────────────────── */
+  .faq { margin-top: 2.25rem; display: grid; gap: 1.5rem; }
+  @media (min-width: 48rem) { .faq { grid-template-columns: 1fr 1fr; } }
+  .q h3 { font-size: 0.9375rem; font-weight: 700; color: var(--ink); }
+  .q p { margin-top: 0.45rem; font-size: 0.9375rem; color: var(--muted); }
+  .q p b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ── Cierre ─────────────────────────────────────────────────────── */
+  .close { background: var(--deep); color: #f2f7f7; border-radius: 18px; padding: 2.5rem; margin-top: 2.25rem; }
+  .close h2 { color: #ffffff; font-size: 1.5rem; }
+  .close p { margin-top: 1rem; max-width: 58ch; color: #c5d9dd; font-size: 1.0625rem; }
+  .close p b { color: #ffffff; font-weight: 600; }
+  .close ol { margin: 1.75rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.7rem; max-width: 58ch; }
+  .close li { color: #c5d9dd; font-size: 0.9375rem; }
+  .close li b { color: #ffffff; font-weight: 600; }
+
+  footer { padding-block: 2.5rem 4rem; color: var(--muted); font-size: 0.8125rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  @media print {
+    .cover, .close { background: #082530 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section, .moment, .zone, .phase { break-inside: avoid; }
+    nav.toc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <p class="kicker">Funes Travel</p>
+    <h1>Una web que vende, y un panel para manejarla</h1>
+    <p class="thesis">
+      Del lado del viajero: busca, compara, arma su viaje y reserva sin salir del sitio.
+      Del lado de la agencia: <b>un panel para cargar el catálogo, las promociones y las
+      reservas</b> sin depender de un programador cada vez.
+    </p>
+    <div class="rule"></div>
+    <div class="stamp">
+      <span><b>35</b> páginas públicas</span>
+      <span><b>37</b> módulos de administración</span>
+      <span>Next.js 16 · TypeScript</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Contenido">
+  <div class="wrap">
+    <ol>
+      <li><a href="#alcance">El alcance</a></li>
+      <li><a href="#mapa">El mapa del sitio</a></li>
+      <li><a href="#viajero">Para el viajero</a></li>
+      <li><a href="#piezas">Piezas propias</a></li>
+      <li><a href="#panel">El panel</a></li>
+      <li><a href="#dia">Un día de trabajo</a></li>
+      <li><a href="#construccion">Cómo está construido</a></li>
+      <li><a href="#entrega">Qué incluye</a></li>
+      <li><a href="#ruta">Estado y hoja de ruta</a></li>
+      <li><a href="#preguntas">Preguntas frecuentes</a></li>
+      <li><a href="#cierre">El paso que sigue</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── 01 ─────────────────────────────────────────────────────── -->
+  <section id="alcance" class="wrap">
+    <div class="head">
+      <p class="kicker">El alcance</p>
+      <h2>Lo que ya está construido</h2>
+      <p class="sub">
+        No es una maqueta ni un diseño en Figma. Es la web completa, navegable de punta
+        a punta, con el catálogo cargado y el panel de administración funcionando.
+      </p>
+    </div>
+
+    <dl class="figures">
+      <div class="fig"><dt>Páginas públicas</dt><dd class="num">35</dd></div>
+      <div class="fig"><dt>Módulos de panel</dt><dd class="num">37</dd></div>
+      <div class="fig"><dt>Secciones en la portada</dt><dd class="num">13</dd></div>
+      <div class="fig"><dt>Destinos</dt><dd class="num">17</dd></div>
+      <div class="fig"><dt>Paquetes</dt><dd class="num">11</dd></div>
+      <div class="fig"><dt>Hoteles</dt><dd class="num">6</dd></div>
+      <div class="fig"><dt>Excursiones</dt><dd class="num">8</dd></div>
+      <div class="fig"><dt>Historias de viajeros</dt><dd class="num">9</dd></div>
+    </dl>
+
+    <p class="body-copy">
+      El contenido cargado hoy es de muestra y sirve para ver la plataforma funcionando
+      con volumen real. <b>Se reemplaza por el catálogo de la agencia sin tocar el
+      diseño</b>: cada destino, paquete u hotel es una ficha que se completa desde el panel.
+    </p>
+  </section>
+
+  <!-- ── 02 ─────────────────────────────────────────────────────── -->
+  <section id="mapa" class="wrap">
+    <div class="head">
+      <p class="kicker">El mapa del sitio</p>
+      <h2>Treinta y cinco páginas, cinco funciones</h2>
+      <p class="sub">
+        Cada página existe porque resuelve algo. Ninguna está de relleno.
+      </p>
+    </div>
+
+    <div class="map">
+
+      <div class="zone">
+        <h3>Vender</h3>
+        <p>Donde el viajero busca, compara y elige.</p>
+        <ul>
+          <li>Portada <span>· con buscador de cuatro solapas</span></li>
+          <li>Paquetes <span>· listado con filtros y comparador</span></li>
+          <li>Ficha de paquete <span>· itinerario completo</span></li>
+          <li>Destinos <span>· y ficha por destino</span></li>
+          <li>Vuelos <span>· y resultados de búsqueda</span></li>
+          <li>Hoteles <span>· y ficha por hotel</span></li>
+          <li>Excursiones <span>· y ficha por excursión</span></li>
+          <li>Promociones <span>· con condiciones completas</span></li>
+          <li>Viajes grupales <span>· y ficha por salida</span></li>
+        </ul>
+      </div>
+
+      <div class="zone">
+        <h3>Convertir</h3>
+        <p>Donde la visita se transforma en una operación.</p>
+        <ul>
+          <li>Checkout <span>· cinco pasos</span></li>
+          <li>Reserva <span>· confirmación y detalle</span></li>
+          <li>Recuperar una reserva <span>· sin llamar</span></li>
+          <li>Viajes a medida <span>· solicitud a medida</span></li>
+          <li>Favoritos <span>· para decidir después</span></li>
+        </ul>
+      </div>
+
+      <div class="zone">
+        <h3>Acompañar</h3>
+        <p>Lo que pasa después de que el cliente reservó.</p>
+        <ul>
+          <li>Mi cuenta <span>· inicio</span></li>
+          <li>Mis viajes <span>· estado de cada uno</span></li>
+          <li>Mis cotizaciones <span>· pedidos y respuestas</span></li>
+          <li>Mis documentos <span>· vouchers y comprobantes</span></li>
+          <li>Mi perfil <span>· datos del pasajero</span></li>
+        </ul>
+      </div>
+
+      <div class="zone">
+        <h3>Convencer</h3>
+        <p>Lo que responde la pregunta de por qué comprarles a ustedes.</p>
+        <ul>
+          <li>Nosotros <span>· quiénes son</span></li>
+          <li>Experiencias <span>· historias de viajeros</span></li>
+          <li>Inspiración <span>· notas y guías</span></li>
+          <li>Nota de inspiración <span>· artículo completo</span></li>
+          <li>Sucursales <span>· dónde encontrarlos</span></li>
+          <li>Contacto <span>· canales directos</span></li>
+        </ul>
+      </div>
+
+      <div class="zone">
+        <h3>Dar certeza</h3>
+        <p>Las páginas que evitan malentendidos y reclamos.</p>
+        <ul>
+          <li>Ayuda <span>· preguntas frecuentes</span></li>
+          <li>Medios de pago <span>· cómo se abona</span></li>
+          <li>Política de cancelaciones</li>
+          <li>Términos y condiciones</li>
+          <li>Privacidad <span>· uso de datos</span></li>
+        </ul>
+      </div>
+
+      <div class="zone">
+        <h3>Administrar</h3>
+        <p>Aparte del sitio público, con su propio ingreso.</p>
+        <ul>
+          <li>Panel de administración <span>· 37 módulos</span></li>
+          <li>Ingreso con cuenta de Google</li>
+          <li>Manual de uso incluido</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 03 ─────────────────────────────────────────────────────── -->
+  <section id="viajero" class="wrap">
+    <div class="head">
+      <p class="kicker">Para el viajero</p>
+      <h2>Cuatro maneras de llegar a la misma venta</h2>
+      <p class="sub">
+        No todos los que entran están en el mismo momento. La web está organizada
+        alrededor de esa diferencia, en lugar de mostrarle a todos el mismo listado.
+      </p>
+    </div>
+
+    <div class="moments">
+
+      <article class="moment">
+        <h3>Ya sabe adónde va</h3>
+        <p>Entra con el destino decidido y quiere confirmar precio y condiciones.</p>
+        <ul>
+          <li>Buscador con paquetes, vuelos, hoteles y excursiones</li>
+          <li>Filtros por precio, estilo de viaje y ciudad de salida</li>
+          <li>Ordenamiento por precio, duración o fecha de salida</li>
+          <li>Comparador de paquetes lado a lado</li>
+          <li>Vista de grilla o de lista, según prefiera</li>
+          <li>Ficha con itinerario día por día</li>
+          <li>Qué incluye y qué no, sin letra chica</li>
+          <li>Salidas con fecha, precio y lugares disponibles</li>
+          <li>Requisitos de documentación por destino</li>
+        </ul>
+      </article>
+
+      <article class="moment">
+        <h3>Sabe cuándo, no adónde</h3>
+        <p>Tiene las fechas y el presupuesto, y busca que le propongan.</p>
+        <ul>
+          <li>Buscador por forma de viajar, no por destino</li>
+          <li>Siete perfiles: pareja, familia, amigos, aventura, gastronomía, nieve, playa</li>
+          <li>Destinos elegidos para la temporada en curso</li>
+          <li>Promociones vigentes con vencimiento a la vista</li>
+          <li>Salidas grupales con coordinador y fecha confirmada</li>
+          <li>Historias de viajeros que ya hicieron ese viaje</li>
+          <li>Guías y notas para decidir con más información</li>
+        </ul>
+      </article>
+
+      <article class="moment">
+        <h3>Quiere algo propio</h3>
+        <p>Ningún paquete le cierra y necesita que se lo armen.</p>
+        <ul>
+          <li>Formulario de dos pasos, corto y sin fricción</li>
+          <li>Primero la idea: destino, fechas, viajeros, tipo de experiencia</li>
+          <li>Después los datos para poder cotizar</li>
+          <li>Se puede volver atrás sin perder lo cargado</li>
+          <li>La consulta queda registrada, no se pierde en un correo</li>
+          <li>Canal directo por WhatsApp desde cualquier página</li>
+        </ul>
+      </article>
+
+      <article class="moment">
+        <h3>Ya reservó</h3>
+        <p>La relación no termina cuando paga. Ahí empieza el viaje.</p>
+        <ul>
+          <li>Cuenta propia con sus viajes y el estado de cada uno</li>
+          <li>Cotizaciones pedidas y respuestas recibidas</li>
+          <li>Documentación del viaje en un solo lugar</li>
+          <li>Favoritos guardados para decidir más adelante</li>
+          <li>Recuperación de una reserva sin tener que llamar</li>
+          <li>Datos del pasajero cargados una sola vez</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── 04 ─────────────────────────────────────────────────────── -->
+  <section id="piezas" class="wrap">
+    <div class="head">
+      <p class="kicker">Piezas propias</p>
+      <h2>Lo que no viene en ninguna plantilla</h2>
+      <p class="sub">
+        Una plantilla da el aspecto. Estas piezas están diseñadas alrededor de cómo se
+        vende un viaje, y son las que hacen que el sitio no se parezca a otro.
+      </p>
+    </div>
+
+    <div class="pieces">
+
+      <article class="piece">
+        <div>
+          <h3>Buscador de experiencias</h3>
+          <p class="where">Portada</p>
+        </div>
+        <p>
+          Siete formas de viajar en una lista numerada. Al elegir una, un panel grande
+          cambia de fotografía, de texto y de destinos sugeridos. Sirve para el visitante
+          que sabe cómo quiere viajar pero todavía no adónde.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Solicitud de viaje a medida</h3>
+          <p class="where">Portada</p>
+        </div>
+        <p>
+          Un formulario partido en dos pasos: primero la idea del viaje, después los datos
+          de contacto. Se puede volver atrás sin perder nada. Pedir menos de una vez
+          consigue más respuestas que un formulario largo.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>El costo real de una tarifa</h3>
+          <p class="where">Vuelos</p>
+        </div>
+        <p>
+          Una tarjeta de embarque que desglosa la tarifa publicada, el equipaje y el total
+          que se termina pagando. Es el argumento central de la página: mostrar la
+          diferencia antes de emitir, no después.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Rutas destacadas</h3>
+          <p class="where">Vuelos</p>
+        </div>
+        <p>
+          Carrusel de rutas frecuentes con foto del destino y filtros por tipo: nacionales,
+          internacionales, larga distancia. Cada tarjeta lleva su precio de referencia y
+          su duración.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>De la pista al destino</h3>
+          <p class="where">Vuelos</p>
+        </div>
+        <p>
+          Tres escenas del viaje en una composición panorámica, para contar que el
+          acompañamiento existe antes, durante y después del vuelo.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Elegí cómo querés despertar</h3>
+          <p class="where">Hoteles</p>
+        </div>
+        <p>
+          Pieza editorial que argumenta que un hotel se elige por la habitación, la vista
+          y la experiencia, no por la cantidad de estrellas. Al señalar cada etapa, la
+          fotografía correspondiente toma protagonismo.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Promoción destacada</h3>
+          <p class="where">Promociones</p>
+        </div>
+        <p>
+          Un banner grande para la oferta principal, con precio, vigencia y las
+          condiciones importantes en una franja aparte. La letra chica está arriba de la
+          mesa, no escondida.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Comparador de paquetes</h3>
+          <p class="where">Paquetes</p>
+        </div>
+        <p>
+          Se marcan varios paquetes y se ven enfrentados: precio, noches, régimen de
+          comidas, hotel y qué incluye cada uno. Es la herramienta que más acelera una
+          decisión.
+        </p>
+      </article>
+
+      <article class="piece">
+        <div>
+          <h3>Historias de viajeros</h3>
+          <p class="where">Portada y Experiencias</p>
+        </div>
+        <p>
+          Relatos de gente que ya viajó, con su foto y su destino, incluida una nota sobre
+          cómo se resolvió un imprevisto. La prueba social más honesta no es la que
+          esconde los problemas.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── 05 ─────────────────────────────────────────────────────── -->
+  <section id="panel" class="wrap">
+    <div class="head">
+      <p class="kicker">El panel</p>
+      <h2>La mitad del proyecto está del lado de adentro</h2>
+      <p class="sub">
+        Una web que hay que pedirle a alguien que actualice envejece en tres meses. Por
+        eso el panel no es un agregado: son 37 módulos organizados en seis áreas.
+      </p>
+    </div>
+
+    <dl class="areas">
+      <div class="area">
+        <dt>Catálogo</dt>
+        <dd><em>Productos, destinos, paquetes, hoteles, excursiones, vuelos, traslados y seguros.</em> Todo lo que se vende, con sus fotos, textos y condiciones.</dd>
+      </div>
+      <div class="area">
+        <dt>Comercial</dt>
+        <dd><em>Tarifas, disponibilidad, promociones y cupones.</em> Precios por temporada, cupos por salida y descuentos con fecha de vencimiento.</dd>
+      </div>
+      <div class="area">
+        <dt>Operación</dt>
+        <dd><em>Reservas, ventas, pagos, pasajeros, proveedores y finanzas.</em> El seguimiento de cada operación desde que entra hasta que se cobra.</dd>
+      </div>
+      <div class="area">
+        <dt>Clientes</dt>
+        <dd><em>Consultas, cotizaciones, clientes, tickets y documentación.</em> Cada pedido con su estado, sin depender de la memoria de quien atendió.</dd>
+      </div>
+      <div class="area">
+        <dt>Contenido</dt>
+        <dd><em>Editor de portada, contenido, blog, medios y posicionamiento.</em> Cambiar la promoción de la home o publicar una nota, sin tocar código.</dd>
+      </div>
+      <div class="area">
+        <dt>Interno</dt>
+        <dd><em>Usuarios, roles, tareas, reportes, auditoría, integraciones y configuración.</em> Quién puede hacer qué, y el registro de lo que cada uno cambió.</dd>
+      </div>
+    </dl>
+
+    <p class="callout">
+      Se ingresa con <b>cuenta de Google</b>, sin contraseñas para administrar, y solo
+      entran los correos habilitados por la agencia. Cada persona ve lo que su rol le
+      permite. Un <b>buscador rápido con el teclado</b> salta a cualquier módulo sin
+      navegar por menús, y el <b>manual de uso está dentro del propio panel</b>, para que
+      el equipo no dependa de una capacitación para arrancar.
+    </p>
+  </section>
+
+  <!-- ── 06 ─────────────────────────────────────────────────────── -->
+  <section id="dia" class="wrap">
+    <div class="head">
+      <p class="kicker">Un día de trabajo</p>
+      <h2>Cómo se usa, en concreto</h2>
+      <p class="sub">
+        La lista de módulos dice poco. Esto es lo que efectivamente pasa en una jornada.
+      </p>
+    </div>
+
+    <div class="story">
+      <div class="beat">
+        <time>09:10</time>
+        <p>Entra una <b>solicitud de viaje a medida</b> desde la web. Aparece en Consultas con el destino, las fechas y los datos de contacto ya cargados.</p>
+      </div>
+      <div class="beat">
+        <time>09:40</time>
+        <p>Se arma la propuesta y se carga como <b>cotización</b>. El cliente la ve en su cuenta, sin necesidad de mandarla por correo.</p>
+      </div>
+      <div class="beat">
+        <time>11:00</time>
+        <p>Llegó una salida nueva del operador. Se carga como <b>paquete</b>: fotos, itinerario, qué incluye, fechas y precios. Queda publicada.</p>
+      </div>
+      <div class="beat">
+        <time>12:15</time>
+        <p>Se cargan las <b>tarifas de temporada alta</b> y se ajusta la <b>disponibilidad</b>: quedan seis lugares en la salida de septiembre.</p>
+      </div>
+      <div class="beat">
+        <time>14:30</time>
+        <p>Se publica una <b>promoción</b> con fecha de vencimiento y se la destaca en la portada desde el <b>editor de home</b>. La web ya la muestra.</p>
+      </div>
+      <div class="beat">
+        <time>16:00</time>
+        <p>Entra una <b>reserva</b>. Se registra el pago de la seña y se cargan los datos de los <b>pasajeros</b>.</p>
+      </div>
+      <div class="beat">
+        <time>17:20</time>
+        <p>Un cliente escribe porque le cambiaron el vuelo. Queda como <b>ticket</b>, asignado a quien lo va a resolver, con su historial a la vista.</p>
+      </div>
+      <div class="beat">
+        <time>18:00</time>
+        <p>Se revisa el <b>reporte</b> del día: consultas entradas, reservas confirmadas y cuánto se cobró.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 07 ─────────────────────────────────────────────────────── -->
+  <section id="construccion" class="wrap">
+    <div class="head">
+      <p class="kicker">Cómo está construido</p>
+      <h2>Pensado para durar, no para entregar</h2>
+      <p class="sub">
+        Un sitio se hace una vez y se mantiene durante años. Las decisiones técnicas se
+        tomaron con esa segunda parte en mente.
+      </p>
+    </div>
+
+    <div class="stack">
+      <div class="item">
+        <h3>Tecnología vigente</h3>
+        <p>
+          Next.js 16 y TypeScript, el mismo stack con el que trabajan productos grandes.
+          Cualquier estudio serio puede continuarlo sin reescribirlo desde cero.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Rápido de verdad</h3>
+        <p>
+          Las páginas se generan por adelantado y las imágenes se sirven en formatos
+          modernos, ajustadas al tamaño real de cada pantalla. Menos espera, más ventas.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Encontrable en Google</h3>
+        <p>
+          Mapa del sitio y datos estructurados incluidos, para que los buscadores
+          entiendan qué es cada paquete, cuánto cuesta y hasta cuándo vale la promoción.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Accesible</h3>
+        <p>
+          Se puede recorrer sin mouse, funciona con lector de pantalla y respeta a quien
+          prefiere ver menos movimiento en pantalla. No es un detalle: es público que de
+          otro modo no compra.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Diseñado para el teléfono</h3>
+        <p>
+          Cada sección tiene su composición de móvil pensada aparte. No es la versión de
+          escritorio apretada, que es lo que hace la mayoría.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Identidad propia</h3>
+        <p>
+          Paleta, tipografías y componentes definidos como sistema. Sumar una página nueva
+          no obliga a rediseñar nada ni a improvisar colores.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Contenido separado del diseño</h3>
+        <p>
+          Los textos y los precios no están escritos dentro del código: viven aparte. Por
+          eso el panel puede editarlos sin romper nada.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Preparado para crecer</h3>
+        <p>
+          La estructura ya contempla base de datos, cobros y conexión con sistemas de
+          vuelos. No hay que rehacer lo construido para sumarlos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 08 ─────────────────────────────────────────────────────── -->
+  <section id="entrega" class="wrap">
+    <div class="head">
+      <p class="kicker">Qué incluye</p>
+      <h2>Lo que se entrega</h2>
+    </div>
+
+    <div class="delivery">
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>El sitio completo</b><span>Las 35 páginas públicas, funcionando y navegables, con el catálogo de muestra cargado.</span></p>
+      </div>
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>El panel de administración</b><span>Los 37 módulos, con ingreso por cuenta de Google y roles con permisos.</span></p>
+      </div>
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>El código fuente</b><span>Versionado y documentado. La agencia es dueña de lo que se construyó.</span></p>
+      </div>
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>El sistema de diseño</b><span>Paleta, tipografías y componentes definidos, para que todo lo que se sume después mantenga la línea.</span></p>
+      </div>
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>El manual de uso del panel</b><span>Dentro del propio panel y también como documento aparte.</span></p>
+      </div>
+      <div class="row">
+        <span class="tick" aria-hidden="true">✓</span>
+        <p><b>Publicación en internet</b><span>El sitio queda en línea, con dominio propio y certificado de seguridad.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 09 ─────────────────────────────────────────────────────── -->
+  <section id="ruta" class="wrap">
+    <div class="head">
+      <p class="kicker">Estado y hoja de ruta</p>
+      <h2>Dónde está hoy y qué falta para vender online</h2>
+      <p class="sub">
+        La primera etapa está terminada. Las que siguen están definidas y ordenadas por
+        dependencia: cada una habilita la próxima.
+      </p>
+    </div>
+
+    <ol class="phases">
+
+      <li class="phase">
+        <span class="dot done num">01</span>
+        <div>
+          <h3>La plataforma<span class="state done">Completa</span></h3>
+          <p>
+            Las 35 páginas públicas, el catálogo cargado, el panel con sus 37 módulos y el
+            ingreso con cuenta de Google. Todo el recorrido de navegación, búsqueda,
+            comparación y solicitud funciona hoy y se puede recorrer entero.
+          </p>
+        </div>
+      </li>
+
+      <li class="phase">
+        <span class="dot next num">02</span>
+        <div>
+          <h3>Base de datos<span class="state next">Siguiente</span></h3>
+          <p>
+            Hoy el catálogo vive en archivos del proyecto. Conectar la base de datos es lo
+            que convierte el panel en una herramienta real: lo que se carga queda guardado
+            y la web lo muestra al instante. Es la etapa que desbloquea todas las demás.
+          </p>
+          <ul>
+            <li>El panel pasa a escribir de verdad, no solo en pantalla</li>
+            <li>Varias personas pueden trabajar a la vez sin pisarse</li>
+            <li>Queda registro de quién cambió qué y cuándo</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase">
+        <span class="dot later num">03</span>
+        <div>
+          <h3>Cobros online</h3>
+          <p>
+            El recorrido de compra está armado de punta a punta. Falta conectar la pasarela
+            de pago para que la seña o el total se cobren desde la web.
+          </p>
+          <ul>
+            <li>Pago con tarjeta y en cuotas</li>
+            <li>Reserva confirmada de forma automática al acreditarse</li>
+            <li>Comprobante disponible en la cuenta del cliente</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase">
+        <span class="dot later num">04</span>
+        <div>
+          <h3>Avisos automáticos</h3>
+          <p>
+            Que el sistema avise, en lugar de depender de que alguien se acuerde.
+          </p>
+          <ul>
+            <li>Confirmación por correo y WhatsApp al reservar</li>
+            <li>Recordatorio cuando se acerca un vencimiento de pago</li>
+            <li>Aviso al equipo cuando entra una consulta nueva</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase">
+        <span class="dot later num">05</span>
+        <div>
+          <h3>Conexión con vuelos</h3>
+          <p>
+            Integración con un sistema de reservas aéreas para mostrar disponibilidad y
+            tarifas en vivo, en lugar de valores de referencia cargados a mano.
+          </p>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ── 10 ─────────────────────────────────────────────────────── -->
+  <section id="preguntas" class="wrap">
+    <div class="head">
+      <p class="kicker">Preguntas frecuentes</p>
+      <h2>Lo que suele preguntarse</h2>
+    </div>
+
+    <div class="faq">
+
+      <div class="q">
+        <h3>¿Puede la agencia actualizarlo sin ayuda?</h3>
+        <p>
+          Sí, para eso está el panel: cargar un paquete, cambiar una promoción o editar la
+          portada se hace desde ahí. <b>Con la base de datos conectada</b>, esos cambios
+          quedan guardados y publicados de inmediato.
+        </p>
+      </div>
+
+      <div class="q">
+        <h3>¿Compite con los grandes buscadores?</h3>
+        <p>
+          No en volumen, y no conviene que lo intente. Compite en <b>criterio y
+          respaldo</b>: catálogo elegido y alguien que responde cuando algo cambia. Toda la
+          web está construida sobre ese argumento.
+        </p>
+      </div>
+
+      <div class="q">
+        <h3>¿De quién es el código?</h3>
+        <p>
+          De la agencia. Se entrega versionado y documentado, y <b>cualquier estudio puede
+          continuarlo</b>. No queda atada a un proveedor.
+        </p>
+      </div>
+
+      <div class="q">
+        <h3>¿Se ve bien en el celular?</h3>
+        <p>
+          Sí, y no por escalado automático: <b>cada sección tiene su composición de móvil
+          diseñada aparte</b>. Se puede comprobar abriendo el sitio en cualquier teléfono.
+        </p>
+      </div>
+
+      <div class="q">
+        <h3>¿Qué pasa con el contenido de muestra?</h3>
+        <p>
+          Se reemplaza por el catálogo real desde el panel. <b>El diseño no cambia</b>: cada
+          producto es una ficha que se completa.
+        </p>
+      </div>
+
+      <div class="q">
+        <h3>¿Cuánto falta para vender por la web?</h3>
+        <p>
+          Tres piezas, en orden: <b>base de datos, cobros y avisos automáticos</b>. La
+          primera es la que habilita el resto. Los plazos se estiman al definir el alcance
+          de esa etapa.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 11 ─────────────────────────────────────────────────────── -->
+  <section id="cierre" class="wrap" style="border-bottom:none;">
+    <div class="close">
+      <h2>El paso que sigue</h2>
+      <p>
+        Para que deje de ser una plataforma y pase a ser <b>su</b> plataforma, hacen falta
+        tres definiciones. Ninguna es técnica.
+      </p>
+      <ol>
+        <li><b>El catálogo real.</b> Las primeras salidas, con sus fotos, sus precios y sus condiciones. Con eso adentro, la web deja de mostrar un ejemplo y empieza a mostrar el negocio.</li>
+        <li><b>Quién administra el panel.</b> Las personas del equipo que van a cargar y actualizar, para habilitarles el acceso y mostrarles el manual.</li>
+        <li><b>La etapa de base de datos.</b> Es lo que convierte el panel en una herramienta de trabajo y habilita todo lo que viene después.</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Funes Travel · Presentación del proyecto</span>
+    <span>Cifras tomadas del proyecto al día de la fecha</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -65,7 +65,7 @@ export default function GroupTripsPage() {
         </h2>
 
         <div className="mt-6 space-y-6">
-          {groupTrips.map((trip) => {
+          {groupTrips.map((trip, i) => {
             const waText = encodeURIComponent(
               `Hola, quisiera consultar disponibilidad para la salida grupal ${trip.name} del ${formatDate(trip.confirmedDate)}.`,
             );
@@ -80,6 +80,7 @@ export default function GroupTripsPage() {
                     alt={trip.name}
                     fill
                     sizes="(max-width: 1024px) 100vw, 320px"
+                    priority={i === 0}
                     className="object-cover"
                   />
                   <Badge tone="positive" className="absolute left-3 top-3">Salida confirmada</Badge>

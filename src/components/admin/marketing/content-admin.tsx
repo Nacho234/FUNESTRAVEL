@@ -50,7 +50,7 @@ export function ContentAdmin() {
         title="Secciones de la home"
         description="El orden de esta lista es el orden real de la página de inicio."
       >
-        <ul className="divide-y divide-graphite-100">
+        <ul className="divide-y divide-black/[0.05]">
           {sections.map((s, i) => (
             <li key={s.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
               <span className="w-6 text-center text-xs font-bold text-graphite-400 tabular">{i + 1}</span>
@@ -58,7 +58,7 @@ export function ContentAdmin() {
                 <button
                   onClick={() => move(s.id, -1)}
                   disabled={i === 0}
-                  className="grid size-6 place-items-center rounded border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+                  className="grid size-6 place-items-center rounded border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
                   aria-label={`Subir ${s.name}`}
                 >
                   <ArrowUpIcon className="size-3" aria-hidden />
@@ -66,7 +66,7 @@ export function ContentAdmin() {
                 <button
                   onClick={() => move(s.id, 1)}
                   disabled={i === sections.length - 1}
-                  className="grid size-6 place-items-center rounded border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+                  className="grid size-6 place-items-center rounded border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
                   aria-label={`Bajar ${s.name}`}
                 >
                   <ArrowDownIcon className="size-3" aria-hidden />
@@ -99,16 +99,16 @@ export function ContentAdmin() {
           <div className="space-y-4">
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-graphite-800">Título</span>
-              <input value={selected.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+              <input value={selected.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
             </label>
             <label className="block text-sm">
               <span className="mb-1 block font-semibold text-graphite-800">Descripción / subtítulo</span>
-              <textarea rows={3} value={selected.description} onChange={(e) => patch({ description: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+              <textarea rows={3} value={selected.description} onChange={(e) => patch({ description: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
             </label>
             {selected.ctaLabel !== undefined && (
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">CTA</span>
-                <input value={selected.ctaLabel} onChange={(e) => patch({ ctaLabel: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input value={selected.ctaLabel} onChange={(e) => patch({ ctaLabel: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
             )}
             <p className="rounded-lg bg-sand-50 px-3 py-2 text-xs text-graphite-500">

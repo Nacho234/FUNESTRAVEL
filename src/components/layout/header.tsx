@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import {
   AirplaneTiltIcon,
   CaretDownIcon,
@@ -88,6 +89,23 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
+
+  // With the drawer open the page behind it must not scroll.
+  useScrollLock(mobileOpen);
+
+  // The drawer is lg:hidden. Widening the window past that breakpoint with it
+  // open would hide the panel while the scroll lock stayed on, freezing the
+  // page with no way to release it.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const close = () => {
+      if (desktop.matches) setMobileOpen(false);
+    };
+    close();
+    desktop.addEventListener("change", close);
+    return () => desktop.removeEventListener("change", close);
+  }, [mobileOpen]);
 
   const solid = !overlay || scrolled;
 
@@ -219,7 +237,7 @@ export function Header() {
             onClick={() => setMobileOpen(false)}
             aria-label="Cerrar menú"
           />
-          <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm overflow-y-auto bg-ivory p-6 shadow-[var(--shadow-float)]">
+          <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm overflow-y-auto overscroll-contain bg-ivory p-6 shadow-[var(--shadow-float)]">
             <div className="flex items-center justify-between">
               <span className="font-display text-lg font-bold text-petrol-900">Funes Travel</span>
               <button

@@ -275,21 +275,34 @@ export interface ExperienceDestination {
   priceFrom?: Money;
 }
 
-/** Configurable entry for the home "experience finder" section. */
+/**
+ * Configurable entry for the home "experience finder" section. Each entry owns
+ * everything the visual panel renders, so swapping a background or a CTA is a
+ * data edit, never a layout edit.
+ */
 export interface TravelExperience {
   id: string;
   slug: string;
+  /** Label shown in the numbered selector. */
   name: string;
+  /** One-line subtitle revealed under the active selector item. */
   shortPhrase: string;
+  /** Small label above the panel title. */
+  eyebrow: string;
   title: string;
   description: string;
+  /** Panel background, wide crop. */
   imageDesktop: string;
+  /** Panel background, tall crop for mobile. */
   imageMobile: string;
   imageAlt: string;
+  /** Short bullet points listed under the panel description. */
   facts: string[];
   destinations: ExperienceDestination[];
   ctaLabel: string;
   ctaHref: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
   accent?: string;
   order: number;
   active: boolean;
@@ -366,4 +379,154 @@ export interface FAQItem {
   q: string;
   a: string;
   category: "Reservas" | "Pagos" | "Cancelaciones" | "Documentación" | "Equipaje" | "Asistencia";
+}
+
+/* ── Sección "Vuelos con respaldo" (/vuelos) ─────────────────────────── */
+
+/** Una línea del desglose de precio de la tarjeta de embarque. */
+export interface PriceBreakdownItem {
+  label: string;
+  amount: string;
+  /** Marca el extra que suele quedar fuera del precio publicado. */
+  highlight?: boolean;
+}
+
+export interface FlightAssuranceRoute {
+  /** Código del aeropuerto de origen; también rotula la pestaña. */
+  code: string;
+  city: string;
+  to: { code: string; city: string };
+  stopsLabel: string;
+  duration: string;
+  date: string;
+  depTime: string;
+  arrTime: string;
+  airline: string;
+  fareName: string;
+  fareTag?: string;
+  priceBreakdown: PriceBreakdownItem[];
+  /** Total con los extras incluidos: lo que realmente se paga. */
+  realCost: string;
+  includes: string[];
+  conditions: { label: string; value: string }[];
+  href: string;
+}
+
+export type FlightAssuranceIcon =
+  | "search"
+  | "ticket"
+  | "headset"
+  | "shield"
+  | "clipboard"
+  | "person";
+
+export interface FlightAssuranceStep {
+  title: string;
+  text: string;
+  icon: FlightAssuranceIcon;
+}
+
+export interface FlightAssuranceTrust {
+  title: string;
+  text: string;
+  icon: FlightAssuranceIcon;
+}
+
+/* ── Rutas destacadas (/vuelos) ──────────────────────────────────────── */
+
+export type RouteCategory = "recomendadas" | "nacionales" | "internacionales" | "larga-distancia";
+
+/** Dato suelto de la franja inferior de la tarjeta: ícono, rótulo y valor. */
+export interface RouteFact {
+  icon: "plane" | "calendar" | "clock" | "moon" | "bag";
+  label?: string;
+  value: string;
+}
+
+export interface FeaturedRoute {
+  id: string;
+  origin: { city: string; code: string };
+  destination: { city: string; code: string };
+  /** Rótulo corto para lectores de pantalla y para el panel. */
+  shortLabel: string;
+  flightType: string;
+  duration: string;
+  priceFrom: number;
+  currency: "USD" | "ARS";
+  /** Distintivo sobre la foto, p. ej. "Temporada de invierno". */
+  badge?: { text: string; tone: "petrol" | "positive" | "night" };
+  image: string;
+  imageAlt: string;
+  facts: RouteFact[];
+  highlights: string[];
+  notes?: string;
+  categories: RouteCategory[];
+  primaryCta: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+export interface RouteCommitment {
+  icon: "tag" | "shield" | "headset";
+  tone: "petrol" | "positive" | "coral";
+  title: string;
+  text: string;
+}
+
+/* ── Sección editorial de hoteles (/hoteles) ─────────────────────────── */
+
+export interface FeaturedHotel {
+  id: string;
+  location: string;
+  name: string;
+  nights: string;
+  mealPlan: string;
+  cancellation: string;
+  href: string;
+}
+
+export type HotelStageIcon = "bed" | "view" | "experience";
+
+export interface HotelStage {
+  number: string;
+  title: string;
+  text: string;
+  icon: HotelStageIcon;
+  /** Qué foto de la composición enfatiza esta etapa. */
+  target: "room" | "terrace" | "pool";
+}
+
+/* ── Promoción destacada (/promociones) ──────────────────────────────── */
+
+export interface FeaturedPromotionFact {
+  icon: "capitals" | "nights" | "guided" | "coordination";
+  text: string;
+}
+
+export interface FeaturedPromotionTerm {
+  icon: "shield" | "lock" | "seats" | "check";
+  title: string;
+  text: string;
+}
+
+export interface FeaturedPromotion {
+  id: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  facts: FeaturedPromotionFact[];
+  priceFrom: string;
+  priceSuffix: string;
+  priceBasis: string;
+  /** Se muestra en el sello circular sobre la foto. */
+  validUntil: { label: string; day: string; year: string };
+  terms: FeaturedPromotionTerm[];
+  imageDesktop: string;
+  /** Recorte alternativo para pantalla angosta; si falta, se usa el de escritorio. */
+  imageMobile?: string;
+  imageAlt: string;
+  /** Valor CSS de object-position, p. ej. "60% center". */
+  imagePositionDesktop?: string;
+  imagePositionMobile?: string;
+  ctaLabel: string;
+  href: string;
 }

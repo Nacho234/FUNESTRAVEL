@@ -31,7 +31,7 @@ interface EditableDeparture {
 }
 
 const inputClass =
-  "w-full rounded-[var(--radius-control)] border border-graphite-200 bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
+  "w-full rounded-[var(--radius-control)] border border-black/[0.07] bg-white px-3 py-2 text-sm text-graphite-800 focus:border-teal-500 focus:outline-none";
 
 function Field({ label, children, className = "" }: { label: string; children: React.ReactNode; className?: string }) {
   return (
@@ -198,7 +198,7 @@ function PackageEditor({ slug, isNew }: { slug?: string; isNew: boolean }) {
             <Link
               href={`/paquetes/${pkg!.slug}`}
               target="_blank"
-              className="inline-flex items-center rounded-[var(--radius-control)] border border-graphite-200 px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
+              className="inline-flex items-center rounded-[var(--radius-control)] border border-black/[0.07] px-3.5 py-2 text-sm font-semibold text-petrol-900 hover:border-petrol-600"
             >
               Ver en el sitio
             </Link>
@@ -301,17 +301,17 @@ function PackageEditor({ slug, isNew }: { slug?: string; isNew: boolean }) {
               ) : (
                 <ol className="space-y-4">
                   {itinerary.map((day, i) => (
-                    <li key={`${i}-${day.title}`} className="rounded-lg border border-graphite-100 p-4">
+                    <li key={`${i}-${day.title}`} className="rounded-lg border border-black/[0.05] p-4">
                       <div className="flex items-center justify-between gap-2">
                         <p className="text-xs font-bold uppercase tracking-wide text-teal-600 tabular">Día {day.day}</p>
                         <div className="flex gap-1">
-                          <button onClick={() => moveDay(i, -1)} disabled={i === 0} className="grid size-7 place-items-center rounded-md border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer" aria-label={`Subir día ${day.day}`}>
+                          <button onClick={() => moveDay(i, -1)} disabled={i === 0} className="grid size-7 place-items-center rounded-md border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer" aria-label={`Subir día ${day.day}`}>
                             <ArrowUpIcon className="size-3.5" aria-hidden />
                           </button>
-                          <button onClick={() => moveDay(i, 1)} disabled={i === itinerary.length - 1} className="grid size-7 place-items-center rounded-md border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer" aria-label={`Bajar día ${day.day}`}>
+                          <button onClick={() => moveDay(i, 1)} disabled={i === itinerary.length - 1} className="grid size-7 place-items-center rounded-md border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer" aria-label={`Bajar día ${day.day}`}>
                             <ArrowDownIcon className="size-3.5" aria-hidden />
                           </button>
-                          <button onClick={() => duplicateDay(i)} className="grid size-7 place-items-center rounded-md border border-graphite-200 text-graphite-500 hover:text-petrol-800 cursor-pointer" aria-label={`Duplicar día ${day.day}`}>
+                          <button onClick={() => duplicateDay(i)} className="grid size-7 place-items-center rounded-md border border-black/[0.07] text-graphite-500 hover:text-petrol-800 cursor-pointer" aria-label={`Duplicar día ${day.day}`}>
                             <CopyIcon className="size-3.5" aria-hidden />
                           </button>
                           <button onClick={() => removeDay(i)} className="grid size-7 place-items-center rounded-md border border-danger-100 text-danger-700 hover:bg-danger-100/50 cursor-pointer" aria-label={`Eliminar día ${day.day}`}>
@@ -371,7 +371,7 @@ function PackageEditor({ slug, isNew }: { slug?: string; isNew: boolean }) {
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[560px] text-sm">
                   <thead>
-                    <tr className="border-b border-graphite-100 text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
+                    <tr className="border-b border-black/[0.05] text-left text-xs font-bold uppercase tracking-wide text-graphite-500">
                       <th className="px-2 py-2">Fecha</th>
                       <th className="px-2 py-2 text-right">Precio USD</th>
                       <th className="px-2 py-2 text-right">Cupos</th>
@@ -379,7 +379,7 @@ function PackageEditor({ slug, isNew }: { slug?: string; isNew: boolean }) {
                       <th className="px-2 py-2" />
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-graphite-100">
+                  <tbody className="divide-y divide-black/[0.05]">
                     {departures.map((d, i) => (
                       <tr key={d.id}>
                         <td className="px-2 py-2">
@@ -494,7 +494,7 @@ function PackageEditor({ slug, isNew }: { slug?: string; isNew: boolean }) {
       </div>
 
       {/* Guardar sticky */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-graphite-200/70 bg-white/95 px-4 py-3 backdrop-blur lg:left-60">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-black/[0.07]/70 bg-white/95 px-4 py-3 backdrop-blur lg:left-60">
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3">
           <p className="text-xs text-graphite-500">
             Entorno demo: los cambios reales requieren la base de datos. Todo cambio queda auditado.

@@ -277,7 +277,7 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
           { label: "Por vencer (15 días)", value: expiring },
           { label: "Ventas atribuidas (mes)", value: "USD 24.490" },
         ].map((m) => (
-          <div key={m.label} className="rounded-xl border border-graphite-200/70 bg-white px-4 py-3">
+          <div key={m.label} className="rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3">
             <p className="text-xs text-graphite-500">{m.label}</p>
             <p className="mt-0.5 font-display text-xl font-bold text-petrol-900 tabular">{m.value}</p>
           </div>
@@ -304,23 +304,23 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Nombre interno</span>
-                  <input value={draft.internalName} onChange={(e) => patch({ internalName: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.internalName} onChange={(e) => patch({ internalName: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Badge</span>
-                  <input value={draft.badge} onChange={(e) => patch({ badge: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.badge} onChange={(e) => patch({ badge: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm sm:col-span-2">
                   <span className="mb-1 block font-semibold text-graphite-800">Título público</span>
-                  <input value={draft.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.title} onChange={(e) => patch({ title: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm sm:col-span-2">
                   <span className="mb-1 block font-semibold text-graphite-800">Subtítulo</span>
-                  <input value={draft.subtitle} onChange={(e) => patch({ subtitle: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.subtitle} onChange={(e) => patch({ subtitle: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Tipo</span>
-                  <select value={draft.type} onChange={(e) => patch({ type: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer capitalize focus:border-teal-500 focus:outline-none">
+                  <select value={draft.type} onChange={(e) => patch({ type: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer capitalize focus:border-teal-500 focus:outline-none">
                     {promoTypes.map((t) => (
                       <option key={t}>{t}</option>
                     ))}
@@ -328,7 +328,7 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Descuento / beneficio</span>
-                  <input value={draft.discount} onChange={(e) => patch({ discount: e.target.value })} placeholder="Ej.: 10% · 12 cuotas" className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.discount} onChange={(e) => patch({ discount: e.target.value })} placeholder="Ej.: 10% · 12 cuotas" className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
               </div>
 
@@ -357,41 +357,41 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Compra desde</span>
-                  <input type="date" value={draft.buyFrom} onChange={(e) => patch({ buyFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input type="date" value={draft.buyFrom} onChange={(e) => patch({ buyFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Vigencia (hasta)</span>
-                  <input type="date" value={draft.validUntil} onChange={(e) => patch({ validUntil: e.target.value, buyUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input type="date" value={draft.validUntil} onChange={(e) => patch({ validUntil: e.target.value, buyUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Viaje desde</span>
-                  <input type="date" value={draft.travelFrom} onChange={(e) => patch({ travelFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input type="date" value={draft.travelFrom} onChange={(e) => patch({ travelFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Viaje hasta</span>
-                  <input type="date" value={draft.travelUntil} onChange={(e) => patch({ travelUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input type="date" value={draft.travelUntil} onChange={(e) => patch({ travelUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Stock / cupos</span>
-                  <input value={draft.stock} onChange={(e) => patch({ stock: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.stock} onChange={(e) => patch({ stock: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">Prioridad (1 = más alta)</span>
-                  <input type="number" min={1} max={9} value={draft.priority} onChange={(e) => patch({ priority: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
+                  <input type="number" min={1} max={9} value={draft.priority} onChange={(e) => patch({ priority: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">CTA</span>
-                  <input value={draft.ctaLabel} onChange={(e) => patch({ ctaLabel: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.ctaLabel} onChange={(e) => patch({ ctaLabel: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
                 <label className="block text-sm">
                   <span className="mb-1 block font-semibold text-graphite-800">URL destino</span>
-                  <input value={draft.ctaHref} onChange={(e) => patch({ ctaHref: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                  <input value={draft.ctaHref} onChange={(e) => patch({ ctaHref: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
                 </label>
               </div>
 
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Condiciones</span>
-                <textarea rows={3} value={draft.conditions} onChange={(e) => patch({ conditions: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <textarea rows={3} value={draft.conditions} onChange={(e) => patch({ conditions: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
 
               <div className="flex flex-wrap gap-2 border-t border-dashed border-sand-200 pt-4">
@@ -421,7 +421,7 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
               </div>
 
               {draft.history.length > 0 && (
-                <div className="border-t border-graphite-100 pt-4">
+                <div className="border-t border-black/[0.05] pt-4">
                   <p className="mb-2 text-sm font-semibold text-graphite-800">Historial de cambios</p>
                   <ul className="space-y-1.5">
                     {draft.history.map((h, i) => (
@@ -438,7 +438,7 @@ export function PromotionsAdmin({ openNew = false }: { openNew?: boolean }) {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <p className="text-sm font-semibold text-graphite-800">Previsualización</p>
-                <div className="flex gap-1 rounded-lg border border-graphite-200 p-0.5" role="group" aria-label="Dispositivo">
+                <div className="flex gap-1 rounded-lg border border-black/[0.07] p-0.5" role="group" aria-label="Dispositivo">
                   {[
                     { label: "Desktop", value: false },
                     { label: "Mobile", value: true },

@@ -51,6 +51,11 @@ export interface QuoteRequest {
   comments: string;
   status: "recibida" | "en-revision" | "propuesta-enviada";
   createdAt: string;
+  /* Contact block, filled by the home intake form (step 2). */
+  contactName?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactPreference?: string;
 }
 
 interface Store {

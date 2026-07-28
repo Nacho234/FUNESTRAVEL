@@ -339,11 +339,11 @@ export function CuratedDestinations() {
                 muted
                 loop
                 playsInline
-                poster="/videos/destinos-poster.jpg"
+                poster="/videos/curated-destinations-poster.jpg"
                 aria-hidden
               >
-                <source src="/videos/destinos.webm" type="video/webm" />
-                <source src="/videos/destinos.mp4" type="video/mp4" />
+                <source src="/videos/curated-destinations-video.webm" type="video/webm" />
+                <source src="/videos/curated-destinations-video.mp4" type="video/mp4" />
               </video>
             </div>
           </Reveal>

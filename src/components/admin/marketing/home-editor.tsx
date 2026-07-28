@@ -58,11 +58,11 @@ export function HomeEditor() {
 
       <div className="grid gap-4 xl:grid-cols-[360px_1fr]">
         {/* Sections list */}
-        <div className="rounded-xl border border-graphite-200/70 bg-white">
-          <div className="border-b border-graphite-100 px-4 py-3">
+        <div className="rounded-xl border border-black/[0.07]/70 bg-white">
+          <div className="border-b border-black/[0.05] px-4 py-3">
             <h2 className="text-sm font-bold text-petrol-900">Secciones</h2>
           </div>
-          <ul className="divide-y divide-graphite-100 p-2">
+          <ul className="divide-y divide-black/[0.05] p-2">
             {sections.map((s, i) => (
               <li key={s.id} className={`flex items-center gap-2.5 rounded-lg px-2 py-2.5 ${s.active ? "" : "opacity-50"}`}>
                 <span className="w-5 text-center text-xs font-bold text-graphite-400 tabular">{i + 1}</span>
@@ -74,7 +74,7 @@ export function HomeEditor() {
                   <button
                     onClick={() => move(s.id, -1)}
                     disabled={i === 0}
-                    className="grid size-5 place-items-center rounded border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+                    className="grid size-5 place-items-center rounded border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
                     aria-label={`Subir ${s.name}`}
                   >
                     <ArrowUpIcon className="size-2.5" aria-hidden />
@@ -82,7 +82,7 @@ export function HomeEditor() {
                   <button
                     onClick={() => move(s.id, 1)}
                     disabled={i === sections.length - 1}
-                    className="grid size-5 place-items-center rounded border border-graphite-200 text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
+                    className="grid size-5 place-items-center rounded border border-black/[0.07] text-graphite-500 hover:text-petrol-800 disabled:opacity-30 cursor-pointer"
                     aria-label={`Bajar ${s.name}`}
                   >
                     <ArrowDownIcon className="size-2.5" aria-hidden />
@@ -104,10 +104,10 @@ export function HomeEditor() {
         </div>
 
         {/* Live preview */}
-        <div className="rounded-xl border border-graphite-200/70 bg-white">
-          <div className="flex items-center justify-between border-b border-graphite-100 px-4 py-2.5">
+        <div className="rounded-xl border border-black/[0.07]/70 bg-white">
+          <div className="flex items-center justify-between border-b border-black/[0.05] px-4 py-2.5">
             <h2 className="text-sm font-bold text-petrol-900">Vista previa</h2>
-            <div className="flex gap-1 rounded-lg border border-graphite-200 p-0.5" role="group" aria-label="Dispositivo">
+            <div className="flex gap-1 rounded-lg border border-black/[0.07] p-0.5" role="group" aria-label="Dispositivo">
               {devices.map((d) => (
                 <button
                   key={d.id}
@@ -123,7 +123,7 @@ export function HomeEditor() {
             </div>
           </div>
           <div className="flex justify-center bg-sand-50/60 p-4">
-            <div style={{ width, maxWidth: "100%" }} className="pointer-events-none overflow-hidden rounded-lg border border-graphite-200 shadow-[var(--shadow-lift)] transition-[width] duration-300">
+            <div style={{ width, maxWidth: "100%" }} className="pointer-events-none overflow-hidden rounded-lg border border-black/[0.07] shadow-[var(--shadow-lift)] transition-[width] duration-300">
               <iframe
                 src="/"
                 title="Vista previa de la home"

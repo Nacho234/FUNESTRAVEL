@@ -15,8 +15,8 @@ import { Reveal } from "@/components/ui/reveal";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { AccordionItem } from "@/components/ui/accordion";
-import { TakeoffScroll } from "@/components/home/takeoff-scroll";
 import { PromotionsShowcase } from "@/components/home/promotions-showcase";
+import { WordmarkSection } from "@/components/home/wordmark-section";
 import { ExperienceFinder } from "@/components/home/experience-finder";
 import { CuratedDestinations } from "@/components/home/curated-destinations";
 import { TravelStories } from "@/components/home/travel-stories";
@@ -40,11 +40,11 @@ function Hero() {
     <section className="relative min-h-[92dvh] flex items-end lg:items-center">
       {/* Mobile: static image (calmer, lighter, better legibility) */}
       <Image
-        src="/videos/hero-poster.jpg"
-        alt="Terminal de aeropuerto iluminada al atardecer"
+        src="/images/hero-beach-mobile.webp"
+        alt="Playa de arena blanca con agua turquesa y palmeras, al amanecer"
         fill
         priority
-        sizes="100vw"
+        sizes="(min-width: 1024px) 1px, 100vw"
         className="object-cover lg:hidden"
       />
       {/* Desktop: video */}
@@ -57,22 +57,27 @@ function Hero() {
         poster="/videos/hero-poster.jpg"
         aria-hidden
       >
-        <source src="/videos/hero.webm" type="video/webm" />
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src="/videos/hero-video.webm" type="video/webm" />
+        <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/60 via-petrol-950/30 to-petrol-950/75" aria-hidden />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-petrol-950/60 via-petrol-950/30 to-petrol-950/75"
+        aria-hidden
+      />
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pt-28 pb-10 lg:pb-0">
-        <div className="max-w-3xl">
+        {/* Sólo entra la copia: la foto es el LCP y no debe esperar a una animación. */}
+        <Reveal className="max-w-3xl">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05]">
             Tu próximo viaje empieza mucho antes de despegar.
           </h1>
           <p className="mt-4 max-w-xl text-base sm:text-lg text-white/85 leading-relaxed">
-            Paquetes, vuelos y experiencias para viajar con tranquilidad, acompañamiento real y beneficios exclusivos.
+            Paquetes, vuelos y experiencias para viajar con tranquilidad,
+            acompañamiento real y beneficios exclusivos.
           </p>
-        </div>
-        <div className="mt-8 lg:mt-10">
+        </Reveal>
+        <Reveal delay={0.12} className="mt-8 lg:mt-10">
           <SearchWidget />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -90,15 +95,20 @@ const trustItems = [
 
 function TrustLine() {
   return (
-    <section aria-label="Por qué viajar con Funes Travel" className="border-b border-graphite-100 bg-white">
-      <ul className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 sm:px-6 py-5 text-sm text-graphite-600">
-        {trustItems.map(({ icon: Icon, text }) => (
-          <li key={text} className="flex items-center gap-2">
-            <Icon className="size-4.5 text-teal-600" aria-hidden />
-            {text}
-          </li>
-        ))}
-      </ul>
+    <section
+      aria-label="Por qué viajar con Funes Travel"
+      className="border-b border-graphite-100 bg-white"
+    >
+      <Reveal>
+        <ul className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 sm:px-6 py-5 text-sm text-graphite-600">
+          {trustItems.map(({ icon: Icon, text }) => (
+            <li key={text} className="flex items-center gap-2">
+              <Icon className="size-4.5 text-teal-600" aria-hidden />
+              {text}
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   );
 }
@@ -114,7 +124,9 @@ function GroupTrips() {
             Salidas grupales con coordinador
           </h2>
           <p className="mt-2 text-graphite-600">
-            Viajás acompañado desde el aeropuerto de salida hasta la vuelta. Fechas confirmadas, grupos reducidos y reunión informativa antes de viajar.
+            Viajás acompañado desde el aeropuerto de salida hasta la vuelta.
+            Fechas confirmadas, grupos reducidos y reunión informativa antes de
+            viajar.
           </p>
         </div>
       </Reveal>
@@ -123,28 +135,48 @@ function GroupTrips() {
           <Reveal key={trip.slug} delay={i * 0.05}>
             <article className="grid overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-lift)] md:grid-cols-[280px_1fr_auto]">
               <div className="relative h-44 md:h-full min-h-44">
-                <Image src={trip.image} alt={trip.name} fill sizes="(max-width: 768px) 100vw, 280px" className="object-cover" />
-                <Badge tone="positive" className="absolute left-3 top-3">Salida confirmada</Badge>
+                <Image
+                  src={trip.image}
+                  alt={trip.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 280px"
+                  className="object-cover"
+                />
+                <Badge tone="positive" className="absolute left-3 top-3">
+                  Salida confirmada
+                </Badge>
               </div>
               <div className="p-5 md:p-6">
-                <h3 className="font-display text-xl font-bold text-petrol-900">{trip.name}</h3>
-                <p className="mt-1.5 text-sm text-graphite-600">{trip.itinerarySummary.join(" · ")}</p>
+                <h3 className="font-display text-xl font-bold text-petrol-900">
+                  {trip.name}
+                </h3>
+                <p className="mt-1.5 text-sm text-graphite-600">
+                  {trip.itinerarySummary.join(" · ")}
+                </p>
                 <dl className="mt-3 grid gap-x-8 gap-y-1.5 text-sm sm:grid-cols-2">
                   <div className="flex gap-1.5">
                     <dt className="text-graphite-500">Salida:</dt>
-                    <dd className="font-semibold text-graphite-800">{formatDate(trip.confirmedDate)} · {trip.days} días</dd>
+                    <dd className="font-semibold text-graphite-800">
+                      {formatDate(trip.confirmedDate)} · {trip.days} días
+                    </dd>
                   </div>
                   <div className="flex gap-1.5">
                     <dt className="text-graphite-500">Coordina:</dt>
-                    <dd className="font-semibold text-graphite-800">{trip.coordinator}</dd>
+                    <dd className="font-semibold text-graphite-800">
+                      {trip.coordinator}
+                    </dd>
                   </div>
                   <div className="flex gap-1.5">
                     <dt className="text-graphite-500">Desde:</dt>
-                    <dd className="font-semibold text-graphite-800">{trip.departureCity}</dd>
+                    <dd className="font-semibold text-graphite-800">
+                      {trip.departureCity}
+                    </dd>
                   </div>
                   <div className="flex gap-1.5">
                     <dt className="text-graphite-500">Ideal para:</dt>
-                    <dd className="font-semibold text-graphite-800">{trip.profile}</dd>
+                    <dd className="font-semibold text-graphite-800">
+                      {trip.profile}
+                    </dd>
                   </div>
                 </dl>
                 <p className="mt-3 flex items-center gap-1.5 text-sm font-medium text-coral-700">
@@ -155,10 +187,18 @@ function GroupTrips() {
               <div className="flex flex-row md:flex-col items-center md:items-end justify-between gap-3 border-t md:border-t-0 md:border-l border-graphite-100 p-5 md:p-6 md:text-right">
                 <div>
                   <p className="text-xs text-graphite-500">Desde</p>
-                  <p className="font-display text-2xl font-bold text-petrol-900 tabular">{formatMoney(trip.price)}</p>
-                  <p className="text-xs text-graphite-500">por persona, base doble</p>
+                  <p className="font-display text-2xl font-bold text-petrol-900 tabular">
+                    {formatMoney(trip.price)}
+                  </p>
+                  <p className="text-xs text-graphite-500">
+                    por persona, base doble
+                  </p>
                 </div>
-                <ButtonLink href={`/viajes-grupales/${trip.slug}`} variant="secondary" size="sm">
+                <ButtonLink
+                  href={`/viajes-grupales/${trip.slug}`}
+                  variant="secondary"
+                  size="sm"
+                >
                   Ver itinerario
                 </ButtonLink>
               </div>
@@ -181,9 +221,15 @@ function Inspiration() {
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-petrol-900">
             Guías útiles antes de reservar
           </h2>
-          <Link href="/inspiracion" className="group flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-500">
+          <Link
+            href="/inspiracion"
+            className="group flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-500"
+          >
             Ver todas las guías
-            <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRightIcon
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
           </Link>
         </div>
       </Reveal>
@@ -205,23 +251,38 @@ function Inspiration() {
             <h3 className="mt-1.5 font-display text-2xl font-bold text-petrol-900 group-hover:text-petrol-700 transition-colors">
               {featured.title}
             </h3>
-            <p className="mt-2 max-w-xl text-graphite-600">{featured.excerpt}</p>
+            <p className="mt-2 max-w-xl text-graphite-600">
+              {featured.excerpt}
+            </p>
           </Link>
         </Reveal>
         <Reveal delay={0.08}>
           <ul className="divide-y divide-graphite-100">
             {rest.slice(0, 4).map((a) => (
               <li key={a.slug}>
-                <Link href={`/inspiracion/${a.slug}`} className="group flex items-center gap-4 py-4 first:pt-0">
+                <Link
+                  href={`/inspiracion/${a.slug}`}
+                  className="group flex items-center gap-4 py-4 first:pt-0"
+                >
                   <div className="relative size-20 shrink-0 overflow-hidden rounded-xl">
-                    <Image src={a.image} alt="" fill sizes="80px" className="object-cover" />
+                    <Image
+                      src={a.image}
+                      alt=""
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-600">{a.category}</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-600">
+                      {a.category}
+                    </p>
                     <h3 className="mt-0.5 font-semibold text-graphite-800 group-hover:text-petrol-800 transition-colors leading-snug">
                       {a.title}
                     </h3>
-                    <p className="mt-0.5 text-xs text-graphite-500">{a.readMinutes} min de lectura</p>
+                    <p className="mt-0.5 text-xs text-graphite-500">
+                      {a.readMinutes} min de lectura
+                    </p>
                   </div>
                 </Link>
               </li>
@@ -246,7 +307,8 @@ function FaqPreview() {
               Las dudas de siempre, respondidas
             </h2>
             <p className="mt-3 text-graphite-600">
-              Pagos, cuotas, documentación y cancelaciones: lo que todos preguntan antes de reservar.
+              Pagos, cuotas, documentación y cancelaciones: lo que todos
+              preguntan antes de reservar.
             </p>
             <ButtonLink href="/ayuda" variant="tertiary" className="mt-5">
               Ver todas las preguntas
@@ -273,34 +335,48 @@ function BrandShowcase() {
   // Knockout effect: the logo silhouette masks the photo, so the letters and
   // wing are "filled" with the image while everything around stays plain white.
   const logoMask = {
-    WebkitMask: "url(/images/logo-funes.png) center / contain no-repeat",
-    mask: "url(/images/logo-funes.png) center / contain no-repeat",
+    WebkitMask:
+      "url(/images/brand-band-logo-mask.png) center / contain no-repeat",
+    mask: "url(/images/brand-band-logo-mask.png) center / contain no-repeat",
   } as const;
   return (
-    <section className="relative bg-white">
-      <Image
-        src={IMG.brandClouds}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-        priority={false}
-      />
+    <section className="relative overflow-hidden bg-white">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/videos/brand-band-clouds-poster.jpg"
+        aria-hidden
+      >
+        <source src="/videos/brand-band-clouds-video.webm" type="video/webm" />
+        <source src="/videos/brand-band-clouds-video.mp4" type="video/mp4" />
+      </video>
       {/* Mobile: top white / bottom sky. Desktop: left white / right sky. Soft transition. */}
       <div
         className="absolute inset-0 lg:hidden"
-        style={{ background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 44%, rgba(255,255,255,0) 66%)" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, #ffffff 0%, #ffffff 44%, rgba(255,255,255,0) 66%)",
+        }}
         aria-hidden
       />
       <div
         className="absolute inset-0 hidden lg:block"
-        style={{ background: "linear-gradient(to right, #ffffff 0%, #ffffff 46%, rgba(255,255,255,0) 66%)" }}
+        style={{
+          background:
+            "linear-gradient(to right, #ffffff 0%, #ffffff 46%, rgba(255,255,255,0) 66%)",
+        }}
         aria-hidden
       />
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
         {/* Left: logo filled with a photo (knockout) */}
         <Reveal>
-          <div className="relative mx-auto aspect-[923/469] w-full max-w-md" style={logoMask}>
+          <div
+            className="relative mx-auto aspect-[923/469] w-full max-w-md"
+            style={logoMask}
+          >
             <Image
               src={IMG.brandFill}
               alt="Funes Travel — Viajes nacionales e internacionales"
@@ -339,14 +415,14 @@ export default function HomePage() {
       <Hero />
       <TrustLine />
       <PromotionsShowcase />
-      <TakeoffScroll />
+      <WordmarkSection />
       <CuratedDestinations />
-      <BrandShowcase />
       <ExperienceFinder />
       <GroupTrips />
       <HumanTouch />
       <CustomTripSection />
       <TravelStories />
+      <BrandShowcase />
       <Inspiration />
       <FaqPreview />
     </>

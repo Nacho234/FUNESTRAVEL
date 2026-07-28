@@ -22,6 +22,7 @@ import {
   useToast,
   type Column,
   type FilterDef,
+  NameCell,
 } from "@/components/admin/ui";
 
 /** Travel documents: review queue with approve / reject / re-request flow. */
@@ -64,7 +65,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
       ),
       sortValue: (d) => d.name,
     },
-    { id: "person", header: "Pasajero / cliente", cell: (d) => d.person, sortValue: (d) => d.person },
+    { id: "person", header: "Pasajero / cliente", cell: (d) => <NameCell name={d.person} />, sortValue: (d) => d.person },
     { id: "booking", header: "Reserva", cell: (d) => <span className="tabular text-xs">{d.booking ?? "—"}</span> },
     {
       id: "expiry",
@@ -98,7 +99,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
 
       <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {tiles.map((t) => (
-          <div key={t.label} className="flex items-center gap-3 rounded-xl border border-graphite-200/70 bg-white px-4 py-3">
+          <div key={t.label} className="flex items-center gap-3 rounded-xl border border-black/[0.07]/70 bg-white px-4 py-3">
             <t.icon className={`size-5 shrink-0 ${t.count === 0 ? "text-graphite-300" : t.tone}`} aria-hidden />
             <div>
               <p className="font-display text-lg font-bold text-petrol-900 tabular">{t.count}</p>
@@ -176,7 +177,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   placeholder="El cliente lo va a ver: explicá qué corregir."
-                  className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+                  className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
                 />
                 <div className="mt-2 flex gap-2">
                   <AdminButton
@@ -267,7 +268,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
               id="up-type"
               value={draft.type}
               onChange={(e) => setDraft((d) => ({ ...d, type: e.target.value as DocumentType }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm capitalize cursor-pointer focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm capitalize cursor-pointer focus:border-teal-500 focus:outline-none"
             >
               {docTypes.map((t) => (
                 <option key={t} value={t}>
@@ -284,7 +285,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
               id="up-person"
               value={draft.person}
               onChange={(e) => setDraft((d) => ({ ...d, person: e.target.value }))}
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
             />
           </div>
           <div>
@@ -296,7 +297,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
               value={draft.booking}
               onChange={(e) => setDraft((d) => ({ ...d, booking: e.target.value }))}
               placeholder="FT-2026-…"
-              className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none"
             />
           </div>
           <div>
@@ -307,7 +308,7 @@ export function DocumentsView({ startCreating = false }: { startCreating?: boole
               id="up-file"
               type="file"
               accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full rounded-[var(--radius-control)] border border-dashed border-graphite-200 px-3 py-4 text-sm text-graphite-500 file:mr-3 file:rounded-lg file:border-0 file:bg-petrol-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-petrol-800"
+              className="w-full rounded-[var(--radius-control)] border border-dashed border-black/[0.07] px-3 py-4 text-sm text-graphite-500 file:mr-3 file:rounded-lg file:border-0 file:bg-petrol-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-petrol-800"
             />
             <p className="mt-1 text-xs text-graphite-500">JPG, PNG o PDF de hasta 10 MB. En demo el archivo no se sube.</p>
           </div>

@@ -47,10 +47,10 @@ export function RolesAdmin() {
         breadcrumb={[{ label: "Roles y permisos" }]}
       />
 
-      <div className="overflow-x-auto rounded-xl border border-graphite-200/70 bg-white">
+      <div className="overflow-x-auto rounded-xl border border-black/[0.07]/70 bg-white">
         <table className="w-full min-w-[900px] text-sm">
           <thead>
-            <tr className="border-b border-graphite-100 bg-sand-50/50 text-left">
+            <tr className="border-b border-black/[0.05] bg-sand-50/50 text-left">
               <th className="sticky left-0 z-10 bg-sand-50 px-4 py-2.5 text-xs font-bold uppercase tracking-wide text-graphite-500">
                 Rol
               </th>
@@ -61,7 +61,7 @@ export function RolesAdmin() {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-graphite-100">
+          <tbody className="divide-y divide-black/[0.05]">
             {adminRoles.map((role) => {
               const perms = permsOf(role);
               return (
@@ -101,7 +101,7 @@ export function RolesAdmin() {
         {selected && (
           <div className="space-y-4">
             <p className="text-sm leading-relaxed text-graphite-600">{selected.description}</p>
-            <ul className="divide-y divide-graphite-100">
+            <ul className="divide-y divide-black/[0.05]">
               {allPermissions.map((p) => {
                 const on = permsOf(selected).includes(p.id);
                 return (

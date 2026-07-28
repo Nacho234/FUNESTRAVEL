@@ -58,23 +58,23 @@ export const IMG = {
   caribeExperience: u("1544550581-5f7ceaf7f992"),
 
   // Curated destinations background (home)
-  cloudSea: "/images/cloud-sea.jpg",
+  cloudSea: "/images/takeoff-cloud-sea.jpg",
 
   // Human-touch hero (home)
   humanScene: u("1527631746610-bca00a040d60"),
   // Parallax scene for the human-touch section: misty forest river valley (local asset).
-  humanSceneTall: "/images/human-forest.jpg",
+  humanSceneTall: "/images/human-touch-forest.jpg",
   // Portrait variant of the same scene for mobile (sharper + better vertical parallax).
-  humanSceneMobile: "/images/human-forest-mobile.jpg",
+  humanSceneMobile: "/images/human-touch-forest-mobile.jpg",
   // Brand band: photo that fills the knockout logo (sea) + airplane on the right.
   brandFill: u("1468413253725-0d5181091126"),
-  brandPlane: "/images/airbus-a320.png",
-  brandClouds: "/images/nubes.jpg",
+  brandPlane: "/images/brand-band-plane.png",
+  brandClouds: "/images/brand-band-clouds.jpg",
 
   // Takeoff scroll scene (home)
   takeoffAirport: u("1542296332-2e4473faf563"),
   takeoffRunway: u("1556388158-158ea5ccacbd"),
-  takeoffFlight: "/images/takeoff-flight.jpg",
+  takeoffFlight: "/images/takeoff-flight-still.jpg",
 
   // Misc
   planning: u("1488646953014-85cb44e25828"),

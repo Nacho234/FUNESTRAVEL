@@ -154,42 +154,42 @@ export function CouponsAdmin() {
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Código</span>
-                <input value={selected.code} onChange={(e) => patch({ code: e.target.value.toUpperCase() })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 font-mono text-sm uppercase focus:border-teal-500 focus:outline-none" />
+                <input value={selected.code} onChange={(e) => patch({ code: e.target.value.toUpperCase() })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 font-mono text-sm uppercase focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Tipo</span>
-                <select value={selected.type} onChange={(e) => patch({ type: e.target.value as AdminCoupon["type"] })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+                <select value={selected.type} onChange={(e) => patch({ type: e.target.value as AdminCoupon["type"] })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
                   <option value="porcentual">Porcentual</option>
                   <option value="fijo">Monto fijo (USD)</option>
                 </select>
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Descuento</span>
-                <input type="number" value={selected.discount} onChange={(e) => patch({ discount: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
+                <input type="number" value={selected.discount} onChange={(e) => patch({ discount: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Uso máximo</span>
-                <input type="number" value={selected.maxUses} onChange={(e) => patch({ maxUses: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
+                <input type="number" value={selected.maxUses} onChange={(e) => patch({ maxUses: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Usos por cliente</span>
-                <input type="number" value={selected.perCustomer} onChange={(e) => patch({ perCustomer: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
+                <input type="number" value={selected.perCustomer} onChange={(e) => patch({ perCustomer: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Monto mínimo (USD)</span>
-                <input type="number" value={selected.minAmountUsd} onChange={(e) => patch({ minAmountUsd: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
+                <input type="number" value={selected.minAmountUsd} onChange={(e) => patch({ minAmountUsd: Number(e.target.value) })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm tabular focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm sm:col-span-2">
                 <span className="mb-1 block font-semibold text-graphite-800">Productos / destinos aplicables</span>
-                <input value={selected.appliesTo} onChange={(e) => patch({ appliesTo: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input value={selected.appliesTo} onChange={(e) => patch({ appliesTo: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Vigencia desde</span>
-                <input type="date" value={selected.validFrom} onChange={(e) => patch({ validFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input type="date" value={selected.validFrom} onChange={(e) => patch({ validFrom: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
               <label className="block text-sm">
                 <span className="mb-1 block font-semibold text-graphite-800">Vigencia hasta</span>
-                <input type="date" value={selected.validUntil} onChange={(e) => patch({ validUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-graphite-200 px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
+                <input type="date" value={selected.validUntil} onChange={(e) => patch({ validUntil: e.target.value })} className="w-full rounded-[var(--radius-control)] border border-black/[0.07] px-3 py-2 text-sm focus:border-teal-500 focus:outline-none" />
               </label>
             </div>
 
@@ -200,7 +200,7 @@ export function CouponsAdmin() {
               </label>
               <label className="flex items-center gap-2">
                 <span className="font-semibold text-graphite-800">Estado</span>
-                <select value={selected.status} onChange={(e) => patch({ status: e.target.value as AdminCoupon["status"] })} className="rounded-[var(--radius-control)] border border-graphite-200 px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
+                <select value={selected.status} onChange={(e) => patch({ status: e.target.value as AdminCoupon["status"] })} className="rounded-[var(--radius-control)] border border-black/[0.07] px-2.5 py-1.5 text-sm cursor-pointer focus:border-teal-500 focus:outline-none">
                   <option value="activa">Activa</option>
                   <option value="pausada">Pausada</option>
                   <option value="vencida">Vencida</option>
