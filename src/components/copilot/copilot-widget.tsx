@@ -156,9 +156,9 @@ function TarjetaResultado({ tarjeta }: { tarjeta: Tarjeta }) {
             {tarjeta.titulo}
           </span>
           <span className="mt-0.5 block truncate text-[0.6875rem] text-graphite-500">{tarjeta.detalle}</span>
-          <span className="mt-1 inline-flex items-center gap-1.5 text-[0.625rem] font-semibold text-coral-700">
-            <span className="rounded-full bg-coral-50 px-1.5 py-0.5">Hasta el {tarjeta.vence}</span>
-            {tarjeta.desde && <span className="tabular">desde {tarjeta.desde}</span>}
+          <span className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.625rem] font-semibold text-coral-700">
+            <span className="whitespace-nowrap rounded-full bg-coral-50 px-1.5 py-0.5">Hasta el {tarjeta.vence}</span>
+            {tarjeta.desde && <span className="tabular whitespace-nowrap">desde {tarjeta.desde}</span>}
           </span>
         </span>
         <Flecha />
@@ -436,7 +436,7 @@ export function CopilotWidget() {
             }
             transition={{ duration: reduce ? 0.15 : 0.45, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: "bottom left" }}
-            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-5 z-40 w-[min(19rem,calc(100vw-2.5rem))] rounded-[var(--radius-card)] bg-petrol-900 p-3.5 pr-9 text-ivory shadow-[var(--shadow-float)]"
+            className="pointer-events-none fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] left-5 z-40 w-[min(19rem,calc(100vw-2.5rem))] rounded-[var(--radius-card)] bg-petrol-900 p-3.5 pr-9 text-ivory shadow-[var(--shadow-float)]"
           >
             <p className="font-display text-[0.875rem] font-bold leading-snug">Soy tu asistente de viajes</p>
             <p className="mt-1 text-[0.8125rem] leading-relaxed text-petrol-100">
@@ -447,7 +447,7 @@ export function CopilotWidget() {
               type="button"
               onClick={retirarAviso}
               aria-label="Descartar el aviso del asistente"
-              className="absolute right-1.5 top-1.5 grid size-7 cursor-pointer place-items-center rounded-full text-petrol-100 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
+              className="pointer-events-auto absolute right-1.5 top-1.5 grid size-7 cursor-pointer place-items-center rounded-full text-petrol-100 transition-colors hover:bg-white/10 hover:text-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-100"
             >
               <XIcon weight="bold" className="size-3.5" aria-hidden />
             </button>
@@ -515,10 +515,12 @@ export function CopilotWidget() {
             exit={{ opacity: 0, y: reduce ? 0 : 20, scale: reduce ? 1 : 0.97 }}
             transition={{ duration: reduce ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: "bottom left" }}
-            /* Móvil: hoja anclada abajo. Desktop: panel abajo a la izquierda,
-               separado de los bordes; el tope de alto lo mantiene lejos del
-               encabezado. */
-            className="fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-3 right-3 z-40 flex max-h-[72dvh] flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-float)] ring-1 ring-graphite-100 sm:bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:left-5 sm:right-auto sm:max-h-[min(38rem,calc(100dvh-7rem))] sm:w-[25rem]"
+            /* Tarjeta anclada abajo a la izquierda, en móvil y en escritorio.
+               En el celular no ocupa el ancho completo: deja ver la página al
+               costado, para que se sienta parte del sitio y no una app aparte.
+               El ancho no baja de lo que necesitan las tarjetas de resultado
+               (foto + título + precio) para seguir siendo legibles. */
+            className="fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-3 z-40 flex max-h-[58dvh] w-[min(20rem,calc(100vw-3rem))] flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-float)] ring-1 ring-graphite-100 sm:bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:left-5 sm:max-h-[min(38rem,calc(100dvh-7rem))] sm:w-[25rem]"
           >
             {/* Cabecera */}
             <div className="flex items-center gap-3 bg-petrol-900 px-4 py-3.5">

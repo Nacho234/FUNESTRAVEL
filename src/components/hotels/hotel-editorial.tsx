@@ -104,7 +104,7 @@ function HotelCard({ hotel }: { hotel: FeaturedHotel }) {
         {hotel.location}
       </p>
 
-      <h3 className="mt-3 font-accent text-[1.625rem] font-medium not-italic leading-tight text-petrol-900">
+      <h3 className="mt-3 font-display text-[1.5rem] font-bold leading-tight tracking-tight text-petrol-900">
         {hotel.name}
       </h3>
 
@@ -198,7 +198,7 @@ export function HotelEditorial({
           <motion.h2
             id="hotel-editorial-heading"
             variants={V.item}
-            className="mt-4 max-w-[16ch] font-accent text-[2.75rem] font-medium not-italic leading-[1.05] tracking-tight text-petrol-900 sm:text-[3.25rem] xl:text-[3.75rem]"
+            className="mt-4 max-w-[16ch] font-display text-[2.5rem] font-bold leading-[1.05] tracking-tight text-petrol-900 sm:text-[3rem] xl:text-[3.375rem]"
           >
             Elegí cómo querés despertar
           </motion.h2>
@@ -257,11 +257,11 @@ export function HotelEditorial({
 
                     <span className="min-w-0 pt-1">
                       <span className="flex items-baseline gap-3">
-                        <span className="font-accent text-[1.0625rem] font-medium not-italic tabular text-coral-600">
+                        <span className="font-display text-[1rem] font-bold tabular text-coral-600">
                           {s.number}
                         </span>
                         <span
-                          className={`font-accent text-[1.375rem] font-medium not-italic transition-colors duration-300 ${
+                          className={`font-display text-[1.25rem] font-bold tracking-tight transition-colors duration-300 ${
                             on ? "text-petrol-950" : "text-petrol-900"
                           }`}
                         >

@@ -78,7 +78,7 @@ export function FeaturedPromotionBanner({
 
           <h2
             id="featured-promo-heading"
-            className="mt-5 max-w-[15ch] font-accent text-[2.25rem] font-medium not-italic leading-[1.08] tracking-tight text-petrol-900 sm:text-[2.75rem] xl:text-[3rem]"
+            className="mt-5 max-w-[15ch] font-display text-[2.125rem] font-bold leading-[1.08] tracking-tight text-petrol-900 sm:text-[2.5rem] xl:text-[2.875rem]"
           >
             {promo.title}
           </h2>
