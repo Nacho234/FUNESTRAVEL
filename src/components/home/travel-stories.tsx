@@ -146,7 +146,7 @@ export function TravelStories() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-64 sm:h-auto sm:aspect-[1800/1013]"
       >
         <Image
-          src="/images/travel/stories-background.webp"
+          src="/images/travel-stories-background.webp"
           alt=""
           fill
           sizes="100vw"

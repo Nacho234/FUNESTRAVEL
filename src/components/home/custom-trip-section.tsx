@@ -47,7 +47,7 @@ const benefits = [
 ];
 
 export function CustomTripSection({
-  backgroundDecorationImage = "/images/travel/custom-trip-route.webp",
+  backgroundDecorationImage = "/images/custom-trip-route.webp",
 }: {
   backgroundDecorationImage?: string;
 }) {

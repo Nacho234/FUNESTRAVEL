@@ -57,8 +57,8 @@ function Hero() {
         poster="/videos/hero-poster.jpg"
         aria-hidden
       >
-        <source src="/videos/hero.webm" type="video/webm" />
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src="/videos/hero-video.webm" type="video/webm" />
+        <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-petrol-950/60 via-petrol-950/30 to-petrol-950/75" aria-hidden />
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 pt-28 pb-10 lg:pb-0">
@@ -273,8 +273,8 @@ function BrandShowcase() {
   // Knockout effect: the logo silhouette masks the photo, so the letters and
   // wing are "filled" with the image while everything around stays plain white.
   const logoMask = {
-    WebkitMask: "url(/images/logo-funes.png) center / contain no-repeat",
-    mask: "url(/images/logo-funes.png) center / contain no-repeat",
+    WebkitMask: "url(/images/brand-band-logo-mask.png) center / contain no-repeat",
+    mask: "url(/images/brand-band-logo-mask.png) center / contain no-repeat",
   } as const;
   return (
     <section className="relative overflow-hidden bg-white">
@@ -284,11 +284,11 @@ function BrandShowcase() {
         muted
         loop
         playsInline
-        poster="/videos/nubes-poster.jpg"
+        poster="/videos/brand-band-clouds-poster.jpg"
         aria-hidden
       >
-        <source src="/videos/nubes.webm" type="video/webm" />
-        <source src="/videos/nubes.mp4" type="video/mp4" />
+        <source src="/videos/brand-band-clouds-video.webm" type="video/webm" />
+        <source src="/videos/brand-band-clouds-video.mp4" type="video/mp4" />
       </video>
       {/* Mobile: top white / bottom sky. Desktop: left white / right sky. Soft transition. */}
       <div

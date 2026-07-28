@@ -132,9 +132,9 @@ export function WordmarkSection({
   eyebrow = "Tu próximo viaje",
   title = "Empieza acá",
   word = "VIAJÁ",
-  wordBackgroundImage = "/images/travel/wordmark-panorama.webp",
+  wordBackgroundImage = "/images/wordmark-panorama.webp",
   wordBackgroundFit = "object-cover object-[center_52%]",
-  cutoutImage = "/images/travel/travellers-cutout.webp",
+  cutoutImage = "/images/wordmark-travellers-cutout.webp",
   cutoutAlt = "",
   support = {
     title: "Elegí el destino.\nNosotros hacemos que suceda.",

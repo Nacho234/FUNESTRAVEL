@@ -22,10 +22,10 @@ export type VideoAsset = {
 export const VIDEO = {
   // "Acompañamiento real" section (home HumanTouch) — montage loop, falls back
   // to IMG.humanScene.
-  humanTouch: { src: "/videos/human-touch.mp4", ready: true },
+  humanTouch: { src: "/videos/human-touch-video.mp4", ready: true },
 
   // Takeoff scroll scene (home) — mirrors IMG.takeoffAirport/Runway/Flight.
-  takeoffAirport: { src: "/videos/takeoff-airport.mp4", ready: true },
-  takeoffRunway: { src: "/videos/takeoff-runway.mp4", ready: true },
-  takeoffFlight: { src: "/videos/takeoff-flight.mp4", ready: true },
+  takeoffAirport: { src: "/videos/takeoff-airport-video.mp4", ready: true },
+  takeoffRunway: { src: "/videos/takeoff-runway-video.mp4", ready: true },
+  takeoffFlight: { src: "/videos/takeoff-flight-video.mp4", ready: true },
 } satisfies Record<string, VideoAsset>;

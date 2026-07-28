@@ -229,7 +229,7 @@ export interface SeoPageMeta {
 }
 
 export const seoPages: SeoPageMeta[] = [
-  { path: "/", title: "Funes Travel · Paquetes, vuelos y viajes a medida", description: "Buscá paquetes, vuelos, hoteles y excursiones con asesoramiento humano. Salidas desde Rosario y Buenos Aires, financiación en cuotas y acompañamiento durante todo el viaje.", ogImage: "/images/takeoff-flight.jpg" },
+  { path: "/", title: "Funes Travel · Paquetes, vuelos y viajes a medida", description: "Buscá paquetes, vuelos, hoteles y excursiones con asesoramiento humano. Salidas desde Rosario y Buenos Aires, financiación en cuotas y acompañamiento durante todo el viaje.", ogImage: "/images/takeoff-flight-still.jpg" },
   { path: "/paquetes", title: "Paquetes de viaje · Funes Travel", description: "Paquetes a Caribe, Brasil, Europa y Argentina con aéreo, hotel y asistencia incluidos.", ogImage: "" },
   { path: "/destinos", title: "Destinos · Funes Travel", description: "Todos los destinos que operamos, con temporadas recomendadas y precios orientativos.", ogImage: "" },
   { path: "/experiencias", title: "Experiencias de viajeros · Funes Travel", description: "Historias reales de personas que viajaron con Funes Travel.", ogImage: "" },

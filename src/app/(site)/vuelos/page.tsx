@@ -65,7 +65,7 @@ export default function FlightsPage() {
       <section className="relative overflow-hidden bg-petrol-950 pt-28 pb-12 lg:pb-16">
         {/* Mobile: static image */}
         <Image
-          src="/videos/vuelos-poster.jpg"
+          src="/videos/flights-hero-poster.jpg"
           alt="Vista aérea de la costa desde el avión"
           fill
           priority
@@ -79,11 +79,11 @@ export default function FlightsPage() {
           muted
           loop
           playsInline
-          poster="/videos/vuelos-poster.jpg"
+          poster="/videos/flights-hero-poster.jpg"
           aria-hidden
         >
-          <source src="/videos/vuelos.webm" type="video/webm" />
-          <source src="/videos/vuelos.mp4" type="video/mp4" />
+          <source src="/videos/flights-hero-video.webm" type="video/webm" />
+          <source src="/videos/flights-hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-petrol-950/70 via-petrol-950/45 to-petrol-950/15" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
