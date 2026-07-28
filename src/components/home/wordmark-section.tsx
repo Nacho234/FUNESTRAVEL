@@ -270,7 +270,7 @@ export function WordmarkSection({
               baseline. Absent by default, and the layout closes up. */}
           {cutoutImage && (
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-20 mx-auto w-[52%] max-w-[40rem] translate-y-[24%] sm:w-[46%]"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-20 mx-auto hidden w-[46%] max-w-[40rem] translate-y-[24%] sm:block"
               aria-hidden={cutoutAlt === "" ? true : undefined}
             >
               {/* The trimmed PNG ends on a straight edge; fade its base so the
