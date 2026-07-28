@@ -50,11 +50,11 @@ export function WhatsAppButton() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-5 z-40 flex items-center gap-2 rounded-full bg-positive-700 py-2.5 pl-3 pr-4 text-sm font-semibold text-white shadow-[var(--shadow-float)] transition-transform hover:scale-[1.03] active:scale-[0.98]"
+      className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-5 z-40 grid size-14 place-items-center rounded-full bg-positive-700 text-white shadow-[var(--shadow-float)] transition-transform hover:scale-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-positive-700 focus-visible:ring-offset-2 active:scale-[0.97]"
       aria-label="Consultar por WhatsApp"
+      title="Consultar por WhatsApp"
     >
-      <WhatsappLogoIcon weight="fill" className="size-5" aria-hidden />
-      <span className="hidden sm:inline">Hablar con un asesor</span>
+      <WhatsappLogoIcon weight="fill" className="size-7" aria-hidden />
     </a>
   );
 }

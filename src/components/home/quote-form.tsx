@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   ArrowLeftIcon,
@@ -39,20 +40,37 @@ const styleOptions = [
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/** El presupuesto es un select por tramos: un monto suelto hay que ubicarlo. */
+function tramoDePresupuesto(texto: string): string {
+  const monto = Number(texto.replace(/[^\d]/g, ""));
+  if (!Number.isFinite(monto) || monto <= 0) return "";
+  if (monto <= 500) return "Hasta USD 500";
+  if (monto <= 1000) return "USD 500 a 1.000";
+  if (monto <= 2500) return "USD 1.000 a 2.500";
+  return "Más de USD 2.500";
+}
+
 export function QuoteForm({ extended = false }: { extended?: boolean }) {
   const { addQuote } = useStore();
   const reduce = useReducedMotion() ?? false;
   const [step, setStep] = useState<1 | 2>(1);
   const [state, setState] = useState<"idle" | "loading" | "done">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  /**
+   * Precarga lo que el viajero ya le contó al asistente
+   * (/viajes-a-medida?destino=…&presupuesto=…&nota=…). Los datos de contacto no
+   * viajan por acá: los escribe el viajero abajo.
+   */
+  const query = useSearchParams();
+  const presupuestoEnLink = query.get("presupuesto");
   const [form, setForm] = useState({
-    destination: "",
+    destination: query.get("destino")?.slice(0, 80) ?? "",
     origin: "Rosario",
     approxDate: "",
     duration: "7 noches",
     travelers: "2 adultos",
-    budget: "",
-    comments: "",
+    budget: presupuestoEnLink ? tramoDePresupuesto(presupuestoEnLink) : "",
+    comments: query.get("nota")?.slice(0, 300) ?? "",
   });
   const [styles, setStyles] = useState<string[]>([]);
 
