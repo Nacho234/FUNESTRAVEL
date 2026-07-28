@@ -1,14 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  AirplaneTakeoffIcon,
-  ArrowRightIcon,
-  SealCheckIcon,
-  SuitcaseRollingIcon,
-  WhatsappLogoIcon,
-} from "@phosphor-icons/react/dist/ssr";
+import { AirplaneTakeoffIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { SearchWidget } from "@/components/search/search-widget";
+import { FlightAssurance } from "@/components/flights/flight-assurance";
 
 export const metadata: Metadata = {
   title: "Vuelos",
@@ -40,23 +35,6 @@ const popularRoutes = [
   },
 ];
 
-const advantages = [
-  {
-    icon: SuitcaseRollingIcon,
-    title: "Tarifas sin trampas",
-    text: "Antes de emitir te mostramos qué equipaje incluye cada tarifa y cuánto cuesta agregar valija, para que compares precios reales.",
-  },
-  {
-    icon: SealCheckIcon,
-    title: "Emisión como agencia habilitada",
-    text: "Emitimos con las aerolíneas y consolidadores con los que trabajamos hace años. Tu ticket queda respaldado por la agencia, no por un buscador anónimo.",
-  },
-  {
-    icon: WhatsappLogoIcon,
-    title: "Si el vuelo cambia, lo resolvemos",
-    text: "Reprogramaciones y cancelaciones las gestionamos nosotros directamente con la aerolínea. Vos te enterás con la solución, no con el problema.",
-  },
-];
 
 export default function FlightsPage() {
   return (
@@ -102,21 +80,7 @@ export default function FlightsPage() {
         </div>
       </section>
 
-      {/* How we work flights */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-14 lg:py-20">
-        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-petrol-900 max-w-xl">
-          Comprar un vuelo acá no es lo mismo que comprarlo solo
-        </h2>
-        <div className="mt-8 grid gap-8 md:grid-cols-3">
-          {advantages.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="border-t-2 border-teal-500 pt-5">
-              <Icon className="size-7 text-teal-600" aria-hidden />
-              <h3 className="mt-3 font-display text-lg font-bold text-petrol-900">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-graphite-600">{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <FlightAssurance />
 
       {/* Popular routes */}
       <section className="bg-sand-50 border-y border-sand-200/60">

@@ -380,3 +380,54 @@ export interface FAQItem {
   a: string;
   category: "Reservas" | "Pagos" | "Cancelaciones" | "Documentación" | "Equipaje" | "Asistencia";
 }
+
+/* ── Sección "Vuelos con respaldo" (/vuelos) ─────────────────────────── */
+
+/** Una línea del desglose de precio de la tarjeta de embarque. */
+export interface PriceBreakdownItem {
+  label: string;
+  amount: string;
+  /** Marca el extra que suele quedar fuera del precio publicado. */
+  highlight?: boolean;
+}
+
+export interface FlightAssuranceRoute {
+  /** Código del aeropuerto de origen; también rotula la pestaña. */
+  code: string;
+  city: string;
+  to: { code: string; city: string };
+  stopsLabel: string;
+  duration: string;
+  date: string;
+  depTime: string;
+  arrTime: string;
+  airline: string;
+  fareName: string;
+  fareTag?: string;
+  priceBreakdown: PriceBreakdownItem[];
+  /** Total con los extras incluidos: lo que realmente se paga. */
+  realCost: string;
+  includes: string[];
+  conditions: { label: string; value: string }[];
+  href: string;
+}
+
+export type FlightAssuranceIcon =
+  | "search"
+  | "ticket"
+  | "headset"
+  | "shield"
+  | "clipboard"
+  | "person";
+
+export interface FlightAssuranceStep {
+  title: string;
+  text: string;
+  icon: FlightAssuranceIcon;
+}
+
+export interface FlightAssuranceTrust {
+  title: string;
+  text: string;
+  icon: FlightAssuranceIcon;
+}
