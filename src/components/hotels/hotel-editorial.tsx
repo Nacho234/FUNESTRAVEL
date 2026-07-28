@@ -15,7 +15,11 @@ import {
   ShieldCheckIcon,
 } from "@phosphor-icons/react";
 import type { FeaturedHotel, HotelStage, HotelStageIcon } from "@/lib/types";
-import { editorialPhotos, featuredHotel, hotelStages } from "@/data/hotel-editorial";
+import {
+  editorialPhotos,
+  featuredHotel,
+  hotelStages,
+} from "@/data/hotel-editorial";
 
 /**
  * "Elegí cómo querés despertar": pieza editorial de /hoteles.
@@ -31,7 +35,13 @@ import { editorialPhotos, featuredHotel, hotelStages } from "@/data/hotel-editor
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const STAGE_ICONS: Record<HotelStageIcon, React.ComponentType<{ className?: string; weight?: "light" | "regular" | "bold" | "fill" }>> = {
+const STAGE_ICONS: Record<
+  HotelStageIcon,
+  React.ComponentType<{
+    className?: string;
+    weight?: "light" | "regular" | "bold" | "fill";
+  }>
+> = {
   bed: BedIcon,
   view: SunHorizonIcon,
   experience: TreePalmIcon,
@@ -42,20 +52,27 @@ const STAGE_ICONS: Record<HotelStageIcon, React.ComponentType<{ className?: stri
  * abajo son complementarios, así no queda una franja de fondo entre ellas.
  */
 const CLIP = {
-  /** Contenedor 0→64%: el borde inferior va de 56% (izq) a 64% (der). */
-  room: "polygon(0 0, 100% 0, 100% 100%, 0 87.5%)",
-  /** Contenedor 55→100%: su borde superior repite esa diagonal, con medio
-      punto de solapamiento para que no aparezca una costura. */
-  terrace: "polygon(0 1.1%, 100% 18.9%, 100% 100%, 0 100%)",
-  pool: "polygon(7% 0, 100% 0, 100% 100%, 0 100%)",
+  /** Contenedor 0→53%: el borde baja apenas, de 53% (izq) a 51% (der). */
+  room: "polygon(0 0, 100% 0, 100% 96.2%, 0 100%)",
+  /** Contenedor 50→100%: repite esa recta, con medio punto de solapamiento
+      para que no aparezca una costura de subpíxel. */
+  terrace: "polygon(0 5%, 100% 1%, 100% 100%, 0 100%)",
+  /** El corte marcado de la composición: la piscina entra en cuña. */
+  pool: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)",
 } as const;
 
 /* Ver la nota en human-touch.tsx: las variantes se pasan siempre y es `hidden`
    la que iguala el reposo bajo reduced motion. */
 function buildVariants(reduce: boolean) {
-  const t = (duration: number) => ({ duration: reduce ? 0 : duration, ease: EASE });
+  const t = (duration: number) => ({
+    duration: reduce ? 0 : duration,
+    ease: EASE,
+  });
   return {
-    container: { hidden: {}, visible: { transition: { staggerChildren: reduce ? 0 : 0.08 } } },
+    container: {
+      hidden: {},
+      visible: { transition: { staggerChildren: reduce ? 0 : 0.08 } },
+    },
     item: {
       hidden: reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
       visible: { opacity: 1, y: 0, transition: t(0.55) },
@@ -79,7 +96,11 @@ function HotelCard({ hotel }: { hotel: FeaturedHotel }) {
   return (
     <div className="w-full max-w-[19rem] rounded-[1.25rem] border border-sand-200/70 bg-ivory p-6 shadow-[0_24px_60px_-22px_rgb(8_37_48_/_0.35)]">
       <p className="flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-graphite-500">
-        <MapPinIcon weight="fill" className="size-4 shrink-0 text-coral-500" aria-hidden />
+        <MapPinIcon
+          weight="fill"
+          className="size-4 shrink-0 text-coral-500"
+          aria-hidden
+        />
         {hotel.location}
       </p>
 
@@ -89,8 +110,15 @@ function HotelCard({ hotel }: { hotel: FeaturedHotel }) {
 
       <ul className="mt-5 space-y-3">
         {facts.map(({ icon: Icon, text }) => (
-          <li key={text} className="flex items-center gap-3 text-sm text-graphite-700">
-            <Icon className="size-[1.125rem] shrink-0 text-petrol-700" weight="light" aria-hidden />
+          <li
+            key={text}
+            className="flex items-center gap-3 text-sm text-graphite-700"
+          >
+            <Icon
+              className="size-[1.125rem] shrink-0 text-petrol-700"
+              weight="light"
+              aria-hidden
+            />
             {text}
           </li>
         ))}
@@ -139,23 +167,30 @@ export function HotelEditorial({
   };
 
   return (
-    <section aria-labelledby="hotel-editorial-heading" className="overflow-hidden bg-sand-50/60">
+    <section
+      aria-labelledby="hotel-editorial-heading"
+      className="overflow-hidden bg-sand-50/60"
+    >
       <motion.div
-        className="mx-auto grid max-w-[100rem] gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,31fr)_minmax(0,69fr)] lg:gap-14 lg:px-0 lg:py-0 lg:pl-10 xl:pl-16"
+        className="mx-auto grid max-w-[100rem] gap-12 px-4 py-16 sm:px-6 lg:min-h-[clamp(36rem,56vw,50rem)] lg:grid-cols-[minmax(0,31fr)_minmax(0,69fr)] lg:gap-14 lg:px-0 lg:py-0 lg:pl-10 xl:pl-16"
         variants={V.container}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
       >
         {/* ── Columna editorial ──────────────────────────────────── */}
-        <div className="lg:flex lg:flex-col lg:justify-center lg:py-16 xl:py-20">
-          <motion.span variants={V.item} className="block text-coral-500" aria-hidden>
+        <div className="lg:flex lg:flex-col lg:justify-center lg:py-12 xl:py-14">
+          <motion.span
+            variants={V.item}
+            className="block text-coral-500"
+            aria-hidden
+          >
             <TreePalmIcon weight="light" className="size-7" />
           </motion.span>
 
           <motion.p
             variants={V.item}
-            className="mt-6 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-coral-600"
+            className="mt-5 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-coral-600"
           >
             Hoteles seleccionados
           </motion.p>
@@ -163,7 +198,7 @@ export function HotelEditorial({
           <motion.h2
             id="hotel-editorial-heading"
             variants={V.item}
-            className="mt-4 max-w-[12ch] font-accent text-[2.75rem] font-medium not-italic leading-[1.05] tracking-tight text-petrol-900 sm:text-[3.25rem] xl:text-[3.75rem]"
+            className="mt-4 max-w-[16ch] font-accent text-[2.75rem] font-medium not-italic leading-[1.05] tracking-tight text-petrol-900 sm:text-[3.25rem] xl:text-[3.75rem]"
           >
             Elegí cómo querés despertar
           </motion.h2>
@@ -171,24 +206,27 @@ export function HotelEditorial({
           <motion.span
             variants={V.item}
             aria-hidden
-            className="mt-7 block h-[3px] w-16 rounded-full bg-coral-500"
+            className="mt-6 block h-[3px] w-16 rounded-full bg-coral-500"
           />
 
           <motion.p
             variants={V.item}
-            className="mt-7 max-w-[42ch] leading-relaxed text-graphite-600"
+            className="mt-6 max-w-[42ch] text-[0.9375rem] leading-relaxed text-graphite-600"
           >
-            Desde suites frente al mar hasta experiencias que se disfrutan sin apuro. Vos elegís el
-            ritmo, nosotros nos encargamos del resto.
+            Desde suites frente al mar hasta experiencias que se disfrutan sin
+            apuro. Vos elegís el ritmo, nosotros nos encargamos del resto.
           </motion.p>
 
           {/* Etapas: una línea fina las une, sin cards */}
-          <motion.ul variants={V.item} className="mt-10 lg:mt-12">
+          <motion.ul variants={V.item} className="mt-8 lg:mt-10">
             {stages.map((s, i) => {
               const Icon = STAGE_ICONS[s.icon];
               const on = active === s.target;
               return (
-                <li key={s.number} className="relative flex gap-5 pb-8 last:pb-0">
+                <li
+                  key={s.number}
+                  className="relative flex gap-5 pb-7 last:pb-0"
+                >
                   {/* Tramo que conecta con la etapa siguiente */}
                   {i < stages.length - 1 && (
                     <span
@@ -246,7 +284,7 @@ export function HotelEditorial({
             })}
           </motion.ul>
 
-          <motion.div variants={V.item} className="mt-10">
+          <motion.div variants={V.item} className="mt-8">
             <Link
               href="/hoteles"
               className="group inline-flex items-center gap-3 border-b border-coral-500/40 pb-1.5 text-sm font-semibold text-coral-700 transition-colors hover:border-coral-500"
@@ -261,58 +299,57 @@ export function HotelEditorial({
         </div>
 
         {/* ── Composición fotográfica ────────────────────────────── */}
-        <motion.div
-          variants={V.photos}
-          className="relative h-[30rem] sm:h-[36rem] lg:h-[clamp(38rem,50vw,46rem)]"
-        >
-          {/* Suite: manda, ocupa la franja superior */}
-          <div
-            className="absolute inset-x-0 top-0 h-[64%] overflow-hidden rounded-tl-[var(--radius-card)]"
-            style={{ clipPath: CLIP.room }}
-          >
-            <Image
-              src={photos.room}
-              alt={photos.roomAlt}
-              fill
-              sizes="(max-width: 1024px) 100vw, 69vw"
-              quality={80}
-              className={`object-cover ${photoClass("room")}`}
-            />
-          </div>
+        <motion.div variants={V.photos} className="relative lg:h-auto">
+          <div className="relative h-[30rem] sm:h-[36rem] lg:absolute lg:inset-0 lg:h-auto">
+            {/* Suite: manda, ocupa la franja superior */}
+            <div
+              className="absolute inset-x-0 top-0 h-[53%] overflow-hidden"
+              style={{ clipPath: CLIP.room }}
+            >
+              <Image
+                src={photos.room}
+                alt={photos.roomAlt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 69vw"
+                quality={80}
+                className={`object-cover ${photoClass("room")}`}
+              />
+            </div>
 
-          {/* Terraza y piscina comparten la franja inferior */}
-          <div
-            className="absolute inset-x-0 bottom-0 top-[55%] overflow-hidden"
-            style={{ clipPath: CLIP.terrace }}
-          >
-            <div className="flex h-full">
-              <div className="relative h-full flex-1 overflow-hidden">
-                <Image
-                  src={photos.terrace}
-                  alt={photos.terraceAlt}
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 35vw"
-                  quality={80}
-                  className={`object-cover ${photoClass("terrace")}`}
-                />
-              </div>
-              <div
-                className="relative -ml-8 h-full flex-1 overflow-hidden"
-                style={{ clipPath: CLIP.pool }}
-              >
-                <Image
-                  src={photos.pool}
-                  alt={photos.poolAlt}
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 35vw"
-                  quality={80}
-                  className={`object-cover ${photoClass("pool")}`}
-                />
+            {/* Terraza y piscina comparten la franja inferior */}
+            <div
+              className="absolute inset-x-0 bottom-0 top-[50%] overflow-hidden"
+              style={{ clipPath: CLIP.terrace }}
+            >
+              <div className="flex h-full">
+                <div className="relative h-full w-[50%] shrink-0 overflow-hidden">
+                  <Image
+                    src={photos.terrace}
+                    alt={photos.terraceAlt}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 35vw"
+                    quality={80}
+                    className={`object-cover ${photoClass("terrace")}`}
+                  />
+                </div>
+                <div
+                  className="relative -ml-[8%] h-full w-[58%] shrink-0 overflow-hidden"
+                  style={{ clipPath: CLIP.pool }}
+                >
+                  <Image
+                    src={photos.pool}
+                    alt={photos.poolAlt}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 35vw"
+                    quality={80}
+                    className={`object-cover ${photoClass("pool")}`}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Ficha: superpuesta sobre el lateral derecho */}
+          {/* Ficha: debajo en teléfono, superpuesta al lateral derecho en escritorio */}
           <div className="mt-6 flex justify-center lg:absolute lg:right-6 lg:top-1/2 lg:mt-0 lg:-translate-y-1/2 lg:justify-end xl:right-10">
             <HotelCard hotel={hotel} />
           </div>

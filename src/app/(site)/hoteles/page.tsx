@@ -60,7 +60,7 @@ export default async function HotelsPage({
   ].filter(Boolean);
 
   return (
-    <div className="pt-28 pb-16 lg:pb-24">
+    <div className="pt-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <header className="max-w-2xl">
           <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-petrol-900">
